@@ -10,6 +10,14 @@ It combines:
 - screenshot / file / direct-send bridges into the current OpenClaw session
 - species / rarity / evolution presets that can grow into a reusable plugin package
 
+## Highlights
+
+- Floating desktop companion that stays alongside your OpenClaw workflow
+- Real pet progression tied to actual OpenClaw usage, not fake idle grinding
+- Screenshot, file, and direct-send bridge into the current OpenClaw session
+- Species, rarity, and evolution presets prepared for future plugin-style distribution
+- Installer-managed runtime that keeps local pet progress by default
+
 ## Current Status
 
 Working today:
@@ -87,6 +95,7 @@ Installer-managed runtime paths:
 - plugin architecture: [docs/PLUGIN_ARCHITECTURE.md](docs/PLUGIN_ARCHITECTURE.md)
 - product roadmap: [docs/PRODUCT_ROADMAP.md](docs/PRODUCT_ROADMAP.md)
 - quick start: [docs/QUICKSTART.md](docs/QUICKSTART.md)
+- quick start (zh-CN): [docs/QUICKSTART.zh-CN.md](docs/QUICKSTART.zh-CN.md)
 - release checklist: [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md)
 - release contents: [docs/RELEASE_CONTENTS.md](docs/RELEASE_CONTENTS.md)
 - open source notes: [docs/OPEN_SOURCE_NOTES.md](docs/OPEN_SOURCE_NOTES.md)
