@@ -1,5 +1,7 @@
 # LittleClaw Companion
 
+English | [简体中文](README.zh-CN.md)
+
 LittleClaw Companion is a pet-style desktop companion for OpenClaw.
 
 It combines:
