@@ -1,0 +1,31 @@
+<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="hatch-bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(110 106) rotate(90) scale(82 78)">
+      <stop stop-color="#FFF7F3"/>
+      <stop offset="1" stop-color="#FFE7DD"/>
+    </radialGradient>
+    <linearGradient id="hatch-shell" x1="110" y1="52" x2="110" y2="174" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFB79B"/>
+      <stop offset="1" stop-color="#FF9B7D"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="110" cy="184" rx="46" ry="12" fill="#F4B89D" fill-opacity=".22"/>
+  <circle cx="110" cy="104" r="80" fill="url(#hatch-bg)"/>
+  <path d="M82 66C82 42 96 30 110 30C124 30 138 42 138 66V80C138 98 124 112 110 112C96 112 82 98 82 80V66Z" fill="url(#hatch-shell)" stroke="#F08C65" stroke-width="4"/>
+  <ellipse cx="110" cy="77" rx="27" ry="18" fill="#FFE7DA"/>
+  <rect x="84" y="108" width="52" height="38" rx="19" fill="#F9A382" stroke="#EF8A61" stroke-width="4"/>
+  <ellipse cx="110" cy="127" rx="20" ry="12" fill="#FFF0E7"/>
+  <rect x="61" y="112" width="22" height="8" rx="4" fill="#F98D69"/>
+  <rect x="137" y="112" width="22" height="8" rx="4" fill="#F98D69"/>
+  <path d="M46 102C57 98 65 101 70 110C61 117 51 117 42 111C42 106 43 104 46 102Z" fill="#F67656"/>
+  <path d="M174 102C163 98 155 101 150 110C159 117 169 117 178 111C178 106 177 104 174 102Z" fill="#F67656"/>
+  <rect x="92" y="144" width="5" height="24" rx="2.5" fill="#F58B68"/>
+  <rect x="103" y="148" width="5" height="20" rx="2.5" fill="#F58B68"/>
+  <rect x="112" y="148" width="5" height="20" rx="2.5" fill="#F58B68"/>
+  <rect x="123" y="144" width="5" height="24" rx="2.5" fill="#F58B68"/>
+  <ellipse cx="98" cy="78" rx="5" ry="7" fill="#342B2A"/>
+  <ellipse cx="122" cy="78" rx="5" ry="7" fill="#342B2A"/>
+  <circle cx="91" cy="87" r="4" fill="#FFC1B7" opacity=".9"/>
+  <circle cx="129" cy="87" r="4" fill="#FFC1B7" opacity=".9"/>
+  <path d="M102 90C105 94 115 94 118 90" stroke="#684C46" stroke-width="3" stroke-linecap="round"/>
+</svg>

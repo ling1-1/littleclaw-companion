@@ -1,0 +1,31 @@
+<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="mechaSeedBg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(110 104) rotate(90) scale(82 78)">
+      <stop stop-color="#F8FCFF"/>
+      <stop offset="1" stop-color="#E8F0F7"/>
+    </radialGradient>
+    <linearGradient id="mechaSeedBody" x1="110" y1="48" x2="110" y2="165" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9BB7C7"/>
+      <stop offset="1" stop-color="#6F8CA0"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="110" cy="184" rx="44" ry="12" fill="#B8CBD8" fill-opacity=".26"/>
+  <circle cx="110" cy="104" r="80" fill="url(#mechaSeedBg)"/>
+  <rect x="78" y="42" width="64" height="58" rx="18" fill="url(#mechaSeedBody)" stroke="#5A7286" stroke-width="4"/>
+  <rect x="89" y="102" width="42" height="44" rx="14" fill="#8AA6B9" stroke="#5A7286" stroke-width="4"/>
+  <rect x="96" y="117" width="28" height="16" rx="8" fill="#DCEAF3"/>
+  <rect x="58" y="108" width="22" height="10" rx="5" fill="#728FA5"/>
+  <rect x="140" y="108" width="22" height="10" rx="5" fill="#728FA5"/>
+  <path d="M45 101L74 108L62 121L39 113L45 101Z" fill="#5B7C92"/>
+  <path d="M175 101L146 108L158 121L181 113L175 101Z" fill="#5B7C92"/>
+  <rect x="92" y="146" width="6" height="22" rx="3" fill="#738FA4"/>
+  <rect x="103" y="146" width="6" height="22" rx="3" fill="#738FA4"/>
+  <rect x="116" y="146" width="6" height="22" rx="3" fill="#738FA4"/>
+  <rect x="71" y="64" width="10" height="6" rx="3" fill="#5A7286"/>
+  <rect x="139" y="64" width="10" height="6" rx="3" fill="#5A7286"/>
+  <circle cx="96" cy="70" r="6" fill="#1E2C38"/>
+  <circle cx="124" cy="70" r="6" fill="#1E2C38"/>
+  <rect x="101" y="82" width="18" height="4" rx="2" fill="#415764"/>
+  <path d="M110 42V28" stroke="#7D97A9" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="110" cy="24" r="5" fill="#8BE9FF"/>
+</svg>

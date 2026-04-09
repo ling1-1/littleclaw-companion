@@ -1,0 +1,25 @@
+<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="spriteOracleBg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(110 104) rotate(90) scale(82 78)">
+      <stop stop-color="#FFFDFE"/>
+      <stop offset="1" stop-color="#EFE6FF"/>
+    </radialGradient>
+    <linearGradient id="spriteOracleBody" x1="110" y1="42" x2="110" y2="162" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A48FFF"/>
+      <stop offset="1" stop-color="#59D4FF"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="110" cy="184" rx="48" ry="12" fill="#D1C1FF" fill-opacity=".3"/>
+  <circle cx="110" cy="104" r="80" fill="url(#spriteOracleBg)"/>
+  <path d="M54 110C75 76 93 66 109 66C101 89 100 120 104 148C82 143 64 130 54 110Z" fill="#D2C0FF" fill-opacity=".86"/>
+  <path d="M166 110C145 76 127 66 111 66C119 89 120 120 116 148C138 143 156 130 166 110Z" fill="#D2C0FF" fill-opacity=".86"/>
+  <path d="M78 60C78 36 94 24 110 24C126 24 142 36 142 60V88C142 112 126 129 110 129C94 129 78 112 78 88V60Z" fill="url(#spriteOracleBody)" stroke="#695DD3" stroke-width="4"/>
+  <ellipse cx="110" cy="74" rx="29" ry="18" fill="#FFF9FF"/>
+  <rect x="87" y="124" width="46" height="37" rx="18.5" fill="#8EE0FF" stroke="#695DD3" stroke-width="4"/>
+  <ellipse cx="110" cy="139" rx="18" ry="11" fill="#FFFDFE"/>
+  <circle cx="98" cy="76" r="6.3" fill="#2B2A3B"/>
+  <circle cx="122" cy="76" r="6.3" fill="#2B2A3B"/>
+  <path d="M101 90C104 95 116 95 119 90" stroke="#5E5890" stroke-width="3" stroke-linecap="round"/>
+  <path d="M97 34L103 21L110 31L117 21L123 34" stroke="#FFD77A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="110" cy="19" r="5" fill="#FFE59B"/>
+</svg>

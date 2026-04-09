@@ -1,0 +1,24 @@
+<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="spriteMistBg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(110 104) rotate(90) scale(82 78)">
+      <stop stop-color="#FFFDFE"/>
+      <stop offset="1" stop-color="#ECECFF"/>
+    </radialGradient>
+    <linearGradient id="spriteMistBody" x1="110" y1="48" x2="110" y2="158" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#BDAAFF"/>
+      <stop offset="1" stop-color="#82C6FF"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="110" cy="184" rx="44" ry="12" fill="#D9D3FF" fill-opacity=".28"/>
+  <circle cx="110" cy="104" r="80" fill="url(#spriteMistBg)"/>
+  <path d="M62 109C78 80 95 71 108 71C99 91 95 115 99 141C82 137 70 126 62 109Z" fill="#D0C7FF" fill-opacity=".82"/>
+  <path d="M158 109C142 80 125 71 112 71C121 91 125 115 121 141C138 137 150 126 158 109Z" fill="#D0C7FF" fill-opacity=".82"/>
+  <path d="M80 66C80 42 94 30 110 30C126 30 140 42 140 66V88C140 109 126 124 110 124C94 124 80 109 80 88V66Z" fill="url(#spriteMistBody)" stroke="#7A7BE3" stroke-width="4"/>
+  <ellipse cx="110" cy="77" rx="27" ry="18" fill="#FAF6FF"/>
+  <rect x="89" y="121" width="42" height="34" rx="17" fill="#A4D0FF" stroke="#7A7BE3" stroke-width="4"/>
+  <ellipse cx="110" cy="136" rx="17" ry="11" fill="#FFF9FF"/>
+  <circle cx="98" cy="78" r="6" fill="#2D2B3C"/>
+  <circle cx="122" cy="78" r="6" fill="#2D2B3C"/>
+  <path d="M101 91C104 96 116 96 119 91" stroke="#645D90" stroke-width="3" stroke-linecap="round"/>
+  <path d="M100 34L106 24L110 32L114 24L120 34" stroke="#B193FF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

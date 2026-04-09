@@ -1,0 +1,41 @@
+{
+  "id": "sprite",
+  "title": "小精灵系",
+  "rarity_pool": ["rare", "epic", "legendary", "mythic"],
+  "default_names": ["小岚", "流光", "雾芽", "绒星"],
+  "traits": ["灵动", "提醒感强", "偏观察", "偏总结"],
+  "stages": [
+    {
+      "id": "seed",
+      "title": "微光幼灵",
+      "min_level": 1,
+      "min_affinity": 0,
+      "min_streak": 0,
+      "min_progress": 0
+    },
+    {
+      "id": "mist",
+      "title": "流雾信使",
+      "min_level": 10,
+      "min_affinity": 52,
+      "min_streak": 1,
+      "min_progress": 8
+    },
+    {
+      "id": "star",
+      "title": "星羽使灵",
+      "min_level": 22,
+      "min_affinity": 68,
+      "min_streak": 2,
+      "min_progress": 18
+    },
+    {
+      "id": "oracle",
+      "title": "曜纹灵使",
+      "min_level": 36,
+      "min_affinity": 82,
+      "min_streak": 3,
+      "min_progress": 34
+    }
+  ]
+}

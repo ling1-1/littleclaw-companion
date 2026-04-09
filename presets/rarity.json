@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "rarities": [
+    {
+      "id": "common",
+      "weight": 55,
+      "label": "普通",
+      "color": "#D2B8A8",
+      "asset_fx": "soft"
+    },
+    {
+      "id": "rare",
+      "weight": 25,
+      "label": "稀有",
+      "color": "#7BB6FF",
+      "asset_fx": "glow-blue"
+    },
+    {
+      "id": "epic",
+      "weight": 12,
+      "label": "史诗",
+      "color": "#B08CFF",
+      "asset_fx": "glow-violet"
+    },
+    {
+      "id": "legendary",
+      "weight": 6,
+      "label": "传说",
+      "color": "#F2A064",
+      "asset_fx": "glow-gold"
+    },
+    {
+      "id": "mythic",
+      "weight": 2,
+      "label": "神话",
+      "color": "#FF6B6B",
+      "asset_fx": "glow-crimson"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "openclaw_home": "~/.openclaw",
+  "plugin_home": "~/.openclaw/workspace/littleclaw-runtime",
+  "pet_state_path": "~/.openclaw/workspace/memory/pet-state.json",
+  "presets_path": "~/.openclaw/workspace/littleclaw-presets",
+  "assets_path": "~/.openclaw/workspace/littleclaw-assets",
+  "manifest_path": "~/.openclaw/workspace/littleclaw-runtime/install-manifest.json",
+  "ui_root": "~/Documents/Playground/littleclaw-companion/ui",
+  "pet_api_port": 18793,
+  "companion_mode": "desktop-webview"
+}

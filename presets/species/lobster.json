@@ -1,0 +1,49 @@
+{
+  "id": "lobster",
+  "title": "龙虾系",
+  "rarity_pool": ["common", "rare", "epic", "legendary", "mythic"],
+  "default_names": ["小钳", "赤爪", "珊瑚", "琥珀"],
+  "traits": ["耐心", "陪伴感强", "适合共工", "偏执行"],
+  "stages": [
+    {
+      "id": "seed",
+      "title": "琥珀幼体",
+      "min_level": 1,
+      "min_affinity": 0,
+      "min_streak": 0,
+      "min_progress": 0
+    },
+    {
+      "id": "coral",
+      "title": "珊瑚巡游虾",
+      "min_level": 10,
+      "min_affinity": 50,
+      "min_streak": 1,
+      "min_progress": 8
+    },
+    {
+      "id": "reef",
+      "title": "礁岩战虾",
+      "min_level": 20,
+      "min_affinity": 65,
+      "min_streak": 2,
+      "min_progress": 18
+    },
+    {
+      "id": "royal",
+      "title": "王冠龙虾",
+      "min_level": 35,
+      "min_affinity": 78,
+      "min_streak": 3,
+      "min_progress": 32
+    },
+    {
+      "id": "mythic",
+      "title": "赤曜龙王",
+      "min_level": 50,
+      "min_affinity": 90,
+      "min_streak": 4,
+      "min_progress": 52
+    }
+  ]
+}

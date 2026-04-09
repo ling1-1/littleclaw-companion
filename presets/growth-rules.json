@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "tracks": {
+    "xp": {
+      "description": "Real work growth. Drives level and evolution.",
+      "sources": {
+        "send_message": {
+          "base": 10,
+          "length_bonus_cap": 14,
+          "difficulty_bonus_cap": 16
+        },
+        "learn_request": {
+          "base": 16,
+          "topic_bonus_cap": 12,
+          "goal_bonus_cap": 12,
+          "difficulty_bonus_cap": 16
+        },
+        "screenshot_send": {
+          "base": 18,
+          "difficulty_bonus_cap": 16
+        },
+        "reply_complete": {
+          "base": 12,
+          "completion_bonus_cap": 42,
+          "difficulty_bonus_cap": 16
+        }
+      }
+    },
+    "affinity": {
+      "description": "Care and bonding growth. Does not replace work XP.",
+      "sources": {
+        "feed": {
+          "base_affinity": 3,
+          "cooldown_minutes": 8,
+          "need_sensitive": true
+        },
+        "play": {
+          "base_affinity": 6,
+          "cooldown_minutes": 5,
+          "need_sensitive": true
+        },
+        "nap": {
+          "base_affinity": 2,
+          "cooldown_minutes": 15,
+          "need_sensitive": true
+        }
+      },
+      "anti_grind": {
+        "decay_after_same_action_count": 1,
+        "decay_second_multiplier": 0.45,
+        "decay_third_plus_multiplier": 0.12
+      }
+    }
+  },
+  "evolution": {
+    "progress_formula": "max(task_score, total_actions/60 + reward_streak*2, send + learn*2 + reply*2 + hard*3 + project*4)",
+    "rule": "Evolution depends on level, affinity, streak, and real collaboration progress."
+  }
+}

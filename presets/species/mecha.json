@@ -1,0 +1,41 @@
+{
+  "id": "mecha",
+  "title": "机械宠物系",
+  "rarity_pool": ["epic", "legendary", "mythic"],
+  "default_names": ["铆钉", "零号", "轴心", "钛粒"],
+  "traits": ["可靠", "冷静", "偏工具化", "偏排障"],
+  "stages": [
+    {
+      "id": "seed",
+      "title": "原型机",
+      "min_level": 1,
+      "min_affinity": 0,
+      "min_streak": 0,
+      "min_progress": 0
+    },
+    {
+      "id": "servo",
+      "title": "伺服助手",
+      "min_level": 12,
+      "min_affinity": 48,
+      "min_streak": 1,
+      "min_progress": 10
+    },
+    {
+      "id": "forge",
+      "title": "锻炉机宠",
+      "min_level": 24,
+      "min_affinity": 66,
+      "min_streak": 2,
+      "min_progress": 22
+    },
+    {
+      "id": "core",
+      "title": "钛心智核",
+      "min_level": 40,
+      "min_affinity": 80,
+      "min_streak": 3,
+      "min_progress": 40
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="myth-bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(110 104) rotate(90) scale(90 86)">
+      <stop stop-color="#FFF8F5"/>
+      <stop offset="1" stop-color="#FFD5CF"/>
+    </radialGradient>
+    <linearGradient id="myth-shell" x1="110" y1="30" x2="110" y2="188" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8E74"/>
+      <stop offset="1" stop-color="#FF5B50"/>
+    </linearGradient>
+    <linearGradient id="myth-crown" x1="110" y1="14" x2="110" y2="48" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF5D0"/>
+      <stop offset="1" stop-color="#FFC882"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="110" cy="188" rx="56" ry="14" fill="#F09680" fill-opacity=".3"/>
+  <circle cx="110" cy="104" r="88" fill="url(#myth-bg)"/>
+  <circle cx="110" cy="104" r="72" stroke="#FFB59C" stroke-opacity=".55" stroke-width="5"/>
+  <path d="M88 42L98 14L110 30L122 14L132 42" fill="url(#myth-crown)" stroke="#F1B06A" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M70 62C70 28 92 14 110 14C128 14 150 28 150 62V86C150 114 128 132 110 132C92 132 70 114 70 86V62Z" fill="url(#myth-shell)" stroke="#B84B48" stroke-width="5"/>
+  <ellipse cx="110" cy="80" rx="33" ry="22" fill="#FFF1EB"/>
+  <rect x="72" y="116" width="76" height="50" rx="25" fill="#FF6558" stroke="#B84B48" stroke-width="5"/>
+  <ellipse cx="110" cy="139" rx="28" ry="16" fill="#FFF7F2"/>
+  <rect x="38" y="120" width="34" height="10" rx="5" fill="#E55047"/>
+  <rect x="148" y="120" width="34" height="10" rx="5" fill="#E55047"/>
+  <path d="M10 102C32 88 52 98 64 116C50 136 24 140 2 120C2 108 4 104 10 102Z" fill="#D64240"/>
+  <path d="M210 102C188 88 168 98 156 116C170 136 196 140 218 120C218 108 216 104 210 102Z" fill="#D64240"/>
+  <rect x="82" y="162" width="6" height="30" rx="3" fill="#E95E4D"/>
+  <rect x="98" y="166" width="6" height="26" rx="3" fill="#E95E4D"/>
+  <rect x="116" y="166" width="6" height="26" rx="3" fill="#E95E4D"/>
+  <rect x="132" y="162" width="6" height="30" rx="3" fill="#E95E4D"/>
+  <ellipse cx="97" cy="81" rx="5.5" ry="7.5" fill="#2D2323"/>
+  <ellipse cx="123" cy="81" rx="5.5" ry="7.5" fill="#2D2323"/>
+  <circle cx="89" cy="91" r="4.5" fill="#FFC0B4" opacity=".95"/>
+  <circle cx="131" cy="91" r="4.5" fill="#FFC0B4" opacity=".95"/>
+  <path d="M101 95C106 101 114 101 119 95" stroke="#5C4340" stroke-width="3.4" stroke-linecap="round"/>
+</svg>
