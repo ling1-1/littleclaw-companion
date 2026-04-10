@@ -14,8 +14,9 @@ It combines:
 
 - Floating desktop companion that stays alongside your OpenClaw workflow
 - Real pet progression tied to actual OpenClaw usage, not fake idle grinding
+- Unified Canvas renderer across species and evolution stages
 - Screenshot, file, and direct-send bridge into the current OpenClaw session
-- Species, rarity, and evolution presets prepared for future plugin-style distribution
+- Species, rarity, role, and evolution presets prepared for future plugin-style distribution
 - Installer-managed runtime that keeps local pet progress by default
 
 ## Current Status
@@ -24,7 +25,8 @@ Working today:
 - Companion desktop shell
 - Pet API and persistent pet state
 - XP + affinity split growth system
-- Species / rarity preset loading
+- Species / rarity / role preset loading
+- Unified Canvas pet rendering for lobster, sprite, mecha, moth, slime, and avian
 - Screenshot / file staging and upload into current OpenClaw chat
 - Installer-managed runtime mirror
 - First-pet onboarding flow

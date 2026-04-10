@@ -1,37 +1,124 @@
-<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="148" height="168" viewBox="0 0 148 168">
   <defs>
-    <radialGradient id="myth-bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(110 104) rotate(90) scale(90 86)">
-      <stop stop-color="#FFF8F5"/>
-      <stop offset="1" stop-color="#FFD5CF"/>
+    <radialGradient id="mg-body" cx="38%" cy="32%" r="62%">
+      <stop offset="0%" stop-color="#FF8060"/>
+      <stop offset="100%" stop-color="#B83030"/>
     </radialGradient>
-    <linearGradient id="myth-shell" x1="110" y1="30" x2="110" y2="188" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FF8E74"/>
-      <stop offset="1" stop-color="#FF5B50"/>
-    </linearGradient>
-    <linearGradient id="myth-crown" x1="110" y1="14" x2="110" y2="48" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFF5D0"/>
-      <stop offset="1" stop-color="#FFC882"/>
-    </linearGradient>
+    <radialGradient id="mg-belly" cx="50%" cy="30%" r="55%">
+      <stop offset="0%" stop-color="#FFF8F0"/>
+      <stop offset="100%" stop-color="#FFE8D8"/>
+    </radialGradient>
+    <radialGradient id="mg-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF8A73" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#FF5A4A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="mg-crown" cx="50%" cy="60%" r="60%">
+      <stop offset="0%" stop-color="#FFE8A0"/>
+      <stop offset="100%" stop-color="#D89028"/>
+    </radialGradient>
   </defs>
-  <ellipse cx="110" cy="188" rx="56" ry="14" fill="#F09680" fill-opacity=".3"/>
-  <circle cx="110" cy="104" r="88" fill="url(#myth-bg)"/>
-  <circle cx="110" cy="104" r="72" stroke="#FFB59C" stroke-opacity=".55" stroke-width="5"/>
-  <path d="M88 42L98 14L110 30L122 14L132 42" fill="url(#myth-crown)" stroke="#F1B06A" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M70 62C70 28 92 14 110 14C128 14 150 28 150 62V86C150 114 128 132 110 132C92 132 70 114 70 86V62Z" fill="url(#myth-shell)" stroke="#B84B48" stroke-width="5"/>
-  <ellipse cx="110" cy="80" rx="33" ry="22" fill="#FFF1EB"/>
-  <rect x="72" y="116" width="76" height="50" rx="25" fill="#FF6558" stroke="#B84B48" stroke-width="5"/>
-  <ellipse cx="110" cy="139" rx="28" ry="16" fill="#FFF7F2"/>
-  <rect x="38" y="120" width="34" height="10" rx="5" fill="#E55047"/>
-  <rect x="148" y="120" width="34" height="10" rx="5" fill="#E55047"/>
-  <path d="M10 102C32 88 52 98 64 116C50 136 24 140 2 120C2 108 4 104 10 102Z" fill="#D64240"/>
-  <path d="M210 102C188 88 168 98 156 116C170 136 196 140 218 120C218 108 216 104 210 102Z" fill="#D64240"/>
-  <rect x="82" y="162" width="6" height="30" rx="3" fill="#E95E4D"/>
-  <rect x="98" y="166" width="6" height="26" rx="3" fill="#E95E4D"/>
-  <rect x="116" y="166" width="6" height="26" rx="3" fill="#E95E4D"/>
-  <rect x="132" y="162" width="6" height="30" rx="3" fill="#E95E4D"/>
-  <ellipse cx="97" cy="81" rx="5.5" ry="7.5" fill="#2D2323"/>
-  <ellipse cx="123" cy="81" rx="5.5" ry="7.5" fill="#2D2323"/>
-  <circle cx="89" cy="91" r="4.5" fill="#FFC0B4" opacity=".95"/>
-  <circle cx="131" cy="91" r="4.5" fill="#FFC0B4" opacity=".95"/>
-  <path d="M101 95C106 101 114 101 119 95" stroke="#5C4340" stroke-width="3.4" stroke-linecap="round"/>
+
+  <!-- outer energy halos -->
+  <ellipse cx="74" cy="102" rx="68" ry="62" fill="none" stroke="#FF5A4A" stroke-width="1" opacity=".18"/>
+  <ellipse cx="74" cy="102" rx="60" ry="54" fill="none" stroke="#FFD0A8" stroke-width="1.2" opacity=".22"/>
+  <ellipse cx="74" cy="102" rx="52" ry="46" fill="none" stroke="#FF8A73" stroke-width="1.5" opacity=".28"/>
+  <!-- energy nodes on outer ring -->
+  <circle cx="74" cy="40" r="3" fill="#FFD0A8" opacity=".9"/>
+  <circle cx="138" cy="88" r="2.5" fill="#FF8A73" opacity=".8"/>
+  <circle cx="10" cy="88" r="2.5" fill="#FF8A73" opacity=".8"/>
+  <circle cx="120" cy="52" r="2" fill="#FFD0A8" opacity=".7"/>
+  <circle cx="28" cy="52" r="2" fill="#FFD0A8" opacity=".7"/>
+  <circle cx="116" cy="148" r="2" fill="#FF8A73" opacity=".6"/>
+  <circle cx="32" cy="148" r="2" fill="#FF8A73" opacity=".6"/>
+
+  <!-- ELABORATE CROWN -->
+  <path d="M40 54 L50 30 L62 44 L74 20 L86 44 L98 30 L108 54 Z" fill="url(#mg-crown)" stroke="#C08018" stroke-width="1.5"/>
+  <!-- inner crown layer -->
+  <path d="M48 54 L55 36 L64 46 L74 28 L84 46 L93 36 L100 54 Z" fill="#FFE090" opacity=".6"/>
+  <!-- crown gems with glow -->
+  <circle cx="50" cy="29" r="5" fill="white" stroke="#E8A030" stroke-width="1.5"/>
+  <circle cx="50" cy="29" r="3" fill="#FFE8A0"/>
+  <circle cx="74" cy="19" r="6.5" fill="white" stroke="#E8A030" stroke-width="1.5"/>
+  <circle cx="74" cy="19" r="4" fill="#FFE8A0"/>
+  <circle cx="74" cy="19" r="6.5" fill="none" stroke="#FFD0A8" stroke-width="2" opacity=".5"/>
+  <circle cx="98" cy="29" r="5" fill="white" stroke="#E8A030" stroke-width="1.5"/>
+  <circle cx="98" cy="29" r="3" fill="#FFE8A0"/>
+  <!-- crown base band -->
+  <rect x="40" y="52" width="68" height="8" rx="4" fill="#FFC56E" stroke="#C08018" stroke-width="1.2"/>
+  <!-- crown decoration dots -->
+  <circle cx="52" cy="56" r="2" fill="#C08018"/>
+  <circle cx="62" cy="56" r="2" fill="#C08018"/>
+  <circle cx="74" cy="56" r="2.5" fill="#C08018"/>
+  <circle cx="86" cy="56" r="2" fill="#C08018"/>
+  <circle cx="96" cy="56" r="2" fill="#C08018"/>
+
+  <!-- antennae mythic with energy -->
+  <path d="M52 62 Q36 40 24 22" stroke="#C84040" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M96 62 Q112 40 124 22" stroke="#C84040" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <circle cx="23" cy="20" r="6" fill="#FFD0A8" stroke="#FF8A73" stroke-width="2"/>
+  <circle cx="125" cy="20" r="6" fill="#FFD0A8" stroke="#FF8A73" stroke-width="2"/>
+  <!-- antenna energy rings -->
+  <circle cx="23" cy="20" r="10" fill="none" stroke="#FF8A73" stroke-width="1" opacity=".5"/>
+  <circle cx="125" cy="20" r="10" fill="none" stroke="#FF8A73" stroke-width="1" opacity=".5"/>
+
+  <!-- legs -->
+  <path d="M34 112 Q16 126 10 140" stroke="#A83030" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M36 122 Q20 138 17 152" stroke="#A83030" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M114 112 Q132 126 138 140" stroke="#A83030" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M112 122 Q128 138 131 152" stroke="#A83030" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- MASSIVE CLAWS with energy aura -->
+  <path d="M28 90 Q8 78 -2 72" stroke="#A83030" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <!-- claw aura -->
+  <ellipse cx="-8" cy="69" rx="24" ry="17" fill="#FF5A4A" opacity=".15"/>
+  <ellipse cx="-8" cy="69" rx="22" ry="15" fill="url(#mg-body)" stroke="#FFD0A8" stroke-width="2.5"/>
+  <ellipse cx="-8" cy="69" rx="22" ry="15" fill="none" stroke="#FF8A73" stroke-width="3" opacity=".4"/>
+  <path d="M-14 60 Q-8 53 1 57" stroke="#8A2020" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M-15 78 Q-8 85 1 81" stroke="#8A2020" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M-18 64 Q-8 61 0 65" stroke="#FFD0A8" stroke-width="1.5" fill="none" opacity=".8"/>
+  <!-- mythic claw detail -->
+  <path d="M-18 68 Q-8 66 0 70" stroke="#FF8A73" stroke-width="1" fill="none" opacity=".5"/>
+
+  <path d="M120 90 Q140 78 150 72" stroke="#A83030" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <ellipse cx="156" cy="69" rx="24" ry="17" fill="#FF5A4A" opacity=".15"/>
+  <ellipse cx="156" cy="69" rx="22" ry="15" fill="url(#mg-body)" stroke="#FFD0A8" stroke-width="2.5"/>
+  <ellipse cx="156" cy="69" rx="22" ry="15" fill="none" stroke="#FF8A73" stroke-width="3" opacity=".4"/>
+  <path d="M162 60 Q156 53 147 57" stroke="#8A2020" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M163 78 Q156 85 147 81" stroke="#8A2020" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M166 64 Q156 61 148 65" stroke="#FFD0A8" stroke-width="1.5" fill="none" opacity=".8"/>
+  <path d="M166 68 Q156 66 148 70" stroke="#FF8A73" stroke-width="1" fill="none" opacity=".5"/>
+
+  <!-- body with glow -->
+  <ellipse cx="74" cy="104" rx="38" ry="36" fill="url(#mg-glow)"/>
+  <ellipse cx="74" cy="104" rx="36" ry="34" fill="url(#mg-body)"/>
+  <!-- energy body ring -->
+  <ellipse cx="74" cy="104" rx="36" ry="34" fill="none" stroke="#FFD0A8" stroke-width="2" opacity=".5"/>
+  <ellipse cx="74" cy="104" rx="36" ry="34" fill="none" stroke="#FF8A73" stroke-width="4" opacity=".2"/>
+  <ellipse cx="74" cy="114" rx="22" ry="20" fill="url(#mg-belly)"/>
+  <!-- shell elaborate -->
+  <path d="M42 90 Q74 58 106 90" fill="#A83030" stroke="none"/>
+  <path d="M46 84 Q74 60 102 84" fill="#982828" stroke="none"/>
+  <!-- shell energy lines -->
+  <path d="M52 70 Q74 63 96 70" stroke="#FF7050" stroke-width="2" fill="none" opacity=".7"/>
+  <path d="M56 78 Q74 73 92 78" stroke="#FF7050" stroke-width="1.2" fill="none" opacity=".4"/>
+  <path d="M60 84 Q74 80 88 84" stroke="#FF9070" stroke-width="1" fill="none" opacity=".3"/>
+
+  <!-- eyes MYTHIC glowing -->
+  <circle cx="61" cy="92" r="11.5" fill="white" stroke="#C84040" stroke-width="1.5"/>
+  <circle cx="87" cy="92" r="11.5" fill="white" stroke="#C84040" stroke-width="1.5"/>
+  <!-- eye glow rings -->
+  <circle cx="61" cy="92" r="11.5" fill="none" stroke="#FF8A73" stroke-width="2" opacity=".4"/>
+  <circle cx="87" cy="92" r="11.5" fill="none" stroke="#FF8A73" stroke-width="2" opacity=".4"/>
+  <circle cx="62" cy="93" r="7.5" fill="#100505"/>
+  <circle cx="88" cy="93" r="7.5" fill="#100505"/>
+  <!-- gold iris ring -->
+  <circle cx="62" cy="93" r="7.5" fill="none" stroke="#FFD0A8" stroke-width="1.5" opacity=".95"/>
+  <circle cx="88" cy="93" r="7.5" fill="none" stroke="#FFD0A8" stroke-width="1.5" opacity=".95"/>
+  <!-- inner iris energy -->
+  <circle cx="62" cy="93" r="5" fill="none" stroke="#FF8A73" stroke-width=".8" opacity=".6"/>
+  <circle cx="88" cy="93" r="5" fill="none" stroke="#FF8A73" stroke-width=".8" opacity=".6"/>
+  <circle cx="64" cy="91" r="3" fill="white"/>
+  <circle cx="90" cy="91" r="3" fill="white"/>
+  <!-- calm powerful smile -->
+  <path d="M68 110 Q74 115 80 110" stroke="#982828" stroke-width="2.2" fill="none" stroke-linecap="round"/>
 </svg>

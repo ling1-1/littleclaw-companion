@@ -22,6 +22,12 @@ STAGE_EXTRAS = {
     "partner": {"form": "partner", "presence": "更像一个一起做事的搭子，而不是单纯宠物。"},
 }
 
+DEFAULT_ROLE = {
+    "id": "companion",
+    "title": "陪伴型",
+    "presence": "偏陪伴协作，会稳稳跟着你的节奏往前走。",
+}
+
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
@@ -98,14 +104,72 @@ class PetRuntime:
     def evolution_stages(self, species_id: str) -> list:
         config = self.species_config(species_id)
         stages = []
-        for stage in config.get("stages", []):
+        default_forms = ["pet", "companion", "avatar", "partner", "partner"]
+        default_presence = {
+            "pet": "刚学会陪伴，会安静跟着你。",
+            "companion": "开始理解你的节奏，会主动给陪伴反馈。",
+            "avatar": "已经有一点数字人感，能替你组织动作。",
+            "partner": "更像一个一起做事的搭子，而不是单纯宠物。",
+        }
+        for index, stage in enumerate(config.get("stages", [])):
             extra = STAGE_EXTRAS.get(stage.get("id", ""), {})
+            form = extra.get("form", default_forms[min(index, len(default_forms) - 1)])
             stages.append({
                 **stage,
-                "form": extra.get("form", "pet"),
-                "presence": extra.get("presence", "开始陪着你一起做事。"),
+                "form": form,
+                "presence": extra.get("presence", default_presence.get(form, "开始陪着你一起做事。")),
             })
         return stages
+
+    def role_options(self, species_id: str) -> list:
+        config = self.species_config(species_id)
+        roles = list(config.get("roles") or [])
+        if not roles:
+            return [dict(DEFAULT_ROLE)]
+        normalized = []
+        for role in roles:
+            role_id = str(role.get("id") or "").strip()
+            if not role_id:
+                continue
+            normalized.append({
+                "id": role_id,
+                "title": str(role.get("title") or role_id),
+                "presence": str(role.get("presence") or DEFAULT_ROLE["presence"]),
+            })
+        return normalized or [dict(DEFAULT_ROLE)]
+
+    def role_config(self, species_id: str, role_id: Optional[str] = None) -> dict:
+        options = self.role_options(species_id)
+        if role_id:
+            match = next((role for role in options if role["id"] == str(role_id)), None)
+            if match:
+                return match
+        return options[0]
+
+    def species_catalog(self) -> dict:
+        species = []
+        for config in self.available_species():
+            species_id = str(config.get("id") or DEFAULT_SPECIES_ID)
+            species.append({
+                "id": species_id,
+                "title": str(config.get("title") or species_id),
+                "rarity_pool": list(config.get("rarity_pool") or []),
+                "default_names": list(config.get("default_names") or []),
+                "traits": list(config.get("traits") or []),
+                "roles": self.role_options(species_id),
+                "stages": [
+                    {
+                        "id": str(stage.get("id") or "seed"),
+                        "title": str(stage.get("title") or stage.get("id") or "初始形态"),
+                        "min_level": int(stage.get("min_level", 1)),
+                        "min_affinity": int(stage.get("min_affinity", 0)),
+                        "min_streak": int(stage.get("min_streak", 0)),
+                        "min_progress": int(stage.get("min_progress", 0)),
+                    }
+                    for stage in self.evolution_stages(species_id)
+                ],
+            })
+        return {"species": species}
 
     def install_seed_salt(self) -> str:
         try:
@@ -191,6 +255,8 @@ class PetRuntime:
             "name": pet_name,
             "owner_agent_name": owner_agent_name,
             "stage_title": (species.get("stages") or [{}])[0].get("title", "初始形态"),
+            "role_id": self.role_config(species_id).get("id", DEFAULT_ROLE["id"]),
+            "role_title": self.role_config(species_id).get("title", DEFAULT_ROLE["title"]),
         }
 
     def generated_identity(self, owner_agent_name: str = "OpenClaw") -> dict:
@@ -232,6 +298,8 @@ class PetRuntime:
             "stage_id": "seed",
             "stage_title": identity["stage_title"],
             "stage_presence": "刚学会陪伴，会安静跟着你。",
+            "role_id": identity.get("role_id", DEFAULT_ROLE["id"]),
+            "role_title": identity.get("role_title", DEFAULT_ROLE["title"]),
             "onboarding_pending": True,
             "unlocked_features": ["pet_panel", "pet_actions"],
         }
@@ -351,8 +419,11 @@ class PetRuntime:
 
         stage = self.stage_for(merged)
         species = self.species_config(str(merged.get("species_id") or DEFAULT_SPECIES_ID))
+        role = self.role_config(str(merged.get("species_id") or DEFAULT_SPECIES_ID), str(merged.get("role_id") or ""))
         merged["species_title"] = species.get("title", merged.get("species_title", "龙虾系"))
         merged.setdefault("species", species.get("title", "龙虾系"))
+        merged["role_id"] = role.get("id", DEFAULT_ROLE["id"])
+        merged["role_title"] = role.get("title", DEFAULT_ROLE["title"])
         merged["form"] = stage["form"]
         merged["stage_id"] = stage["id"]
         merged["stage_title"] = stage["title"]
@@ -371,8 +442,9 @@ class PetRuntime:
             merged["stage_presence"] = "有点饿了，继续干活前最好先喂一口。"
         else:
             merged["blocked_reason"] = ""
-            merged["stage_presence"] = stage["presence"]
-        merged["unlocked_features"] = self.evolve_features(stage["id"])
+            role_presence = str(role.get("presence") or "").strip()
+            merged["stage_presence"] = f"{stage['presence']} {role_presence}".strip()
+        merged["unlocked_features"] = self.evolve_features(stage["form"])
         merged["progress_score"] = self.progress_score(merged)
         merged["next_stage"] = self.next_stage_requirements(merged, stage["id"])
         return merged
@@ -412,6 +484,7 @@ class PetRuntime:
             "level", "xp", "total_actions", "task_score", "care_streak", "send_count",
             "learn_count", "screenshot_count", "reply_count", "hard_task_count",
             "project_count", "cooldowns", "recent_actions", "affinity_xp",
+            "role_id", "role_title",
         ]
         merged = dict(generated)
         for key in preserved_keys:

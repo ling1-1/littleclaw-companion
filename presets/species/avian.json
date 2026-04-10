@@ -1,0 +1,46 @@
+{
+  "id": "avian",
+  "title": "鸟系",
+  "rarity_pool": ["rare", "epic", "legendary", "mythic"],
+  "default_names": ["翎讯", "风栖", "青羽", "巡巡"],
+  "traits": ["侦察", "提醒快", "轻盈反馈", "偏来回协作"],
+  "roles": [
+    { "id": "scout", "title": "侦察鸟", "presence": "偏巡查和预警，适合快速发现变化并带回反馈。" },
+    { "id": "messenger", "title": "信使鸟", "presence": "偏往返传递，适合高频沟通和轻量推进。" },
+    { "id": "captain", "title": "领航羽", "presence": "偏指路和节奏提醒，适合带你快速收束下一步。" }
+  ],
+  "stages": [
+    {
+      "id": "seed",
+      "title": "啾羽雏鸟",
+      "min_level": 1,
+      "min_affinity": 0,
+      "min_streak": 0,
+      "min_progress": 0
+    },
+    {
+      "id": "glide",
+      "title": "巡风信鸟",
+      "min_level": 11,
+      "min_affinity": 50,
+      "min_streak": 1,
+      "min_progress": 10
+    },
+    {
+      "id": "crest",
+      "title": "冠羽哨鸟",
+      "min_level": 24,
+      "min_affinity": 68,
+      "min_streak": 2,
+      "min_progress": 22
+    },
+    {
+      "id": "sky",
+      "title": "苍穹领航鸟",
+      "min_level": 40,
+      "min_affinity": 84,
+      "min_streak": 3,
+      "min_progress": 38
+    }
+  ]
+}

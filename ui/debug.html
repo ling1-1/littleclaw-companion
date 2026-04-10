@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LittleClaw Debug Tool</title>
+  <style>
+    :root {
+      --bg: #fff7f2;
+      --card: rgba(255,255,255,0.96);
+      --line: rgba(239, 169, 132, 0.72);
+      --text: #3b2f2c;
+      --muted: #866d64;
+      --accent: #f28a65;
+      --accent-soft: rgba(242, 138, 101, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 85% 10%, rgba(255, 225, 211, 0.9), transparent 20%),
+        radial-gradient(circle at 10% 90%, rgba(210, 235, 255, 0.55), transparent 24%),
+        linear-gradient(180deg, #fffdfb, var(--bg));
+      color: var(--text);
+      font: 14px/1.5 "PingFang SC", "SF Pro Text", sans-serif;
+    }
+    .shell {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 28px 24px 40px;
+    }
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+    .title {
+      font-size: 28px;
+      font-weight: 800;
+      margin: 0 0 6px;
+    }
+    .subtitle {
+      color: var(--muted);
+      margin: 0;
+    }
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+    .stack {
+      display: grid;
+      gap: 18px;
+    }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--card);
+      box-shadow: 0 16px 30px rgba(140, 84, 56, 0.08);
+      padding: 18px;
+    }
+    .card h2 {
+      margin: 0 0 14px;
+      font-size: 17px;
+    }
+    .meta {
+      display: grid;
+      gap: 8px;
+    }
+    .meta-item {
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(239, 169, 132, 0.28);
+    }
+    .meta-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .meta-value {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+    .field.full {
+      grid-column: 1 / -1;
+    }
+    .label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    input, select, textarea {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(236, 205, 188, 0.96);
+      background: rgba(255,255,255,0.98);
+      color: var(--text);
+      font: inherit;
+      padding: 10px 12px;
+      outline: none;
+    }
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    button {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.96);
+      color: #5a4640;
+      border-radius: 999px;
+      height: 38px;
+      padding: 0 16px;
+      font: inherit;
+      cursor: pointer;
+    }
+    button.primary {
+      background: linear-gradient(180deg, #f6a480, #f28a65);
+      color: #fff;
+      border-color: rgba(242, 138, 101, 0.92);
+    }
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .quick-actions button {
+      width: 100%;
+    }
+    .status-bar {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: var(--accent-soft);
+      color: #7f5547;
+      font-size: 13px;
+    }
+    .log {
+      min-height: 420px;
+      white-space: pre-wrap;
+      padding: 14px;
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid rgba(239, 169, 132, 0.3);
+      overflow: auto;
+    }
+    @media (max-width: 900px) {
+      .hero { flex-direction: column; }
+      .quick-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="hero">
+      <div>
+        <h1 class="title">LittleClaw 调试工具</h1>
+        <p class="subtitle">这里直接调真实状态和真实动作链路。打开调试后，主面板会保持展开并更快同步，方便你边测边看效果。</p>
+      </div>
+      <div class="toolbar">
+        <button id="refresh-btn">刷新状态</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="stack">
+        <section class="card">
+          <h2>当前状态</h2>
+          <div class="meta">
+            <div class="meta-item">
+              <div class="meta-label">伙伴</div>
+              <div class="meta-value" id="pet-name">载入中</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">阶段与稀有度</div>
+              <div class="meta-value" id="pet-stage">Lv.1 · 初始形态</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">成长数据</div>
+              <div class="meta-value" id="pet-stats">XP 0 / 100 · 亲密 0</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">运行状态</div>
+              <div class="meta-value" id="pet-extra">最近动作：init</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>真实状态覆写</h2>
+          <div class="form-grid">
+            <label class="field">
+              <span class="label">种族</span>
+              <select id="species"></select>
+            </label>
+            <label class="field">
+              <span class="label">阶段</span>
+              <select id="stage"></select>
+            </label>
+            <label class="field">
+              <span class="label">角色</span>
+              <select id="role"></select>
+            </label>
+            <label class="field">
+              <span class="label">等级</span>
+              <input id="level" type="number" min="1" max="99" />
+            </label>
+            <label class="field">
+              <span class="label">经验</span>
+              <input id="xp" type="number" min="0" max="99" />
+            </label>
+            <label class="field">
+              <span class="label">亲密</span>
+              <input id="affinity" type="number" min="0" max="100" />
+            </label>
+            <label class="field">
+              <span class="label">稀有度</span>
+              <select id="rarity">
+                <option value="common">普通</option>
+                <option value="rare">稀有</option>
+                <option value="epic">史诗</option>
+                <option value="legendary">传说</option>
+                <option value="mythic">神话</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="label">精力</span>
+              <input id="energy" type="number" min="0" max="100" />
+            </label>
+            <label class="field">
+              <span class="label">饥饿</span>
+              <input id="hunger" type="number" min="0" max="100" />
+            </label>
+            <label class="field">
+              <span class="label">连击</span>
+              <input id="reward_streak" type="number" min="0" max="999" />
+            </label>
+            <label class="field">
+              <span class="label">进度</span>
+              <input id="progress" type="number" min="0" max="9999" />
+            </label>
+          </div>
+          <div class="actions">
+            <button class="primary" id="apply-btn">应用到真实状态</button>
+            <button id="level-up-btn">模拟升级</button>
+            <button id="evolve-btn">模拟进化</button>
+            <button id="restore-btn">恢复当前真实</button>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>基础动作</h2>
+          <div class="quick-actions">
+            <button data-action="feed">喂食</button>
+            <button data-action="play">玩耍</button>
+            <button data-action="nap">小睡</button>
+            <button data-action="focus_companion">聚焦</button>
+            <button data-action="acknowledge_intro">确认初遇</button>
+          </div>
+          <div class="status-bar" id="status">准备就绪。主面板会在调试期间保持展开。</div>
+        </section>
+      </div>
+
+      <div class="stack">
+        <section class="card">
+          <h2>发送链路</h2>
+          <label class="field full">
+            <span class="label">发送文本</span>
+            <textarea id="send-text">测试一下发送链路</textarea>
+          </label>
+          <div class="actions">
+            <button class="primary" id="send-btn">触发发送链路</button>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>学习链路</h2>
+          <label class="field full">
+            <span class="label">主题</span>
+            <input id="learn-topic" value="测试学习请求" />
+          </label>
+          <label class="field full">
+            <span class="label">目标</span>
+            <textarea id="learn-goal">验证学习链路是否会推动成长</textarea>
+          </label>
+          <div class="actions">
+            <button class="primary" id="learn-btn">触发学习</button>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>真实回执链路</h2>
+          <label class="field full">
+            <span class="label">主题</span>
+            <input id="reply-topic" value="测试真实回执" />
+          </label>
+          <label class="field full">
+            <span class="label">回执文本</span>
+            <textarea id="reply-text">测试回复完成，验证 XP / 等级 / 进化提示是否联动。</textarea>
+          </label>
+          <div class="actions">
+            <button class="primary" id="reply-btn">触发回执完成</button>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>日志</h2>
+          <div class="log" id="log"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentPet = null;
+    let catalog = { species: [] };
+    const FALLBACK_CATALOG = {
+      species: [
+        { id: 'lobster', title: '龙虾系', roles: [{ id: 'guardian', title: '守护搭子' }, { id: 'runner', title: '推进手' }, { id: 'captain', title: '队长型' }], stages: [{ id: 'seed', title: '琥珀幼体' }, { id: 'coral', title: '珊瑚巡游虾' }, { id: 'reef', title: '礁岩战虾' }, { id: 'royal', title: '王冠龙虾' }, { id: 'mythic', title: '赤曜龙王' }] },
+        { id: 'sprite', title: '精灵系', roles: [{ id: 'watcher', title: '观察者' }, { id: 'guide', title: '引路灵' }, { id: 'oracle', title: '灵感使' }], stages: [{ id: 'seed', title: '微光幼灵' }, { id: 'mist', title: '流雾信使' }, { id: 'star', title: '星羽使灵' }, { id: 'oracle', title: '曜纹灵使' }] },
+        { id: 'mecha', title: '机甲系', roles: [{ id: 'repair', title: '修复师' }, { id: 'builder', title: '构筑者' }, { id: 'warden', title: '哨卫核' }], stages: [{ id: 'seed', title: '原型机' }, { id: 'servo', title: '伺服助手' }, { id: 'forge', title: '锻炉机宠' }, { id: 'core', title: '钛心智核' }] },
+        { id: 'moth', title: '夜蛾系', roles: [{ id: 'lullaby', title: '安眠使' }, { id: 'scribe', title: '夜抄手' }, { id: 'lantern', title: '灯守者' }], stages: [{ id: 'seed', title: '茸灯幼蛾' }, { id: 'veil', title: '纱翼夜蛾' }, { id: 'luna', title: '月纹眠蛾' }, { id: 'eclipse', title: '蚀光守夜蛾' }] },
+        { id: 'slime', title: '史莱姆系', roles: [{ id: 'keeper', title: '收纳团' }, { id: 'healer', title: '疗愈胶' }, { id: 'porter', title: '搬运核' }], stages: [{ id: 'seed', title: '软糖幼体' }, { id: 'puff', title: '泡泡胶灵' }, { id: 'mellow', title: '绵云凝胶' }, { id: 'nova', title: '星核史莱姆' }] },
+        { id: 'avian', title: '鸟系', roles: [{ id: 'scout', title: '侦察鸟' }, { id: 'messenger', title: '信使鸟' }, { id: 'captain', title: '领航羽' }], stages: [{ id: 'seed', title: '啾羽雏鸟' }, { id: 'glide', title: '巡风信鸟' }, { id: 'crest', title: '冠羽哨鸟' }, { id: 'sky', title: '苍穹领航鸟' }] },
+      ],
+    };
+
+    function speciesOptions() {
+      return Array.isArray(catalog?.species) && catalog.species.length ? catalog.species : [];
+    }
+
+    function speciesConfig(speciesId) {
+      return speciesOptions().find((item) => item.id === speciesId) || speciesOptions()[0] || null;
+    }
+
+    function writeLog(message) {
+      const now = new Date().toLocaleTimeString();
+      const node = document.getElementById('log');
+      node.textContent = `[${now}] ${message}\n` + node.textContent;
+    }
+
+    function setStatus(text) {
+      document.getElementById('status').textContent = text;
+    }
+
+    async function loadCatalog() {
+      try {
+        const data = await request('/api/catalog', { method: 'GET' });
+        catalog = data.catalog || { species: [] };
+      } catch (_err) {
+        catalog = FALLBACK_CATALOG;
+        writeLog('catalog 接口不可用，已切到本地 fallback。');
+      }
+    }
+
+    function populateSpecies() {
+      const select = document.getElementById('species');
+      select.innerHTML = speciesOptions()
+        .map((item) => `<option value="${item.id}">${item.title}</option>`)
+        .join('');
+      select.addEventListener('change', () => {
+        populateStages(select.value);
+        populateRoles(select.value);
+      });
+    }
+
+    function populateStages(species, selected) {
+      const stage = document.getElementById('stage');
+      const options = speciesConfig(species)?.stages || [];
+      stage.innerHTML = options.map((item) => `<option value="${item.id}">${item.title}</option>`).join('');
+      stage.value = options.some((item) => item.id === selected) ? selected : (options[0]?.id || 'seed');
+    }
+
+    function populateRoles(species, selected) {
+      const role = document.getElementById('role');
+      const options = speciesConfig(species)?.roles || [];
+      role.innerHTML = options.map((item) => `<option value="${item.id}">${item.title}</option>`).join('');
+      role.value = options.some((item) => item.id === selected) ? selected : (options[0]?.id || 'companion');
+    }
+
+    function numericValue(id, fallback) {
+      const raw = document.getElementById(id)?.value;
+      const num = Number(raw);
+      return Number.isFinite(num) ? num : fallback;
+    }
+
+    function readStatePayload() {
+      const pet = currentPet || {};
+      return {
+        species_id: document.getElementById('species').value || String(pet.species_id || 'lobster'),
+        stage_id: document.getElementById('stage').value || String(pet.stage_id || 'seed'),
+        role_id: document.getElementById('role').value || String(pet.role_id || 'companion'),
+        level: numericValue('level', Number(pet.level || 1)),
+        xp: numericValue('xp', Number(pet.xp || 0)),
+        affinity: numericValue('affinity', Number(pet.affinity || 0)),
+        rarity: document.getElementById('rarity').value || String(pet.rarity || 'common').toLowerCase(),
+        energy: numericValue('energy', Number(pet.energy || 0)),
+        hunger: numericValue('hunger', Number(pet.hunger || 0)),
+        reward_streak: numericValue('reward_streak', Number(pet.reward_streak || 0)),
+        progress: numericValue('progress', Number(pet.task_score ?? pet.progress_score ?? 0)),
+      };
+    }
+
+    async function request(url, options = {}) {
+      const response = await fetch(url, {
+        headers: { 'Content-Type': 'application/json' },
+        cache: 'no-store',
+        ...options,
+      });
+      const data = await response.json();
+      if (!response.ok || data.ok === false) {
+        throw new Error(data.error || `请求失败: ${response.status}`);
+      }
+      return data;
+    }
+
+    function updateUI(pet) {
+      currentPet = pet || null;
+      document.getElementById('pet-name').textContent = `${pet?.name || '伙伴'} · ${pet?.species_title || pet?.species_id || '龙虾系'} · ${pet?.role_title || '陪伴型'}`;
+      document.getElementById('pet-stage').textContent = `Lv.${pet?.level || 1} · ${pet?.stage_title || '初始形态'} · ${String(pet?.rarity || 'common').toLowerCase()}`;
+      document.getElementById('pet-stats').textContent = `XP ${pet?.xp || 0} / 100 · 亲密 ${pet?.affinity || 0} · 精力 ${pet?.energy || 0} · 饥饿 ${pet?.hunger || 0}`;
+      document.getElementById('pet-extra').textContent = `最近动作：${pet?.last_action || 'init'} · 下一阶段：${pet?.next_stage?.title || '无'}`;
+      document.getElementById('species').value = String(pet?.species_id || 'lobster');
+      populateStages(String(pet?.species_id || 'lobster'), String(pet?.stage_id || 'seed'));
+      populateRoles(String(pet?.species_id || 'lobster'), String(pet?.role_id || 'companion'));
+      document.getElementById('level').value = String(pet?.level || 1);
+      document.getElementById('xp').value = String(pet?.xp || 0);
+      document.getElementById('affinity').value = String(pet?.affinity || 0);
+      document.getElementById('rarity').value = String(pet?.rarity || 'common').toLowerCase();
+      document.getElementById('energy').value = String(pet?.energy || 0);
+      document.getElementById('hunger').value = String(pet?.hunger || 0);
+      document.getElementById('reward_streak').value = String(pet?.reward_streak || 0);
+      document.getElementById('progress').value = String(pet?.task_score ?? pet?.progress_score ?? 0);
+    }
+
+    async function refreshState() {
+      setStatus('正在刷新真实状态…');
+      const data = await request('/api/state', { method: 'GET' });
+      updateUI(data.pet);
+      setStatus('已同步真实状态。');
+      writeLog('已刷新真实状态。');
+    }
+
+    async function applyState() {
+      setStatus('正在应用真实状态…');
+      const data = await request('/api/state', {
+        method: 'POST',
+        body: JSON.stringify(readStatePayload()),
+      });
+      updateUI(data.pet);
+      setStatus('真实状态已更新。');
+      writeLog(`已应用状态: ${data.pet.species_id}/${data.pet.stage_id} Lv.${data.pet.level} XP ${data.pet.xp}`);
+    }
+
+    async function triggerAction(action, extra = {}) {
+      setStatus(`正在触发 ${action} …`);
+      const data = await request('/api/action', {
+        method: 'POST',
+        body: JSON.stringify({ action, ...extra }),
+      });
+      updateUI(data.pet);
+      setStatus(`${action} 已触发。`);
+      writeLog(`${action} 成功: ${JSON.stringify(data.result)}`);
+    }
+
+    function bindEvents() {
+      document.getElementById('refresh-btn').addEventListener('click', () => refreshState().catch(handleError));
+      document.getElementById('apply-btn').addEventListener('click', () => applyState().catch(handleError));
+      document.getElementById('restore-btn').addEventListener('click', () => refreshState().catch(handleError));
+      document.getElementById('level-up-btn').addEventListener('click', () => {
+        const base = currentPet ? Number(currentPet.level || 1) : numericValue('level', 1);
+        document.getElementById('level').value = String(base + 1);
+        document.getElementById('xp').value = '0';
+        applyState().catch(handleError);
+      });
+      document.getElementById('evolve-btn').addEventListener('click', () => {
+        const species = document.getElementById('species').value || String(currentPet?.species_id || 'lobster');
+        const stage = document.getElementById('stage').value || String(currentPet?.stage_id || 'seed');
+        const stages = speciesConfig(species)?.stages || [];
+        const index = Math.max(0, stages.findIndex((item) => item.id === stage));
+        document.getElementById('stage').value = stages[Math.min(stages.length - 1, index + 1)]?.id || stage;
+        applyState().catch(handleError);
+      });
+      document.querySelectorAll('[data-action]').forEach((button) => {
+        button.addEventListener('click', () => triggerAction(button.dataset.action).catch(handleError));
+      });
+      document.getElementById('send-btn').addEventListener('click', () => triggerAction('send_message', {
+        text: document.getElementById('send-text').value.trim(),
+      }).catch(handleError));
+      document.getElementById('learn-btn').addEventListener('click', () => triggerAction('learn_request', {
+        topic: document.getElementById('learn-topic').value.trim(),
+        goal: document.getElementById('learn-goal').value.trim(),
+      }).catch(handleError));
+      document.getElementById('reply-btn').addEventListener('click', () => triggerAction('reply_complete', {
+        topic: document.getElementById('reply-topic').value.trim(),
+        reply: document.getElementById('reply-text').value.trim(),
+      }).catch(handleError));
+    }
+
+    function handleError(error) {
+      setStatus(`调试失败: ${error.message}`);
+      writeLog(`失败: ${error.stack || error.message}`);
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      await loadCatalog();
+      populateSpecies();
+      const firstSpecies = speciesOptions()[0]?.id || 'lobster';
+      populateStages(firstSpecies, 'seed');
+      populateRoles(firstSpecies, speciesConfig(firstSpecies)?.roles?.[0]?.id || 'companion');
+      bindEvents();
+      await refreshState().catch(handleError);
+    });
+  </script>
+</body>
+</html>

@@ -1,46 +1,64 @@
-<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="124" height="142" viewBox="0 0 124 142">
   <defs>
-    <radialGradient id="reef-bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(110 104) rotate(90) scale(86 82)">
-      <stop stop-color="#FFF8F5"/>
-      <stop offset="1" stop-color="#FFDDD4"/>
+    <radialGradient id="rg-body" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#FF9080"/>
+      <stop offset="100%" stop-color="#C84038"/>
     </radialGradient>
-    <linearGradient id="reef-shell" x1="110" y1="30" x2="110" y2="188" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FF9D84"/>
-      <stop offset="1" stop-color="#FF6F5D"/>
-    </linearGradient>
-    <linearGradient id="reef-spike" x1="110" y1="30" x2="110" y2="62" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFE7DA"/>
-      <stop offset="1" stop-color="#FFBA9C"/>
-    </linearGradient>
+    <radialGradient id="rg-belly" cx="50%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#FFE8E0"/>
+      <stop offset="100%" stop-color="#FFD8D0"/>
+    </radialGradient>
   </defs>
-  <ellipse cx="110" cy="186" rx="54" ry="14" fill="#F3A589" fill-opacity=".26"/>
-  <circle cx="110" cy="104" r="84" fill="url(#reef-bg)"/>
-
-  <path d="M76 60L88 34L100 60" fill="url(#reef-spike)"/>
-  <path d="M102 46L110 22L118 46" fill="url(#reef-spike)"/>
-  <path d="M120 60L132 34L144 60" fill="url(#reef-spike)"/>
-
-  <path d="M72 64C72 30 94 16 110 16C126 16 148 30 148 64V86C148 112 126 130 110 130C94 130 72 112 72 86V64Z" fill="url(#reef-shell)" stroke="#D86457" stroke-width="5"/>
-  <path d="M82 55C90 44 101 38 110 38C119 38 130 44 138 55" stroke="#FFD8C7" stroke-width="5" stroke-linecap="round" opacity=".7"/>
-  <ellipse cx="110" cy="82" rx="33" ry="22" fill="#FFEEE6"/>
-
-  <rect x="74" y="112" width="72" height="48" rx="24" fill="#FF7964" stroke="#D86457" stroke-width="5"/>
-  <ellipse cx="110" cy="135" rx="27" ry="16" fill="#FFF4EF"/>
-  <path d="M92 116C97 123 123 123 128 116" stroke="#FFD3C3" stroke-width="4" stroke-linecap="round" opacity=".65"/>
-
-  <rect x="42" y="116" width="30" height="10" rx="5" fill="#EC5D4C"/>
-  <rect x="148" y="116" width="30" height="10" rx="5" fill="#EC5D4C"/>
-  <path d="M14 102C34 90 52 98 64 116C50 134 26 136 8 118C8 108 10 104 14 102Z" fill="#E44E47"/>
-  <path d="M206 102C186 90 168 98 156 116C170 134 194 136 212 118C212 108 210 104 206 102Z" fill="#E44E47"/>
-
-  <rect x="84" y="160" width="6" height="29" rx="3" fill="#EB6652"/>
-  <rect x="99" y="164" width="6" height="25" rx="3" fill="#EB6652"/>
-  <rect x="115" y="164" width="6" height="25" rx="3" fill="#EB6652"/>
-  <rect x="130" y="160" width="6" height="29" rx="3" fill="#EB6652"/>
-
-  <ellipse cx="96" cy="82" rx="5.8" ry="7.8" fill="#312727"/>
-  <ellipse cx="124" cy="82" rx="5.8" ry="7.8" fill="#312727"/>
-  <circle cx="88" cy="91" r="4.5" fill="#FFB9B0" opacity=".9"/>
-  <circle cx="132" cy="91" r="4.5" fill="#FFB9B0" opacity=".9"/>
-  <path d="M101 96C105 102 115 102 119 96" stroke="#5F4542" stroke-width="3.6" stroke-linecap="round"/>
+  <ellipse cx="62" cy="84" rx="46" ry="42" fill="#FF6F5E" opacity=".1"/>
+  <!-- ridge spines -->
+  <path d="M50 46 L46 32" stroke="#C84038" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M62 43 L62 28" stroke="#C84038" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M74 46 L78 32" stroke="#C84038" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <circle cx="46" cy="31" r="3" fill="#FF6F5E"/>
+  <circle cx="62" cy="27" r="3" fill="#FF6F5E"/>
+  <circle cx="78" cy="31" r="3" fill="#FF6F5E"/>
+  <!-- antennae thick -->
+  <path d="M46 46 Q36 30 28 16" stroke="#C84038" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M78 46 Q88 30 96 16" stroke="#C84038" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <circle cx="27" cy="14" r="5" fill="#FF6F5E" stroke="#C84038" stroke-width="1.5"/>
+  <circle cx="97" cy="14" r="5" fill="#FF6F5E" stroke="#C84038" stroke-width="1.5"/>
+  <!-- legs sturdy -->
+  <path d="M32 92 Q18 102 13 115" stroke="#B83030" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M35 102 Q22 114 19 126" stroke="#B83030" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M92 92 Q106 102 111 115" stroke="#B83030" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M89 102 Q102 114 105 126" stroke="#B83030" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- HUGE claws -->
+  <path d="M30 72 Q12 62 4 57" stroke="#B83030" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <ellipse cx="0" cy="55" rx="17" ry="13" fill="url(#rg-body)" stroke="#C84038" stroke-width="2"/>
+  <path d="M-5 48 Q0 43 7 46" stroke="#9A2828" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M-6 62 Q0 67 7 64" stroke="#9A2828" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- reef texture on claw -->
+  <path d="M-8 52 Q0 50 6 53" stroke="#FF8070" stroke-width="1" fill="none" opacity=".6"/>
+  <path d="M94 72 Q112 62 120 57" stroke="#B83030" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <ellipse cx="124" cy="55" rx="17" ry="13" fill="url(#rg-body)" stroke="#C84038" stroke-width="2"/>
+  <path d="M129 48 Q124 43 117 46" stroke="#9A2828" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M130 62 Q124 67 117 64" stroke="#9A2828" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M132 52 Q124 50 118 53" stroke="#FF8070" stroke-width="1" fill="none" opacity=".6"/>
+  <!-- body stocky -->
+  <ellipse cx="62" cy="84" rx="32" ry="30" fill="url(#rg-body)"/>
+  <ellipse cx="62" cy="93" rx="20" ry="18" fill="url(#rg-belly)"/>
+  <!-- shell with texture -->
+  <path d="M34 72 Q62 44 90 72" fill="#B83030" stroke="none"/>
+  <path d="M38 67 Q62 46 86 67" fill="#A82828" stroke="none"/>
+  <!-- shell highlight lines -->
+  <path d="M44 56 Q62 50 80 56" stroke="#FF7060" stroke-width="1.5" fill="none" opacity=".6"/>
+  <path d="M48 62 Q62 58 76 62" stroke="#FF7060" stroke-width="1" fill="none" opacity=".4"/>
+  <!-- angry brows -->
+  <path d="M37 62 L49 67" stroke="#9A2828" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M87 62 L75 67" stroke="#9A2828" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- eyes determined -->
+  <circle cx="48" cy="72" r="9.5" fill="white" stroke="#C84038" stroke-width="1.2"/>
+  <circle cx="76" cy="72" r="9.5" fill="white" stroke="#C84038" stroke-width="1.2"/>
+  <circle cx="49" cy="73" r="6" fill="#180808"/>
+  <circle cx="77" cy="73" r="6" fill="#180808"/>
+  <circle cx="51" cy="71" r="2.2" fill="white"/>
+  <circle cx="79" cy="71" r="2.2" fill="white"/>
+  <ellipse cx="40" cy="82" rx="6" ry="3.5" fill="#FF8878" opacity=".35"/>
+  <ellipse cx="84" cy="82" rx="6" ry="3.5" fill="#FF8878" opacity=".35"/>
+  <path d="M56 88 Q62 92 68 88" stroke="#A82828" stroke-width="2" fill="none" stroke-linecap="round"/>
 </svg>

@@ -1,0 +1,46 @@
+{
+  "id": "slime",
+  "title": "史莱姆系",
+  "rarity_pool": ["common", "rare", "epic", "legendary"],
+  "default_names": ["啵啵", "果冻", "团团", "沫沫"],
+  "traits": ["治愈感强", "包容", "偏收纳", "偏恢复"],
+  "roles": [
+    { "id": "keeper", "title": "收纳团", "presence": "偏收纳和缓冲，适合先把杂乱任务兜住。" },
+    { "id": "healer", "title": "疗愈胶", "presence": "偏恢复和照料，适合在高压时陪你慢下来。" },
+    { "id": "porter", "title": "搬运核", "presence": "偏承载和转运，适合帮你把素材和步骤接续起来。" }
+  ],
+  "stages": [
+    {
+      "id": "seed",
+      "title": "软糖幼体",
+      "min_level": 1,
+      "min_affinity": 0,
+      "min_streak": 0,
+      "min_progress": 0
+    },
+    {
+      "id": "puff",
+      "title": "泡泡胶灵",
+      "min_level": 9,
+      "min_affinity": 44,
+      "min_streak": 1,
+      "min_progress": 8
+    },
+    {
+      "id": "mellow",
+      "title": "绵云凝胶",
+      "min_level": 20,
+      "min_affinity": 62,
+      "min_streak": 2,
+      "min_progress": 18
+    },
+    {
+      "id": "nova",
+      "title": "星核史莱姆",
+      "min_level": 34,
+      "min_affinity": 80,
+      "min_streak": 3,
+      "min_progress": 32
+    }
+  ]
+}

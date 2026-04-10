@@ -4,6 +4,11 @@
   "rarity_pool": ["common", "rare", "epic", "legendary", "mythic"],
   "default_names": ["小钳", "赤爪", "珊瑚", "琥珀"],
   "traits": ["耐心", "陪伴感强", "适合共工", "偏执行"],
+  "roles": [
+    { "id": "guardian", "title": "守护搭子", "presence": "偏稳重陪伴，会先帮你兜住节奏和状态。" },
+    { "id": "runner", "title": "推进手", "presence": "偏执行推进，适合一路把任务往前拱。" },
+    { "id": "captain", "title": "队长型", "presence": "偏统筹协作，更像一个会提醒和带节奏的队友。" }
+  ],
   "stages": [
     {
       "id": "seed",

@@ -1,30 +1,67 @@
-<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="mechaForgeBg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(110 104) rotate(90) scale(82 78)">
-      <stop stop-color="#F7FCFF"/>
-      <stop offset="1" stop-color="#E0EEF8"/>
-    </radialGradient>
-    <linearGradient id="mechaForgeBody" x1="110" y1="40" x2="110" y2="170" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#7FA8C9"/>
-      <stop offset="1" stop-color="#496C89"/>
-    </linearGradient>
-  </defs>
-  <ellipse cx="110" cy="184" rx="48" ry="12" fill="#B7CBD8" fill-opacity=".26"/>
-  <circle cx="110" cy="104" r="80" fill="url(#mechaForgeBg)"/>
-  <path d="M78 38H142L148 52V96C148 114 132 128 110 128C88 128 72 114 72 96V52L78 38Z" fill="url(#mechaForgeBody)" stroke="#3F5F7B" stroke-width="4"/>
-  <rect x="85" y="103" width="50" height="50" rx="16" fill="#6C94B2" stroke="#3F5F7B" stroke-width="4"/>
-  <rect x="95" y="120" width="30" height="14" rx="7" fill="#F0FAFF"/>
-  <path d="M40 100L75 110L60 126L34 114L40 100Z" fill="#456D91"/>
-  <path d="M180 100L145 110L160 126L186 114L180 100Z" fill="#456D91"/>
-  <rect x="52" y="110" width="28" height="8" rx="4" fill="#5F88A9"/>
-  <rect x="140" y="110" width="28" height="8" rx="4" fill="#5F88A9"/>
-  <rect x="88" y="152" width="7" height="21" rx="3.5" fill="#567FA1"/>
-  <rect x="101" y="152" width="7" height="21" rx="3.5" fill="#567FA1"/>
-  <rect x="114" y="152" width="7" height="21" rx="3.5" fill="#567FA1"/>
-  <rect x="127" y="152" width="7" height="21" rx="3.5" fill="#567FA1"/>
-  <circle cx="96" cy="68" r="6.5" fill="#19242F"/>
-  <circle cx="124" cy="68" r="6.5" fill="#19242F"/>
-  <rect x="98" y="81" width="24" height="4" rx="2" fill="#304654"/>
-  <path d="M89 38L96 25H124L131 38" stroke="#9EE8FF" stroke-width="4" stroke-linejoin="round"/>
-  <circle cx="110" cy="52" r="7" fill="#98EDFF"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- mecha-forge: 锻炉机甲 | forge stage | heavy shoulders, heat vents, orange energy bar, forge eyes -->
+  <!-- animation anchors: #body (stable), #eyes (heat-pulse), #heat-bar (breathe), #shoulder-vents (glow), #heat-shimmer (flicker) -->
+  <g id="shoulders">
+    <rect x="6" y="186" width="124" height="180" rx="28" fill="#6C879A" stroke="#3A5870" stroke-width="9"/>
+    <rect x="382" y="186" width="124" height="180" rx="28" fill="#6C879A" stroke="#3A5870" stroke-width="9"/>
+    <circle cx="44" cy="218" r="11" fill="#D7E2EA" stroke="#3A5870" stroke-width="4"/>
+    <circle cx="90" cy="218" r="11" fill="#D7E2EA" stroke="#3A5870" stroke-width="4"/>
+    <circle cx="422" cy="218" r="11" fill="#D7E2EA" stroke="#3A5870" stroke-width="4"/>
+    <circle cx="468" cy="218" r="11" fill="#D7E2EA" stroke="#3A5870" stroke-width="4"/>
+    <rect x="22" y="254" width="90" height="18" rx="9" fill="#3A5870"/>
+    <rect x="22" y="280" width="90" height="18" rx="9" fill="#3A5870"/>
+    <rect x="22" y="306" width="90" height="18" rx="9" fill="#3A5870"/>
+    <rect x="400" y="254" width="90" height="18" rx="9" fill="#3A5870"/>
+    <rect x="400" y="280" width="90" height="18" rx="9" fill="#3A5870"/>
+    <rect x="400" y="306" width="90" height="18" rx="9" fill="#3A5870"/>
+  </g>
+  <g id="shoulder-vents">
+    <rect x="24" y="255" width="86" height="16" rx="8" fill="#FFB066" opacity=".38"/>
+    <rect x="24" y="281" width="86" height="16" rx="8" fill="#FFB066" opacity=".3"/>
+    <rect x="402" y="255" width="86" height="16" rx="8" fill="#FFB066" opacity=".38"/>
+    <rect x="402" y="281" width="86" height="16" rx="8" fill="#FFB066" opacity=".3"/>
+  </g>
+  <g id="legs">
+    <rect x="148" y="438" width="76" height="60" rx="22" fill="#6C879A" stroke="#3A5870" stroke-width="8"/>
+    <rect x="288" y="438" width="76" height="60" rx="22" fill="#6C879A" stroke="#3A5870" stroke-width="8"/>
+    <rect x="128" y="480" width="116" height="54" rx="18" fill="#4A6878" stroke="#3A5870" stroke-width="7"/>
+    <rect x="268" y="480" width="116" height="54" rx="18" fill="#4A6878" stroke="#3A5870" stroke-width="7"/>
+  </g>
+  <g id="body">
+    <rect x="90" y="148" width="332" height="300" rx="58" fill="#6C879A" stroke="#3A5870" stroke-width="10"/>
+    <path d="M108 156 L404 156 L418 186 L94 186 Z" fill="#4A6878" stroke="#3A5870" stroke-width="5"/>
+  </g>
+  <g id="chest-panel">
+    <rect x="116" y="186" width="280" height="256" rx="42" fill="#D7E2EA" stroke="#4A6878" stroke-width="7"/>
+    <circle cx="128" cy="200" r="11" fill="#6C879A" stroke="#3A5870" stroke-width="4"/>
+    <circle cx="384" cy="200" r="11" fill="#6C879A" stroke="#3A5870" stroke-width="4"/>
+    <circle cx="128" cy="434" r="11" fill="#6C879A" stroke="#3A5870" stroke-width="4"/>
+    <circle cx="384" cy="434" r="11" fill="#6C879A" stroke="#3A5870" stroke-width="4"/>
+  </g>
+  <g id="heat-bar">
+    <rect x="148" y="212" width="216" height="44" rx="22" fill="#3A5870" stroke="#2A4858" stroke-width="4"/>
+    <rect x="156" y="220" width="158" height="28" rx="14" fill="#FFB066"/>
+    <rect x="156" y="220" width="158" height="28" rx="14" fill="none" stroke="#FF8030" stroke-width="4" opacity=".6"/>
+    <rect x="148" y="212" width="216" height="44" rx="22" fill="none" stroke="#FFB066" stroke-width="5" opacity=".38"/>
+  </g>
+  <g id="eyes">
+    <rect x="140" y="278" width="96" height="84" rx="22" fill="#3A5870" stroke="#2A4858" stroke-width="8"/>
+    <rect x="276" y="278" width="96" height="84" rx="22" fill="#3A5870" stroke="#2A4858" stroke-width="8"/>
+    <rect x="148" y="286" width="80" height="68" rx="14" fill="#FFB066" opacity=".78"/>
+    <rect x="284" y="286" width="80" height="68" rx="14" fill="#FFB066" opacity=".78"/>
+    <circle cx="188" cy="320" r="24" fill="#FF8030"/>
+    <circle cx="324" cy="320" r="24" fill="#FF8030"/>
+    <circle cx="188" cy="320" r="14" fill="#FFD0A0"/>
+    <circle cx="324" cy="320" r="14" fill="#FFD0A0"/>
+    <rect x="140" y="278" width="96" height="84" rx="22" fill="none" stroke="#FFB066" stroke-width="6" opacity=".5"/>
+    <rect x="276" y="278" width="96" height="84" rx="22" fill="none" stroke="#FFB066" stroke-width="6" opacity=".5"/>
+  </g>
+  <g id="mouth">
+    <rect x="160" y="394" width="192" height="26" rx="13" fill="#3A5870" stroke="#2A4858" stroke-width="4"/>
+    <line x1="168" y1="407" x2="344" y2="407" stroke="#6C879A" stroke-width="6"/>
+  </g>
+  <g id="heat-shimmer">
+    <circle cx="76" cy="170" r="8" fill="#FFB066" opacity=".55"/>
+    <circle cx="438" cy="164" r="8" fill="#FFB066" opacity=".48"/>
+  </g>
 </svg>

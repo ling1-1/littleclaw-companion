@@ -1,24 +1,63 @@
-<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="spriteStarBg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(110 104) rotate(90) scale(82 78)">
-      <stop stop-color="#FFFDFE"/>
-      <stop offset="1" stop-color="#F1E9FF"/>
-    </radialGradient>
-    <linearGradient id="spriteStarBody" x1="110" y1="44" x2="110" y2="160" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#AB98FF"/>
-      <stop offset="1" stop-color="#6ED1FF"/>
-    </linearGradient>
-  </defs>
-  <ellipse cx="110" cy="184" rx="46" ry="12" fill="#D4C7FF" fill-opacity=".28"/>
-  <circle cx="110" cy="104" r="80" fill="url(#spriteStarBg)"/>
-  <path d="M57 110C76 78 93 68 108 68C99 90 97 118 101 145C81 141 66 130 57 110Z" fill="#CFC3FF" fill-opacity=".85"/>
-  <path d="M163 110C144 78 127 68 112 68C121 90 123 118 119 145C139 141 154 130 163 110Z" fill="#CFC3FF" fill-opacity=".85"/>
-  <path d="M79 62C79 38 94 26 110 26C126 26 141 38 141 62V88C141 111 126 127 110 127C94 127 79 111 79 88V62Z" fill="url(#spriteStarBody)" stroke="#6E6DDC" stroke-width="4"/>
-  <ellipse cx="110" cy="75" rx="28" ry="18" fill="#FDF9FF"/>
-  <rect x="88" y="123" width="44" height="36" rx="18" fill="#98D8FF" stroke="#6E6DDC" stroke-width="4"/>
-  <ellipse cx="110" cy="138" rx="18" ry="11" fill="#FFFAFF"/>
-  <circle cx="98" cy="77" r="6.2" fill="#2D2B3C"/>
-  <circle cx="122" cy="77" r="6.2" fill="#2D2B3C"/>
-  <path d="M101 91C104 96 116 96 119 91" stroke="#625A90" stroke-width="3" stroke-linecap="round"/>
-  <path d="M110 18L114 28L125 29L116 36L119 47L110 41L101 47L104 36L95 29L106 28L110 18Z" fill="#FFD369" stroke="#E7A64A" stroke-width="3" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- sprite-star: 星辉灵 | star stage | orbit ring, star crown, proud smart eyes, comet tail -->
+  <!-- animation anchors: #body (float), #eyes (blink), #orbit-ring (rotate), #star-crown (shimmer), #tail (sway), #orbit-nodes (twinkle) -->
+  <g id="orbit-ring">
+    <circle cx="256" cy="278" r="230" fill="none" stroke="#8D7BFF" stroke-width="4" opacity=".28" stroke-dasharray="16 24"/>
+    <circle cx="256" cy="48" r="16" fill="#FFE082" stroke="#C8A020" stroke-width="4"/>
+    <circle cx="486" cy="278" r="12" fill="#FFE082" stroke="#C8A020" stroke-width="3"/>
+    <circle cx="26" cy="278" r="12" fill="#FFE082" stroke="#C8A020" stroke-width="3"/>
+    <circle cx="420" cy="112" r="11" fill="#FFE082" opacity=".8"/>
+    <circle cx="92" cy="112" r="11" fill="#FFE082" opacity=".8"/>
+    <circle cx="420" cy="444" r="10" fill="#FFE082" opacity=".7"/>
+    <circle cx="92" cy="444" r="10" fill="#FFE082" opacity=".7"/>
+  </g>
+  <g id="rays">
+    <path d="M256 78 L264 118 L256 158 L248 118Z" fill="#FFE082" opacity=".7"/>
+    <path d="M56 278 L96 270 L136 278 L96 286Z" fill="#8D7BFF" opacity=".5"/>
+    <path d="M456 278 L416 270 L376 278 L416 286Z" fill="#8D7BFF" opacity=".5"/>
+    <path d="M110 148 L136 174 L128 214 L102 188Z" fill="#D9D0FF" opacity=".6"/>
+    <path d="M402 148 L376 174 L384 214 L410 188Z" fill="#D9D0FF" opacity=".6"/>
+    <path d="M72 196 L84 220 L72 244 L60 220Z" fill="#FFE082" opacity=".65"/>
+    <path d="M440 196 L452 220 L440 244 L428 220Z" fill="#FFE082" opacity=".6"/>
+  </g>
+  <g id="tail">
+    <path d="M256 448 Q218 492 224 528 Q256 510 288 528 Q294 492 256 448Z" fill="#8D7BFF" stroke="#5A48C0" stroke-width="6"/>
+    <path d="M242 462 Q224 494 228 516" stroke="#D9D0FF" stroke-width="4" fill="none" opacity=".7"/>
+    <path d="M256 468 L256 510" stroke="#FFE082" stroke-width="3" fill="none" opacity=".6"/>
+  </g>
+  <g id="body">
+    <circle cx="256" cy="278" r="166" fill="#8D7BFF" stroke="#5A48C0" stroke-width="9"/>
+    <circle cx="256" cy="252" r="112" fill="#D9D0FF" opacity=".42"/>
+    <ellipse cx="200" cy="218" rx="60" ry="40" fill="white" opacity=".22"/>
+  </g>
+  <g id="star-crown">
+    <path d="M256 114 L272 158 L318 158 L280 186 L296 232 L256 206 L216 232 L232 186 L194 158 L240 158Z" fill="#FFE082" stroke="#C8A020" stroke-width="5"/>
+  </g>
+  <g id="arms">
+    <path d="M96 282 Q48 252 28 202 Q56 244 92 268" fill="#8D7BFF" stroke="#5A48C0" stroke-width="6"/>
+    <path d="M416 282 Q464 252 484 202 Q456 244 420 268" fill="#8D7BFF" stroke="#5A48C0" stroke-width="6"/>
+  </g>
+  <g id="eyes">
+    <circle cx="196" cy="278" r="54" fill="white" stroke="#5A48C0" stroke-width="7"/>
+    <circle cx="316" cy="278" r="54" fill="white" stroke="#5A48C0" stroke-width="7"/>
+    <circle cx="200" cy="282" r="34" fill="#2A1878"/>
+    <circle cx="320" cy="282" r="34" fill="#2A1878"/>
+    <circle cx="200" cy="282" r="34" fill="none" stroke="#8D7BFF" stroke-width="6" opacity=".9"/>
+    <circle cx="320" cy="282" r="34" fill="none" stroke="#8D7BFF" stroke-width="6" opacity=".9"/>
+    <circle cx="200" cy="282" r="20" fill="none" stroke="#FFE082" stroke-width="3" opacity=".7"/>
+    <circle cx="320" cy="282" r="20" fill="none" stroke="#FFE082" stroke-width="3" opacity=".7"/>
+    <circle cx="212" cy="268" r="13" fill="white"/>
+    <circle cx="332" cy="268" r="13" fill="white"/>
+  </g>
+  <g id="brows">
+    <path d="M160 256 Q196 242 228 256" stroke="#5A48C0" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <path d="M352 256 Q316 242 284 256" stroke="#5A48C0" stroke-width="7" fill="none" stroke-linecap="round"/>
+  </g>
+  <g id="blush">
+    <ellipse cx="152" cy="316" rx="34" ry="20" fill="#B0A0FF" opacity=".4"/>
+    <ellipse cx="360" cy="316" rx="34" ry="20" fill="#B0A0FF" opacity=".4"/>
+  </g>
+  <g id="mouth">
+    <path d="M224 336 Q256 360 288 336" stroke="#5A48C0" stroke-width="8" fill="none" stroke-linecap="round"/>
+  </g>
 </svg>

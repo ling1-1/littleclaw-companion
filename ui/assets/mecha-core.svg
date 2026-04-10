@@ -1,31 +1,81 @@
-<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="mechaCoreBg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(110 104) rotate(90) scale(82 78)">
-      <stop stop-color="#F8FDFF"/>
-      <stop offset="1" stop-color="#DDECF7"/>
-    </radialGradient>
-    <linearGradient id="mechaCoreBody" x1="110" y1="34" x2="110" y2="172" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#7A9EBC"/>
-      <stop offset="1" stop-color="#365671"/>
-    </linearGradient>
-  </defs>
-  <ellipse cx="110" cy="184" rx="50" ry="12" fill="#B9CDD8" fill-opacity=".28"/>
-  <circle cx="110" cy="104" r="80" fill="url(#mechaCoreBg)"/>
-  <path d="M76 34H144L152 52V95C152 117 134 132 110 132C86 132 68 117 68 95V52L76 34Z" fill="url(#mechaCoreBody)" stroke="#314B62" stroke-width="4"/>
-  <rect x="83" y="104" width="54" height="52" rx="18" fill="#5F88A6" stroke="#314B62" stroke-width="4"/>
-  <circle cx="110" cy="129" r="10" fill="#A4F6FF"/>
-  <circle cx="110" cy="129" r="17" stroke="#A4F6FF" stroke-opacity=".45" stroke-width="3"/>
-  <path d="M38 99L76 110L60 128L31 114L38 99Z" fill="#3F6A8B"/>
-  <path d="M182 99L144 110L160 128L189 114L182 99Z" fill="#3F6A8B"/>
-  <rect x="50" y="110" width="30" height="8" rx="4" fill="#567D9C"/>
-  <rect x="140" y="110" width="30" height="8" rx="4" fill="#567D9C"/>
-  <rect x="87" y="154" width="7" height="22" rx="3.5" fill="#4A7696"/>
-  <rect x="100" y="154" width="7" height="22" rx="3.5" fill="#4A7696"/>
-  <rect x="113" y="154" width="7" height="22" rx="3.5" fill="#4A7696"/>
-  <rect x="126" y="154" width="7" height="22" rx="3.5" fill="#4A7696"/>
-  <circle cx="96" cy="66" r="6.8" fill="#17212B"/>
-  <circle cx="124" cy="66" r="6.8" fill="#17212B"/>
-  <rect x="98" y="80" width="24" height="4" rx="2" fill="#2A4254"/>
-  <path d="M88 34L95 19H125L132 34" stroke="#A7F1FF" stroke-width="4" stroke-linejoin="round"/>
-  <circle cx="110" cy="18" r="6" fill="#A7F1FF"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- mecha-core: 天穹核心 | core stage | orbital rings, central energy orb, diamond eyes, calm line mouth -->
+  <!-- animation anchors: #body (stable), #eyes (pulse), #orbit-rings (rotate), #energy-core (pulse), #halo-top (rotate), #halo-sides (rotate) -->
+  <g id="orbit-rings-outer">
+    <circle cx="256" cy="278" r="240" fill="none" stroke="#5E768A" stroke-width="4" opacity=".18"/>
+    <circle cx="256" cy="278" r="210" fill="none" stroke="#79D9FF" stroke-width="5" opacity=".22"/>
+    <circle cx="256" cy="278" r="182" fill="none" stroke="#5E768A" stroke-width="6" opacity=".28"/>
+    <circle cx="256" cy="38" r="16" fill="#79D9FF" stroke="#3AAAC8" stroke-width="5"/>
+    <circle cx="494" cy="266" r="14" fill="#F2FBFF" opacity=".8"/>
+    <circle cx="18" cy="266" r="14" fill="#F2FBFF" opacity=".8"/>
+    <circle cx="432" cy="100" r="12" fill="#79D9FF" opacity=".7"/>
+    <circle cx="80" cy="100" r="12" fill="#79D9FF" opacity=".7"/>
+    <circle cx="432" cy="456" r="12" fill="#5E768A" opacity=".6"/>
+    <circle cx="80" cy="456" r="12" fill="#5E768A" opacity=".6"/>
+  </g>
+  <g id="halo-top">
+    <ellipse cx="256" cy="106" rx="108" ry="30" fill="none" stroke="#79D9FF" stroke-width="10"/>
+    <ellipse cx="256" cy="106" rx="108" ry="30" fill="none" stroke="#F2FBFF" stroke-width="4" opacity=".5"/>
+    <circle cx="148" cy="106" r="12" fill="#79D9FF"/>
+    <circle cx="364" cy="106" r="12" fill="#79D9FF"/>
+  </g>
+  <g id="halo-sides">
+    <ellipse cx="64" cy="278" rx="24" ry="86" fill="none" stroke="#79D9FF" stroke-width="8"/>
+    <ellipse cx="448" cy="278" rx="24" ry="86" fill="none" stroke="#79D9FF" stroke-width="8"/>
+    <circle cx="64" cy="192" r="12" fill="#79D9FF"/>
+    <circle cx="64" cy="364" r="12" fill="#79D9FF"/>
+    <circle cx="448" cy="192" r="12" fill="#79D9FF"/>
+    <circle cx="448" cy="364" r="12" fill="#79D9FF"/>
+  </g>
+  <g id="legs">
+    <rect x="158" y="428" width="64" height="66" rx="22" fill="#5E768A" stroke="#3A5870" stroke-width="8"/>
+    <rect x="290" y="428" width="64" height="66" rx="22" fill="#5E768A" stroke="#3A5870" stroke-width="8"/>
+    <rect x="132" y="474" width="116" height="52" rx="22" fill="#3A5870" stroke="#2A4050" stroke-width="7"/>
+    <rect x="264" y="474" width="116" height="52" rx="22" fill="#3A5870" stroke="#2A4050" stroke-width="7"/>
+    <circle cx="190" cy="432" r="20" fill="#79D9FF" stroke="#3A5870" stroke-width="6"/>
+    <circle cx="322" cy="432" r="20" fill="#79D9FF" stroke="#3A5870" stroke-width="6"/>
+  </g>
+  <g id="body">
+    <rect x="82" y="148" width="348" height="294" rx="80" fill="#5E768A" stroke="#3A5870" stroke-width="10"/>
+    <path d="M104 160 L408 160 L422 196 L90 196 Z" fill="#3A5870" stroke="#2A4050" stroke-width="5"/>
+  </g>
+  <g id="chest-panel">
+    <rect x="110" y="196" width="292" height="240" rx="48" fill="#F2FBFF" stroke="#5A7898" stroke-width="7"/>
+    <circle cx="124" cy="212" r="10" fill="#5E768A" stroke="#3A5870" stroke-width="4"/>
+    <circle cx="388" cy="212" r="10" fill="#5E768A" stroke="#3A5870" stroke-width="4"/>
+    <circle cx="124" cy="428" r="10" fill="#5E768A" stroke="#3A5870" stroke-width="4"/>
+    <circle cx="388" cy="428" r="10" fill="#5E768A" stroke="#3A5870" stroke-width="4"/>
+  </g>
+  <g id="energy-core">
+    <circle cx="256" cy="316" rx="92" ry="92" r="92" fill="#3A5870" stroke="#79D9FF" stroke-width="8"/>
+    <circle cx="256" cy="316" r="74" fill="#79D9FF" opacity=".22"/>
+    <circle cx="256" cy="316" r="56" fill="#79D9FF" opacity=".38"/>
+    <circle cx="256" cy="316" r="36" fill="#F2FBFF" opacity=".78"/>
+    <circle cx="256" cy="316" r="20" fill="white"/>
+    <circle cx="256" cy="316" r="92" fill="none" stroke="#79D9FF" stroke-width="6" opacity=".6"/>
+    <circle cx="256" cy="316" r="64" fill="none" stroke="#F2FBFF" stroke-width="4" opacity=".5"/>
+    <!-- rays -->
+    <path d="M256 224 L256 240" stroke="#79D9FF" stroke-width="8" stroke-linecap="round"/>
+    <path d="M256 392 L256 408" stroke="#79D9FF" stroke-width="8" stroke-linecap="round"/>
+    <path d="M164 316 L180 316" stroke="#79D9FF" stroke-width="8" stroke-linecap="round"/>
+    <path d="M332 316 L348 316" stroke="#79D9FF" stroke-width="8" stroke-linecap="round"/>
+    <path d="M191 251 L203 263" stroke="#79D9FF" stroke-width="6" stroke-linecap="round"/>
+    <path d="M309 369 L321 381" stroke="#79D9FF" stroke-width="6" stroke-linecap="round"/>
+    <path d="M321 251 L309 263" stroke="#79D9FF" stroke-width="6" stroke-linecap="round"/>
+    <path d="M203 369 L191 381" stroke="#79D9FF" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <g id="eyes">
+    <rect x="136" y="214" width="92" height="70" rx="22" fill="#3A5870" stroke="#2A4050" stroke-width="8"/>
+    <rect x="284" y="214" width="92" height="70" rx="22" fill="#3A5870" stroke="#2A4050" stroke-width="8"/>
+    <polygon points="182,228 198,249 182,270 166,249" fill="#79D9FF"/>
+    <polygon points="330,228 346,249 330,270 314,249" fill="#79D9FF"/>
+    <circle cx="182" cy="249" r="14" fill="#F2FBFF"/>
+    <circle cx="330" cy="249" r="14" fill="#F2FBFF"/>
+    <rect x="136" y="214" width="92" height="70" rx="22" fill="none" stroke="#79D9FF" stroke-width="6" opacity=".5"/>
+    <rect x="284" y="214" width="92" height="70" rx="22" fill="none" stroke="#79D9FF" stroke-width="6" opacity=".5"/>
+  </g>
+  <g id="mouth">
+    <rect x="196" y="430" width="120" height="22" rx="11" fill="#3A5870" stroke="#2A4050" stroke-width="4"/>
+    <line x1="204" y1="441" x2="308" y2="441" stroke="#79D9FF" stroke-width="6" opacity=".8"/>
+  </g>
 </svg>

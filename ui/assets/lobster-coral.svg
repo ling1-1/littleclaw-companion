@@ -1,31 +1,56 @@
-<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="116" height="136" viewBox="0 0 116 136">
   <defs>
-    <radialGradient id="g1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(110 104) rotate(90) scale(84 80)">
-      <stop stop-color="#FFF8F4"/>
-      <stop offset="1" stop-color="#FFE2D8"/>
+    <radialGradient id="cg-body" cx="42%" cy="38%" r="58%">
+      <stop offset="0%" stop-color="#FFB090"/>
+      <stop offset="100%" stop-color="#E86850"/>
     </radialGradient>
-    <linearGradient id="shell" x1="110" y1="44" x2="110" y2="176" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFAE94"/>
-      <stop offset="1" stop-color="#FF866E"/>
-    </linearGradient>
+    <radialGradient id="cg-belly" cx="50%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#FFE4D4"/>
+      <stop offset="100%" stop-color="#FFD8C8"/>
+    </radialGradient>
   </defs>
-  <ellipse cx="110" cy="184" rx="50" ry="13" fill="#F6B29A" fill-opacity=".24"/>
-  <circle cx="110" cy="104" r="82" fill="url(#g1)"/>
-  <path d="M91 46L100 34L108 48" stroke="#FFC9B0" stroke-width="6" stroke-linecap="round"/>
-  <path d="M129 46L120 34L112 48" stroke="#FFC9B0" stroke-width="6" stroke-linecap="round"/>
-  <path d="M80 66C80 40 95 26 110 26C125 26 140 40 140 66V82C140 102 125 116 110 116C95 116 80 102 80 82V66Z" fill="url(#shell)" stroke="#E87561" stroke-width="4"/>
-  <ellipse cx="110" cy="78" rx="28" ry="19" fill="#FFE8DE"/>
-  <rect x="82" y="110" width="56" height="40" rx="20" fill="#FF8A71" stroke="#E87561" stroke-width="4"/>
-  <ellipse cx="110" cy="129" rx="22" ry="13" fill="#FFF0E8"/>
-  <rect x="57" y="114" width="24" height="8" rx="4" fill="#F97C63"/>
-  <rect x="139" y="114" width="24" height="8" rx="4" fill="#F97C63"/>
-  <path d="M39 104C52 98 62 102 68 113C58 122 46 122 36 114C36 108 37 106 39 104Z" fill="#F16754"/>
-  <path d="M181 104C168 98 158 102 152 113C162 122 174 122 184 114C184 108 183 106 181 104Z" fill="#F16754"/>
-  <rect x="90" y="148" width="5.5" height="25" rx="2.75" fill="#F57F62"/>
-  <rect x="102" y="151" width="5.5" height="22" rx="2.75" fill="#F57F62"/>
-  <rect x="113" y="151" width="5.5" height="22" rx="2.75" fill="#F57F62"/>
-  <rect x="125" y="148" width="5.5" height="25" rx="2.75" fill="#F57F62"/>
-  <ellipse cx="98" cy="79" rx="5.5" ry="7.5" fill="#312727"/>
-  <ellipse cx="122" cy="79" rx="5.5" ry="7.5" fill="#312727"/>
-  <path d="M101 91C105 96 115 96 119 91" stroke="#674946" stroke-width="3.2" stroke-linecap="round"/>
+  <ellipse cx="58" cy="80" rx="40" ry="38" fill="#FF8F73" opacity=".1"/>
+  <!-- antennae with coral balls + wisps -->
+  <path d="M44 44 Q34 26 28 12" stroke="#E07060" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M72 44 Q82 26 88 12" stroke="#E07060" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="27" cy="11" r="5" fill="#FFB199" stroke="#FF8F73" stroke-width="1.5"/>
+  <circle cx="89" cy="11" r="5" fill="#FFB199" stroke="#FF8F73" stroke-width="1.5"/>
+  <!-- coral feeler wisps -->
+  <path d="M27 11 Q20 6 16 4" stroke="#FFD8CB" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M27 11 Q18 12 15 16" stroke="#FFD8CB" stroke-width="1" fill="none" stroke-linecap="round"/>
+  <path d="M89 11 Q96 6 100 4" stroke="#FFD8CB" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M89 11 Q98 12 101 16" stroke="#FFD8CB" stroke-width="1" fill="none" stroke-linecap="round"/>
+  <!-- legs -->
+  <path d="M34 86 Q22 94 17 104" stroke="#D87060" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M36 95 Q24 104 21 115" stroke="#D87060" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M82 86 Q94 94 99 104" stroke="#D87060" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M80 95 Q92 104 95 115" stroke="#D87060" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- claws bigger + segment -->
+  <path d="M34 65 Q18 57 10 53" stroke="#E07060" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+  <ellipse cx="7" cy="51" rx="13" ry="9.5" fill="url(#cg-body)" stroke="#C06040" stroke-width="1.5"/>
+  <path d="M3 46 Q7 42 12 45" stroke="#C06040" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M2 56 Q7 60 12 57" stroke="#C06040" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M82 65 Q98 57 106 53" stroke="#E07060" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+  <ellipse cx="109" cy="51" rx="13" ry="9.5" fill="url(#cg-body)" stroke="#C06040" stroke-width="1.5"/>
+  <path d="M113 46 Q109 42 104 45" stroke="#C06040" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M114 56 Q109 60 104 57" stroke="#C06040" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <!-- body longer -->
+  <ellipse cx="58" cy="80" rx="29" ry="31" fill="url(#cg-body)"/>
+  <ellipse cx="58" cy="88" rx="18" ry="20" fill="url(#cg-belly)"/>
+  <!-- shell -->
+  <path d="M32 68 Q58 42 84 68" fill="#D87060" stroke="none"/>
+  <path d="M36 63 Q58 44 80 63" fill="#C86050" stroke="none"/>
+  <path d="M42 55 Q58 48 74 55" stroke="#F0A080" stroke-width="1.5" fill="none" opacity=".7" stroke-linecap="round"/>
+  <!-- eyes sparkly -->
+  <circle cx="47" cy="70" r="9" fill="white" stroke="#D87060" stroke-width="1"/>
+  <circle cx="69" cy="70" r="9" fill="white" stroke="#D87060" stroke-width="1"/>
+  <circle cx="48" cy="71" r="5.5" fill="#2A1008"/>
+  <circle cx="70" cy="71" r="5.5" fill="#2A1008"/>
+  <circle cx="49.5" cy="69" r="2.2" fill="white"/>
+  <circle cx="71.5" cy="69" r="2.2" fill="white"/>
+  <circle cx="51" cy="73" r="1" fill="white" opacity=".6"/>
+  <circle cx="73" cy="73" r="1" fill="white" opacity=".6"/>
+  <ellipse cx="39" cy="79" rx="6" ry="4" fill="#F0A880" opacity=".5"/>
+  <ellipse cx="77" cy="79" rx="6" ry="4" fill="#F0A880" opacity=".5"/>
+  <path d="M52 84 Q58 89 64 84" stroke="#C86050" stroke-width="2" fill="none" stroke-linecap="round"/>
 </svg>

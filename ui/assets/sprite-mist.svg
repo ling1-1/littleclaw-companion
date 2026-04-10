@@ -1,24 +1,52 @@
-<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="spriteMistBg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(110 104) rotate(90) scale(82 78)">
-      <stop stop-color="#FFFDFE"/>
-      <stop offset="1" stop-color="#ECECFF"/>
-    </radialGradient>
-    <linearGradient id="spriteMistBody" x1="110" y1="48" x2="110" y2="158" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#BDAAFF"/>
-      <stop offset="1" stop-color="#82C6FF"/>
-    </linearGradient>
-  </defs>
-  <ellipse cx="110" cy="184" rx="44" ry="12" fill="#D9D3FF" fill-opacity=".28"/>
-  <circle cx="110" cy="104" r="80" fill="url(#spriteMistBg)"/>
-  <path d="M62 109C78 80 95 71 108 71C99 91 95 115 99 141C82 137 70 126 62 109Z" fill="#D0C7FF" fill-opacity=".82"/>
-  <path d="M158 109C142 80 125 71 112 71C121 91 125 115 121 141C138 137 150 126 158 109Z" fill="#D0C7FF" fill-opacity=".82"/>
-  <path d="M80 66C80 42 94 30 110 30C126 30 140 42 140 66V88C140 109 126 124 110 124C94 124 80 109 80 88V66Z" fill="url(#spriteMistBody)" stroke="#7A7BE3" stroke-width="4"/>
-  <ellipse cx="110" cy="77" rx="27" ry="18" fill="#FAF6FF"/>
-  <rect x="89" y="121" width="42" height="34" rx="17" fill="#A4D0FF" stroke="#7A7BE3" stroke-width="4"/>
-  <ellipse cx="110" cy="136" rx="17" ry="11" fill="#FFF9FF"/>
-  <circle cx="98" cy="78" r="6" fill="#2D2B3C"/>
-  <circle cx="122" cy="78" r="6" fill="#2D2B3C"/>
-  <path d="M101 91C104 96 116 96 119 91" stroke="#645D90" stroke-width="3" stroke-linecap="round"/>
-  <path d="M100 34L106 24L110 32L114 24L120 34" stroke="#B193FF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- sprite-mist: 雾光灵 | mist stage | flowing skirt body, calm eyes, mist wisps -->
+  <!-- animation anchors: #body (float), #eyes (blink), #skirt (sway), #wisps (drift), #sparkles (twinkle) -->
+  <g id="aura">
+    <circle cx="256" cy="260" r="220" fill="#EEE8FF" opacity=".15"/>
+  </g>
+  <g id="sparkles">
+    <circle cx="100" cy="180" r="10" fill="#A993FF" opacity=".7"/>
+    <circle cx="412" cy="150" r="8" fill="#D6CCFF" opacity=".65"/>
+    <circle cx="60" cy="320" r="8" fill="#A993FF" opacity=".5"/>
+    <circle cx="452" cy="340" r="7" fill="#D6CCFF" opacity=".55"/>
+    <path d="M60 240 L68 260 L60 280 L52 260Z" fill="#A993FF" opacity=".55"/>
+    <path d="M452 230 L460 250 L452 270 L444 250Z" fill="#D6CCFF" opacity=".5"/>
+  </g>
+  <g id="skirt">
+    <path d="M130 370 Q88 450 106 510 Q164 480 190 510 Q224 482 256 506 Q288 482 322 510 Q348 480 406 510 Q424 450 382 370Z" fill="#A993FF" stroke="#7A68D8" stroke-width="6" opacity=".88"/>
+    <path d="M152 382 Q132 444 138 482" stroke="#D6CCFF" stroke-width="5" fill="none" opacity=".6"/>
+    <path d="M256 386 Q250 450 254 480" stroke="#D6CCFF" stroke-width="5" fill="none" opacity=".6"/>
+    <path d="M360 382 Q380 444 374 482" stroke="#D6CCFF" stroke-width="5" fill="none" opacity=".6"/>
+    <path d="M124 430 Q190 450 256 446 Q322 450 388 430" stroke="#D6CCFF" stroke-width="4" fill="none" opacity=".4"/>
+  </g>
+  <g id="body">
+    <circle cx="256" cy="258" r="160" fill="#A993FF" stroke="#7A68D8" stroke-width="8"/>
+    <circle cx="256" cy="232" r="108" fill="#EEE8FF" opacity=".48"/>
+    <ellipse cx="206" cy="206" rx="52" ry="36" fill="white" opacity=".22"/>
+  </g>
+  <g id="arms">
+    <path d="M100 268 Q60 238 40 196 Q64 224 100 248" fill="#A993FF" stroke="#7A68D8" stroke-width="6"/>
+    <path d="M412 268 Q452 238 472 196 Q448 224 412 248" fill="#A993FF" stroke="#7A68D8" stroke-width="6"/>
+  </g>
+  <g id="eyes">
+    <circle cx="204" cy="258" r="52" fill="white" stroke="#7A68D8" stroke-width="6"/>
+    <circle cx="308" cy="258" r="52" fill="white" stroke="#7A68D8" stroke-width="6"/>
+    <circle cx="208" cy="262" r="32" fill="#3A2878"/>
+    <circle cx="312" cy="262" r="32" fill="#3A2878"/>
+    <circle cx="208" cy="262" r="32" fill="none" stroke="#A993FF" stroke-width="5" opacity=".8"/>
+    <circle cx="312" cy="262" r="32" fill="none" stroke="#A993FF" stroke-width="5" opacity=".8"/>
+    <circle cx="220" cy="248" r="12" fill="white"/>
+    <circle cx="324" cy="248" r="12" fill="white"/>
+  </g>
+  <g id="blush">
+    <ellipse cx="158" cy="304" rx="30" ry="18" fill="#C0A8FF" opacity=".4"/>
+    <ellipse cx="354" cy="304" rx="30" ry="18" fill="#C0A8FF" opacity=".4"/>
+  </g>
+  <g id="mouth">
+    <path d="M228 316 Q256 340 284 316" stroke="#7A68D8" stroke-width="7" fill="none" stroke-linecap="round"/>
+  </g>
+  <g id="wisps">
+    <path d="M96 220 Q60 180 44 140 Q60 170 88 194" fill="#A993FF" stroke="#7A68D8" stroke-width="5" opacity=".7"/>
+    <path d="M416 220 Q452 180 468 140 Q452 170 424 194" fill="#A993FF" stroke="#7A68D8" stroke-width="5" opacity=".7"/>
+  </g>
 </svg>

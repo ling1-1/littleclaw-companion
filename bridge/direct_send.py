@@ -31,6 +31,14 @@ def js_source(text: str, files: Optional[List[dict]] = None) -> str:
     }}) || null;
   }};
 
+  const findAttachButton = () => {{
+    const buttons = Array.from(document.querySelectorAll("button"));
+    return buttons.find((button) => {{
+      const label = (button.getAttribute("aria-label") || button.getAttribute("title") || button.textContent || "").trim();
+      return /attach|file|upload|附件|文件|上传|paperclip|clip/i.test(label);
+    }}) || null;
+  }};
+
   const findFileInput = () => document.querySelector('input[type="file"]');
 
   const base64ToUint8Array = (b64) => {{
@@ -42,7 +50,12 @@ def js_source(text: str, files: Optional[List[dict]] = None) -> str:
 
   const attachFiles = (specs) => {{
     if (!Array.isArray(specs) || !specs.length) return "NO_FILES";
-    const input = findFileInput();
+    let input = findFileInput();
+    if (!input) {{
+      const attachButton = findAttachButton();
+      if (attachButton) attachButton.click();
+      input = findFileInput();
+    }}
     if (!input) return "NO_FILE_INPUT";
     const transfer = new DataTransfer();
     for (const spec of specs) {{
@@ -173,4 +186,3 @@ def send_to_openclaw(text: str, files: Optional[List[dict]] = None) -> str:
         if result not in ("NO_WINDOW", "NO_TAB", ""):
             return result
     return "NO_OPENCLAW_TAB"
-

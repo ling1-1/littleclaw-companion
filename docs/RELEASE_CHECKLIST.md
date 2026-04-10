@@ -12,12 +12,14 @@
 - Confirm screenshot / file staging still works after install
 - Confirm direct send still works against current OpenClaw chat
 - Confirm reply capture still waits for final assistant summary
+- Confirm work buttons stay clickable while waiting for a real OpenClaw reply
 
 ## Open-Source Hygiene
 
 - Remove or ignore local backup files
 - Ignore `.venv/`, `__pycache__/`, and generated Python caches
 - Document any remaining developer-only scripts
+- Decide whether `debug_ui_enabled` should be `false` for the release runtime config while keeping local debug tools available
 - Avoid introducing personal absolute paths into distributable modules
 - Keep local-only experiments out of the release path
 

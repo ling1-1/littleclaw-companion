@@ -4,6 +4,11 @@
   "rarity_pool": ["rare", "epic", "legendary", "mythic"],
   "default_names": ["小岚", "流光", "雾芽", "绒星"],
   "traits": ["灵动", "提醒感强", "偏观察", "偏总结"],
+  "roles": [
+    { "id": "watcher", "title": "观察者", "presence": "偏感知和提醒，适合帮你发现细节与异常。" },
+    { "id": "guide", "title": "引路灵", "presence": "偏整理思路，适合把零散线索串成方向。" },
+    { "id": "oracle", "title": "灵感使", "presence": "偏总结和洞察，适合陪你做判断与收束。" }
+  ],
   "stages": [
     {
       "id": "seed",

@@ -55,6 +55,28 @@ copy_tree "$ROOT_DIR/docs" "$PKG_DIR/docs"
 rm -f "$PKG_DIR/installer/package-release.sh"
 rm -f "$ARCHIVE_PATH"
 
+python3 - <<'PY' "$PKG_DIR/runtime_config.py"
+from pathlib import Path
+import re
+import sys
+
+path = Path(sys.argv[1])
+text = path.read_text(encoding="utf-8")
+if "debug_ui_enabled" not in text:
+    text = text.replace(
+        '        "companion_compact_height": companion_compact_height,',
+        '        "companion_compact_height": companion_compact_height,\n'
+        '        "debug_ui_enabled": False,',
+    )
+else:
+    text = re.sub(
+        r'"debug_ui_enabled":\s*debug_ui_enabled,',
+        '"debug_ui_enabled": False,',
+        text,
+    )
+path.write_text(text, encoding="utf-8")
+PY
+
 (
   cd "$DIST_DIR"
   tar -czf "$ARCHIVE_PATH" "$PKG_NAME"

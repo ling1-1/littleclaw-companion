@@ -6,9 +6,12 @@ import os
 import re
 import signal
 import subprocess
+import shutil
+import socket
 import threading
 import time
 import traceback
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from tempfile import NamedTemporaryFile
@@ -40,6 +43,7 @@ from AppKit import (
 from Foundation import NSObject, NSTimer, NSURL
 from WebKit import WebView
 from runtime_config import load_runtime_config
+from core.pet_core import PetRuntime
 
 RUNTIME = load_runtime_config()
 PET_API = f"{RUNTIME['pet_api_base']}/pet"
@@ -51,19 +55,41 @@ STATE_DIR = RUNTIME["openclaw_home"] / "workspace" / "memory"
 POSITION_FILE = STATE_DIR / "companion-position.json"
 PID_FILE = Path("/tmp/littleclaw-companion.pid")
 LOG_FILE = Path("/tmp/littleclaw-webview.log")
+DEBUG_TOOL_LOG = Path("/tmp/littleclaw-debug-tool.log")
 LEARNING_REQ_DIR = STATE_DIR.parent / "learning-lab" / "requests"
 LEARNING_SHOT_DIR = STATE_DIR.parent / "learning-lab" / "screenshots"
 LEARNING_RESULT_DIR = STATE_DIR.parent / "learning-lab" / "results"
 SESSION_DIR = RUNTIME["openclaw_home"] / "agents" / "main" / "sessions"
 UI_DIR = RUNTIME["ui_root"]
+DEBUG_TOOL = Path(__file__).resolve().parent / "pet_debug_tool.py"
+DEBUG_SERVER = Path(__file__).resolve().parent / "pet_debug_server.py"
+DEBUG_HOST = "127.0.0.1"
+DEBUG_PORT = 18796
+DEBUG_URL = f"http://{DEBUG_HOST}:{DEBUG_PORT}/"
 
-C_COLLAPSED_W = 188
-C_COLLAPSED_H = 116
+C_COLLAPSED_W = 196
+C_COLLAPSED_H = 132
 COLLAPSED_W = C_COLLAPSED_W
 COLLAPSED_H = C_COLLAPSED_H
-EXPANDED_W = 420
-EXPANDED_W = 468
-EXPANDED_H = 780
+EXPANDED_W = 520
+EXPANDED_H = 940
+DEBUG_W = 336
+DEBUG_H = 404
+
+PRESET_ROOT = Path(RUNTIME["presets_home"])
+FALLBACK_PRESET_ROOT = Path(__file__).resolve().parent / "presets"
+PET_STATE_FILE = STATE_DIR / "pet-state.json"
+PET_INSTALL_FILE = STATE_DIR / "pet-install-id.txt"
+PET_RUNTIME = PetRuntime(
+    state_file=PET_STATE_FILE,
+    install_seed_file=PET_INSTALL_FILE,
+    preset_root=PRESET_ROOT,
+    fallback_preset_root=FALLBACK_PRESET_ROOT,
+)
+
+
+def pet_name(pet: Optional[dict], fallback: str = "当前伙伴") -> str:
+    return str((pet or {}).get("name") or fallback)
 
 
 def log(message: str):
@@ -85,19 +111,36 @@ def build_send_payload(text: str, files: Optional[List[dict]] = None) -> str:
     normalized = []
     for item in files or []:
         path = str(item.get("path") or "").strip()
-        if not path:
-            continue
-        file_path = Path(path)
-        if not file_path.exists() or not file_path.is_file():
-            continue
-        try:
-            raw = file_path.read_bytes()
-        except Exception:
-            continue
-        mime, _ = mimetypes.guess_type(file_path.name)
+        inline_data = str(item.get("data") or "").strip()
+        mime = str(item.get("mime") or "").strip()
+        if inline_data:
+            if inline_data.startswith("data:"):
+                try:
+                    header, encoded = inline_data.split(",", 1)
+                    mime = mime or header.split(";")[0].split(":", 1)[1]
+                    raw = base64.b64decode(encoded)
+                except Exception:
+                    continue
+            else:
+                try:
+                    raw = base64.b64decode(inline_data)
+                except Exception:
+                    continue
+        else:
+            if not path:
+                continue
+            file_path = Path(path)
+            if not file_path.exists() or not file_path.is_file():
+                continue
+            try:
+                raw = file_path.read_bytes()
+            except Exception:
+                continue
+            guessed_mime, _ = mimetypes.guess_type(file_path.name)
+            mime = mime or guessed_mime or "application/octet-stream"
         normalized.append(
             {
-                "name": item.get("name") or file_path.name,
+                "name": item.get("name") or (Path(path).name if path else f"clipboard-{len(normalized)+1}.png"),
                 "path": path,
                 "mime": mime or "application/octet-stream",
                 "data": base64.b64encode(raw).decode("ascii"),
@@ -133,12 +176,57 @@ def build_agent_prompt(kind: str, request_path: str, topic: str, goal: str, body
     )
     return (
         f"{header}\n\n"
-        f"请求文件：{request_path}\n"
         f"主题：{topic}\n"
         f"目标：{goal}\n\n"
         f"请求正文如下：\n\n{body}\n\n"
         "请先基于这份请求继续处理，不要只重复它。"
     )
+
+
+def materialize_asset_refs(files: Optional[List[dict]] = None) -> List[dict]:
+    refs = []
+    asset_dir = LEARNING_REQ_DIR / "inline-assets"
+    asset_dir.mkdir(parents=True, exist_ok=True)
+    for index, item in enumerate(files or [], start=1):
+        path = str((item or {}).get("path") or "").strip()
+        name = str((item or {}).get("name") or "").strip() or f"asset-{index}"
+        mime = str((item or {}).get("mime") or "").strip() or "application/octet-stream"
+        resolved = ""
+        if path:
+            file_path = Path(path)
+            if file_path.exists() and file_path.is_file():
+                resolved = str(file_path)
+        elif (item or {}).get("data"):
+            inline_data = str(item.get("data") or "").strip()
+            try:
+                if inline_data.startswith("data:"):
+                    header, encoded = inline_data.split(",", 1)
+                    mime = mime or header.split(";")[0].split(":", 1)[1]
+                    raw = base64.b64decode(encoded)
+                else:
+                    raw = base64.b64decode(inline_data)
+            except Exception:
+                continue
+            suffix = Path(name).suffix or mimetypes.guess_extension(mime) or ".bin"
+            target = asset_dir / f"{datetime.now().strftime('%Y%m%d-%H%M%S')}-{uuid.uuid4().hex[:6]}{suffix}"
+            try:
+                target.write_bytes(raw)
+                resolved = str(target)
+            except Exception:
+                continue
+        if resolved:
+            refs.append({"name": name, "path": resolved, "mime": mime})
+    return refs
+
+
+def build_asset_reference_block(files: Optional[List[dict]] = None) -> str:
+    refs = materialize_asset_refs(files)
+    if not refs:
+        return ""
+    lines = ["附带参考文件（如果网页附件没有挂上，请直接读取这些本地文件）:"]
+    for ref in refs:
+        lines.append(f"- {ref['name']}: {ref['path']}")
+    return "\n".join(lines)
 
 
 def utc_now() -> datetime:
@@ -267,7 +355,10 @@ class CompanionController(NSObject):
         self.webView = None
         self.rootView = None
         self.dragView = None
+        self.debugWindow = None
+        self.debugWebView = None
         self.pageReady = False
+        self.debugPageReady = False
         self.pet = {}
         self.hoverTicks = 0
         self.leaveTicks = 0
@@ -277,6 +368,8 @@ class CompanionController(NSObject):
         self.pendingReply = False
         self.pendingAction = ""
         self.stagedScreenshots = []
+        self.debugPinned = False
+        self.lastDebugRefreshAt = 0.0
         LEARNING_RESULT_DIR.mkdir(parents=True, exist_ok=True)
         return self
 
@@ -284,7 +377,9 @@ class CompanionController(NSObject):
         log("applicationDidFinishLaunching")
         self.buildStatusItem()
         self.buildWindow()
+        self.buildDebugWindow()
         self.loadPage()
+        self.loadDebugPage()
         self.refresh_(None)
         self.showWindow_()
         NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(10.0, self, "refresh:", None, True)
@@ -295,10 +390,37 @@ class CompanionController(NSObject):
         self.statusItem = NSStatusBar.systemStatusBar().statusItemWithLength_(NSVariableStatusItemLength)
         button = self.statusItem.button()
         if button is not None:
-            button.setTitle_("🦞 小钳")
+            button.setTitle_("🦞 LittleClaw")
             button.setToolTip_("LittleClaw Companion")
             button.setTarget_(self)
             button.setAction_("toggleWindow:")
+
+    @objc.python_method
+    def display_emoji_for_pet(self, pet):
+        species = str((pet or {}).get("species_id") or "lobster")
+        explicit = str((pet or {}).get("emoji") or "").strip()
+        fallback = {
+            "lobster": "🦞",
+            "sprite": "✨",
+            "mecha": "🤖",
+        }.get(species, "🦞")
+        if explicit and explicit != "🦞":
+            return explicit
+        return fallback
+
+    @objc.python_method
+    def refresh_window_titles(self):
+        pet = self.pet or {}
+        name = str(pet.get("name") or "LittleClaw")
+        stage = str(pet.get("stage_title") or pet.get("species_title") or "").strip()
+        emoji = self.display_emoji_for_pet(pet)
+        if self.statusItem and self.statusItem.button() is not None:
+            self.statusItem.button().setTitle_(f"{emoji} {name}")
+            tooltip = f"{name} · {stage}" if stage else name
+            self.statusItem.button().setToolTip_(tooltip)
+        if self.window is not None:
+            title = f"{name} · {stage}" if stage else name
+            self.window.setTitle_(title)
 
     @objc.python_method
     def buildWindow(self):
@@ -332,12 +454,55 @@ class CompanionController(NSObject):
         self.window.setContentView_(self.rootView)
 
     @objc.python_method
+    def buildDebugWindow(self):
+        frame = self.default_frame(DEBUG_W, DEBUG_H)
+        self.debugWindow = KeyablePanel.alloc().initWithContentRect_styleMask_backing_defer_(
+            frame, NSWindowStyleMaskBorderless, NSBackingStoreBuffered, False
+        )
+        self.debugWindow.setTitle_("LittleClaw Debug")
+        self.debugWindow.setFloatingPanel_(True)
+        self.debugWindow.setLevel_(NSFloatingWindowLevel)
+        self.debugWindow.setOpaque_(False)
+        self.debugWindow.setBackgroundColor_(NSColor.clearColor())
+        self.debugWindow.setHasShadow_(True)
+        self.debugWindow.setHidesOnDeactivate_(False)
+        self.debugWindow.setReleasedWhenClosed_(False)
+        self.debugWindow.setBecomesKeyOnlyIfNeeded_(False)
+        self.debugWindow.setCollectionBehavior_(
+            NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary
+        )
+        root = NSView.alloc().initWithFrame_(NSMakeRect(0, 0, DEBUG_W, DEBUG_H))
+        self.debugWebView = WebView.alloc().initWithFrame_frameName_groupName_(NSMakeRect(0, 0, DEBUG_W, DEBUG_H), None, None)
+        self.debugWebView.setFrameLoadDelegate_(self)
+        self.debugWebView.setPolicyDelegate_(self)
+        self.debugWebView.setDrawsBackground_(False)
+        root.addSubview_(self.debugWebView)
+        self.debugWindow.setContentView_(root)
+
+    @objc.python_method
     def loadPage(self):
         html = (UI_DIR / "index.html").read_text(encoding="utf-8")
+        debug_boot = f"<script>window.LITTLECLAW_DEBUG_ENABLED = {'true' if bool(RUNTIME.get('debug_ui_enabled', True)) else 'false'};</script>"
+        if "</head>" in html:
+            html = html.replace("</head>", f"{debug_boot}</head>", 1)
+        else:
+            html = debug_boot + html
         base = NSURL.fileURLWithPath_(str(UI_DIR) + "/")
         self.webView.mainFrame().loadHTMLString_baseURL_(html, base)
 
+    @objc.python_method
+    def loadDebugPage(self):
+        if self.debugWebView is None:
+            return
+        html = (UI_DIR / "debug.html").read_text(encoding="utf-8")
+        base = NSURL.fileURLWithPath_(str(UI_DIR) + "/")
+        self.debugWebView.mainFrame().loadHTMLString_baseURL_(html, base)
+
     def webView_didFinishLoadForFrame_(self, webView, frame):
+        if webView == self.debugWebView:
+            self.debugPageReady = True
+            self.pushDebugState()
+            return
         self.pageReady = True
         self.applyCompactState()
         self.pushState()
@@ -392,16 +557,42 @@ class CompanionController(NSObject):
                 {
                     "pet": self.pet,
                     "ok": True,
-                    "message": "初次相遇已经记住了，之后小钳会直接进入正常陪伴模式。",
+                    "message": f"初次相遇已经记住了，之后{pet_name(self.pet)}会直接进入正常陪伴模式。",
                 },
             )
             self.pushState()
             return
         if action == "expand":
+            self.debugPinned = False
             self.setExpanded_(True)
             return
         if action == "collapse":
+            self.debugPinned = False
             self.setExpanded_(False)
+            return
+        if action == "toggle_debug":
+            if not bool(RUNTIME.get("debug_ui_enabled", True)):
+                self.notify_action_result(
+                    "toggle_debug",
+                    {
+                        "pet": self.pet,
+                        "ok": False,
+                        "message": "当前构建没有暴露调试入口。",
+                    },
+                )
+                self.pushState()
+                return
+            self.debugPinned = True
+            self.setExpanded_(True)
+            self.launch_debug_tool()
+            return
+        if action == "close_debug":
+            if self.debugWindow is not None:
+                self.debugWindow.orderOut_(None)
+            return
+        if action == "debug_pet":
+            self.apply_debug_pet(topic or "{}")
+            self.pushState()
             return
         if action == "pick_files":
             self.open_file_picker()
@@ -419,7 +610,7 @@ class CompanionController(NSObject):
                         "sent": False,
                         "pending_reply": False,
                         "blocked": True,
-                        "message": gate.get("reason") or "小钳现在太累了，先休息一下。",
+                        "message": gate.get("reason") or f"{pet_name(self.pet)}现在太累了，先休息一下。",
                     },
                 )
                 self.pushState()
@@ -433,6 +624,7 @@ class CompanionController(NSObject):
             )
             request_path = (result.stdout or "").strip().splitlines()[-1] if (result.stdout or "").strip() else ""
             sent_ok = False
+            attach_warning = False
             staged_count = len(self.stagedScreenshots)
             if request_path:
                 request_body = read_text(request_path)
@@ -442,6 +634,9 @@ class CompanionController(NSObject):
                         topic or "桌面 Companion 学习主题",
                         goal or "持续学习、沉淀方案并整理 skill 草稿",
                     )
+                asset_context = build_asset_reference_block(assets)
+                if asset_context:
+                    request_body = f"{request_body.rstrip()}\n\n{asset_context}\n"
                 agent_prompt = build_agent_prompt(
                     "learn",
                     request_path,
@@ -451,6 +646,7 @@ class CompanionController(NSObject):
                 )
                 send_result = run_direct_send(agent_prompt, assets)
                 sent_ok = send_result.returncode == 0
+                attach_warning = "NO_FILE_INPUT" in ((send_result.stdout or "") + (send_result.stderr or ""))
                 if sent_ok:
                     self.stagedScreenshots = []
                     self.pendingReply = True
@@ -467,10 +663,14 @@ class CompanionController(NSObject):
                     "sent": sent_ok,
                     "pending_reply": sent_ok,
                     "message": (
-                        "学习请求已真正发到当前 OpenClaw 会话，正在等待真实回复回执。"
+                        ("学习请求已真正发到当前 OpenClaw 会话，但当前页面没有可用的文件入口；我已经把本地文件路径写进请求里，当前会话仍然可以直接读取。"
+                        if attach_warning and assets
+                        else "学习请求已真正发到当前 OpenClaw 会话，正在等待真实回复回执。")
                         if sent_ok
                         else "学习请求已落盘入队，但当前没有可直发的 OpenClaw 会话。"
                     ),
+                    "files_attached": bool(sent_ok and not attach_warning),
+                    "detail": (send_result.stdout or send_result.stderr or "").strip() if request_path else "",
                 },
             )
             self.pushState()
@@ -488,7 +688,7 @@ class CompanionController(NSObject):
                         "ok": False,
                         "pending_reply": False,
                         "blocked": True,
-                        "message": gate.get("reason") or "小钳现在不想工作。",
+                        "message": gate.get("reason") or f"{pet_name(self.pet)}现在不想工作。",
                     },
                 )
                 self.pushState()
@@ -498,14 +698,24 @@ class CompanionController(NSObject):
             message_text = topic or goal or ""
             if self.stagedScreenshots:
                 message_text = self.build_screenshot_message(message_text)
+            asset_context = build_asset_reference_block(assets)
+            if asset_context:
+                message_text = f"{message_text.rstrip()}\n\n{asset_context}"
             result = run_direct_send(message_text, assets)
             ok = result.returncode == 0
+            attach_warning = "NO_FILE_INPUT" in ((result.stdout or "") + (result.stderr or ""))
             if ok:
                 self.stagedScreenshots = []
                 self.pendingReply = True
                 self.pendingAction = "send"
                 self.capture_agent_result_async("send", "", topic or goal or "桌面 Companion 直发消息", started_at)
-            message = "已经直发到当前 OpenClaw 会话，正在等待真实回复回执。" if ok else "没找到当前 OpenClaw 聊天页，暂时没法直发。"
+            message = (
+                "已经直发到当前 OpenClaw 会话，但当前页面没有可用的文件入口；我已经把本地文件路径写进消息里，当前会话仍然可以直接读取。"
+                if ok and attach_warning and assets
+                else "已经直发到当前 OpenClaw 会话，正在等待真实回复回执。"
+                if ok
+                else "没找到当前 OpenClaw 聊天页，暂时没法直发。"
+            )
             self.notify_action_result(
                 "send",
                 {
@@ -515,9 +725,11 @@ class CompanionController(NSObject):
                     "ok": ok,
                     "staged_shots": staged_count,
                     "pending_reply": ok,
+                    "files_attached": bool(ok and not attach_warning),
                     "detail": (result.stdout or result.stderr or "").strip(),
                 },
             )
+            self.pushState()
             return
         if action == "screenshot":
             result = subprocess.run(
@@ -546,7 +758,7 @@ class CompanionController(NSObject):
                             "sent": False,
                             "pending_reply": False,
                             "blocked": True,
-                            "message": gate.get("reason") or "小钳现在不想继续处理截图。",
+                            "message": gate.get("reason") or f"{pet_name(self.pet)}现在不想继续处理截图。",
                         },
                     )
                     self.pushState()
@@ -721,6 +933,13 @@ class CompanionController(NSObject):
     def hoverTick_(self, _timer):
         if self.window is None:
             return
+        if self.debugPinned and self.expanded:
+            now = time.time()
+            if now - self.lastDebugRefreshAt >= 1.2:
+                self.lastDebugRefreshAt = now
+                self.refresh_(None)
+            self.leaveTicks = 0
+            return
         mouse = NSEvent.mouseLocation()
         frame = self.window.frame()
         inside = (
@@ -733,11 +952,11 @@ class CompanionController(NSObject):
         else:
             self.hoverTicks = 0
             if self.expanded:
-                if self.is_input_active():
+                if self.is_input_active() or self.is_panel_interactive():
                     self.leaveTicks = 0
                     return
                 self.leaveTicks += 1
-                if self.leaveTicks >= 8:
+                if self.leaveTicks >= 18:
                     self.setExpanded_(False)
 
     @objc.python_method
@@ -747,6 +966,18 @@ class CompanionController(NSObject):
         try:
             value = self.webView.stringByEvaluatingJavaScriptFromString_(
                 "window.isPromptActive ? window.isPromptActive() : 'false';"
+            )
+            return str(value).lower() == "true"
+        except Exception:
+            return False
+
+    @objc.python_method
+    def is_panel_interactive(self):
+        if not self.pageReady:
+            return False
+        try:
+            value = self.webView.stringByEvaluatingJavaScriptFromString_(
+                "window.isPanelInteractive ? window.isPanelInteractive() : 'false';"
             )
             return str(value).lower() == "true"
         except Exception:
@@ -823,6 +1054,8 @@ class CompanionController(NSObject):
     @objc.python_method
     def setExpanded_(self, expanded):
         self.expanded = expanded
+        if not expanded:
+            self.debugPinned = False
         width = EXPANDED_W if expanded else COLLAPSED_W
         height = EXPANDED_H if expanded else COLLAPSED_H
         frame = self.window.frame()
@@ -846,6 +1079,12 @@ class CompanionController(NSObject):
             chip_y = max(0, (height - 52) / 2)
             self.dragView.setHidden_(False)
             self.dragView.setFrame_(NSMakeRect(chip_x, chip_y, 128, 52))
+        if expanded:
+            NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(0.16, self, "applyCompactStateTimer:", None, False)
+        else:
+            self.applyCompactState()
+
+    def applyCompactStateTimer_(self, _timer):
         self.applyCompactState()
 
     @objc.python_method
@@ -860,15 +1099,17 @@ class CompanionController(NSObject):
         if not self.pageReady:
             return
         pet = self.pet or {
-            "name": "小钳",
+            "name": "LittleClaw",
             "level": 1,
-            "stage_title": "陪伴助手",
+            "stage_title": "初始形态",
+            "species_id": "lobster",
             "stage_presence": "开始理解你的节奏，会主动给陪伴反馈。",
             "affinity": 0,
             "energy": 0,
             "hunger": 0,
             "xp": 0,
         }
+        self.refresh_window_titles()
         if pet.get("onboarding_pending") and not self.expanded:
             self.setExpanded_(True)
             return
@@ -879,6 +1120,16 @@ class CompanionController(NSObject):
         action_json = json.dumps(self.pendingAction, ensure_ascii=False)
         script = f"window.updatePet({pet_json}, {queue_json}, {reply_json}, {pending_json}, {action_json});"
         self.webView.stringByEvaluatingJavaScriptFromString_(script)
+        self.pushDebugState()
+
+    @objc.python_method
+    def pushDebugState(self):
+        if not self.debugPageReady or self.debugWebView is None:
+            return
+        pet_json = json.dumps(self.pet or {}, ensure_ascii=False)
+        self.debugWebView.stringByEvaluatingJavaScriptFromString_(
+            f"window.updateDebugState && window.updateDebugState({pet_json});"
+        )
 
     @objc.python_method
     def build_queue_summary(self, force_refresh=False):
@@ -891,6 +1142,139 @@ class CompanionController(NSObject):
             return f"学习请求 {len(requests)} 条，截图 {len(shots)} 张{staged}，结果 {len(results)} 条，最近 {latest}"
         except Exception:
             return "学习队列暂时不可读。"
+
+    @objc.python_method
+    def launch_debug_tool(self):
+        candidates = [
+            str(RUNTIME.get("python_executable") or ""),
+            "/usr/bin/python3",
+            shutil.which("python3") or "",
+        ]
+        if self.debug_server_running():
+            subprocess.Popen(["open", DEBUG_URL], start_new_session=True)
+            log("launch_debug_tool reused running debug server")
+            return
+        last_error = None
+        for candidate in candidates:
+            if not candidate:
+                continue
+            try:
+                probe = subprocess.run(
+                    [candidate, "-c", "import json, http.server"],
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+                if probe.returncode != 0:
+                    last_error = probe.stderr.strip() or probe.stdout.strip() or f"python probe failed: {candidate}"
+                    continue
+                with DEBUG_TOOL_LOG.open("a", encoding="utf-8") as fh:
+                    fh.write(f"launch via {candidate} @ {datetime.now().isoformat()}\n")
+                out = DEBUG_TOOL_LOG.open("a", encoding="utf-8")
+                subprocess.Popen(
+                    [candidate, str(DEBUG_SERVER)],
+                    cwd=str(DEBUG_SERVER.parent),
+                    stdout=out,
+                    stderr=out,
+                    start_new_session=True,
+                )
+                for _ in range(20):
+                    if self.debug_server_running():
+                        subprocess.Popen(["open", DEBUG_URL], start_new_session=True)
+                        log(f"launch_debug_tool ok: {candidate}")
+                        return
+                    time.sleep(0.12)
+                last_error = f"debug server did not start in time: {candidate}"
+                break
+            except Exception as exc:
+                last_error = str(exc)
+        log(f"launch_debug_tool failed: {last_error or 'no usable python with tkinter'}")
+
+    @objc.python_method
+    def debug_server_running(self):
+        try:
+            with socket.create_connection((DEBUG_HOST, DEBUG_PORT), timeout=0.35):
+                return True
+        except Exception:
+            return False
+
+    @objc.python_method
+    def toggleDebugWindow(self):
+        if self.debugWindow is None:
+            return
+        if self.debugWindow.isVisible():
+            self.debugWindow.orderOut_(None)
+            return
+        frame = self.window.frame() if self.window is not None else self.default_frame(COLLAPSED_W, COLLAPSED_H)
+        x = frame.origin.x + frame.size.width + 14
+        y = frame.origin.y + max(0, frame.size.height - DEBUG_H)
+        visible = self.visible_frame()
+        x = max(visible.origin.x + 8, min(x, visible.origin.x + visible.size.width - DEBUG_W - 8))
+        y = max(visible.origin.y + 8, min(y, visible.origin.y + visible.size.height - DEBUG_H - 8))
+        self.debugWindow.setFrame_display_(NSMakeRect(x, y, DEBUG_W, DEBUG_H), True)
+        self.debugWindow.orderFrontRegardless()
+        self.debugWindow.makeKeyAndOrderFront_(None)
+        NSApp.activateIgnoringOtherApps_(True)
+        self.pushDebugState()
+
+    @objc.python_method
+    def debug_stage_adjustment(self, state: dict, species_id: str, stage_id: str, payload: dict) -> dict:
+        stages = PET_RUNTIME.evolution_stages(species_id)
+        index = next((idx for idx, item in enumerate(stages) if item["id"] == stage_id), 0)
+        target = stages[index]
+        nxt = stages[index + 1] if index + 1 < len(stages) else None
+
+        level = max(int(payload.get("level", target["min_level"])), int(target["min_level"]))
+        affinity = max(int(payload.get("affinity", target["min_affinity"])), int(target["min_affinity"]))
+        streak = max(int(payload.get("reward_streak", target["min_streak"])), int(target["min_streak"]))
+        progress = max(int(payload.get("progress", target.get("min_progress", 0))), int(target.get("min_progress", 0)))
+
+        if nxt is not None:
+            level = min(level, max(int(target["min_level"]), int(nxt["min_level"]) - 1))
+            affinity = min(affinity, max(int(target["min_affinity"]), int(nxt["min_affinity"]) - 1))
+            streak = min(streak, max(int(target["min_streak"]), int(nxt["min_streak"]) - 1))
+            progress = min(progress, max(int(target.get("min_progress", 0)), int(nxt.get("min_progress", 0)) - 1))
+
+        state["level"] = level
+        state["affinity"] = affinity
+        state["reward_streak"] = streak
+        state["task_score"] = progress
+        state["total_actions"] = max(int(state.get("total_actions", 0)), progress * 2)
+        state["send_count"] = 0
+        state["learn_count"] = 0
+        state["reply_count"] = 0
+        state["hard_task_count"] = 0
+        state["project_count"] = 0
+        return state
+
+    @objc.python_method
+    def apply_debug_pet(self, payload_json: str):
+        try:
+            payload = json.loads(payload_json or "{}")
+        except Exception:
+            payload = {}
+        state = PET_RUNTIME.load_state()
+        species_id = str(payload.get("species_id") or state.get("species_id") or "lobster")
+        species = PET_RUNTIME.species_config(species_id)
+        state["species_id"] = species_id
+        state["species_title"] = species.get("title", state.get("species_title", "龙虾系"))
+        state["species"] = species.get("title", state.get("species", "龙虾系"))
+        state["rarity"] = str(payload.get("rarity") or state.get("rarity") or "common").lower()
+        state["xp"] = max(0, int(payload.get("xp", state.get("xp", 0))))
+        state["energy"] = max(0, min(100, int(payload.get("energy", state.get("energy", 78)))))
+        state["hunger"] = max(0, min(100, int(payload.get("hunger", state.get("hunger", 22)))))
+        state["onboarding_pending"] = False
+        stage_id = str(payload.get("stage_id") or "").strip()
+        if stage_id:
+            state = self.debug_stage_adjustment(state, species_id, stage_id, payload)
+        else:
+            if "level" in payload:
+                state["level"] = max(1, int(payload.get("level", state.get("level", 1))))
+            if "affinity" in payload:
+                state["affinity"] = max(0, min(100, int(payload.get("affinity", state.get("affinity", 75)))))
+        PET_RUNTIME.save_state(state)
+        latest = fetch_json(PET_API)
+        self.pet = latest if isinstance(latest, dict) else PET_RUNTIME.load_state()
 
     @objc.python_method
     def latest_file(self, directory: Path, pattern: str):

@@ -1,0 +1,46 @@
+{
+  "id": "moth",
+  "title": "夜蛾系",
+  "rarity_pool": ["rare", "epic", "legendary", "mythic"],
+  "default_names": ["绒夜", "灯砂", "雾翎", "月蛾"],
+  "traits": ["夜间陪伴", "灵感整理", "安静稳定", "偏思考"],
+  "roles": [
+    { "id": "lullaby", "title": "安眠使", "presence": "偏安静陪伴，适合夜里陪你慢慢整理和收心。" },
+    { "id": "scribe", "title": "夜抄手", "presence": "偏整理与沉淀，适合把零散想法收成可执行笔记。" },
+    { "id": "lantern", "title": "灯守者", "presence": "偏守夜与提醒，适合陪你在长线任务里持续发光。" }
+  ],
+  "stages": [
+    {
+      "id": "seed",
+      "title": "茸灯幼蛾",
+      "min_level": 1,
+      "min_affinity": 0,
+      "min_streak": 0,
+      "min_progress": 0
+    },
+    {
+      "id": "veil",
+      "title": "纱翼夜蛾",
+      "min_level": 10,
+      "min_affinity": 48,
+      "min_streak": 1,
+      "min_progress": 8
+    },
+    {
+      "id": "luna",
+      "title": "月纹眠蛾",
+      "min_level": 22,
+      "min_affinity": 66,
+      "min_streak": 2,
+      "min_progress": 18
+    },
+    {
+      "id": "eclipse",
+      "title": "蚀光守夜蛾",
+      "min_level": 38,
+      "min_affinity": 82,
+      "min_streak": 3,
+      "min_progress": 34
+    }
+  ]
+}

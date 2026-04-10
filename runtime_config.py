@@ -34,6 +34,7 @@ def load_runtime_config() -> dict:
     pet_api_port = int(raw.get("pet_api_port") or os.environ.get("LITTLECLAW_PET_API_PORT") or 18793)
     openclaw_host = str(raw.get("openclaw_host") or os.environ.get("LITTLECLAW_OPENCLAW_HOST") or "127.0.0.1")
     openclaw_port = int(raw.get("openclaw_port") or os.environ.get("LITTLECLAW_OPENCLAW_PORT") or 18789)
+    debug_ui_enabled = bool(raw.get("debug_ui_enabled", True))
 
     return {
         "config_path": config_path,
@@ -50,4 +51,5 @@ def load_runtime_config() -> dict:
         "openclaw_host": openclaw_host,
         "openclaw_port": openclaw_port,
         "openclaw_base": f"http://{openclaw_host}:{openclaw_port}",
+        "debug_ui_enabled": debug_ui_enabled,
     }

@@ -4,6 +4,11 @@
   "rarity_pool": ["epic", "legendary", "mythic"],
   "default_names": ["铆钉", "零号", "轴心", "钛粒"],
   "traits": ["可靠", "冷静", "偏工具化", "偏排障"],
+  "roles": [
+    { "id": "repair", "title": "修复师", "presence": "偏排障修复，适合盯问题、找根因、补缺口。" },
+    { "id": "builder", "title": "构筑者", "presence": "偏搭建实现，适合把想法落成结构和流程。" },
+    { "id": "warden", "title": "哨卫核", "presence": "偏稳定守护，适合长期陪跑和持续看护运行状态。" }
+  ],
   "stages": [
     {
       "id": "seed",
