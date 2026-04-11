@@ -34,6 +34,15 @@
     scout: { idle: ['我先去探路。', '我帮你看看前面。'], think: ['我在巡这条线。'], alert: ['我带回消息了。'] },
     messenger: { idle: ['我适合来回传话。', '我随时可以递送。'], think: ['我在找最快路径。'], alert: ['我先替你送过去。'] },
     captain: { idle: ['我先帮你领航。', '下一步我盯着。'], think: ['我在看航线。'], alert: ['方向已经清了。'] },
+    hearth: { idle: ['我先给你暖一暖场。', '这条线我陪你稳着。'], think: ['我在替你温着思路。'], alert: ['火苗亮起来了。'] },
+    trickster: { idle: ['我去找个巧一点的入口。', '这条线我先试探一下。'], think: ['我在找破口。'], alert: ['这里有个可钻的点。'] },
+    seer: { idle: ['我先替你看一下走势。', '这一步我来收方向。'], think: ['我在看纹路。'], alert: ['方向感出来了。'] },
+    bulwark: { idle: ['这条线我先扛住。', '你往前做，我在这守着。'], think: ['我在稳结构。'], alert: ['这里需要加固。'] },
+    forager: { idle: ['我先去把碎片捡回来。', '这条线我来承接。'], think: ['我在收材料。'], alert: ['我接到东西了。'] },
+    engraver: { idle: ['我先帮你刻出规矩。', '流程我来压实。'], think: ['我在刻步骤。'], alert: ['这条规则成形了。'] },
+    drift: { idle: ['我先陪你顺着往前游。', '慢一点也能继续。'], think: ['我在顺水理线。'], alert: ['这股水流有回声。'] },
+    wish: { idle: ['我先替你接住这点心愿。', '这一步会有回应。'], think: ['我在等回响。'], alert: ['我收到回音了。'] },
+    tide: { idle: ['我先把零散水流聚回来。', '主线我来牵。'], think: ['我在找回流口。'], alert: ['这条线回到主航道了。'] },
   };
 
   const SPECIES = {
@@ -73,7 +82,7 @@
       mist: {
         title: '流雾信使',
         palette: { body: '#b7dbff', shell: '#eff8ff', belly: '#ffffff', line: '#4c79b5', accent: '#dff6ff', aura: 'rgba(158,207,255,.28)' },
-        body: { rx: 29, ry: 37, wings: 2, halo: 16, tail: 14, crown: 0, fringe: 2, shards: 3, orbitals: 1, gown: 1, antenna: 1 },
+        body: { rx: 29, ry: 37, wings: 2, halo: 16, tail: 14, crown: 0, fringe: 2, shards: 3, orbitals: 1, gown: 1, antenna: 2 },
       },
       star: {
         title: '星羽使灵',
@@ -90,22 +99,22 @@
       seed: {
         title: '原型机',
         palette: { body: '#94a7bb', shell: '#cfd9e2', belly: '#eef4f8', line: '#47596a', accent: '#78d4ff', aura: 'rgba(141,187,221,.24)' },
-        body: { rx: 28, ry: 29, horns: 0, arms: 29, fins: 0, core: 9, plates: 1, boosters: 0, shoulders: 0, legs: 0, visor: 0, ring: 0, crest: 0 },
+        body: { rx: 24, ry: 30, horns: 0, arms: 24, fins: 0, core: 9, plates: 1, boosters: 0, shoulders: 0, legs: 0, visor: 0, ring: 0, crest: 0, pod: 1, thrusters: 1, sidecars: 0, antenna: 0 },
       },
       servo: {
         title: '伺服助手',
         palette: { body: '#7f95a9', shell: '#dce7ef', belly: '#f4f8fb', line: '#394c5d', accent: '#80e8ff', aura: 'rgba(123,175,221,.24)' },
-        body: { rx: 30, ry: 31, horns: 1, arms: 32, fins: 1, core: 11, plates: 2, boosters: 0, shoulders: 1, legs: 1, visor: 0, ring: 0, crest: 1 },
+        body: { rx: 27, ry: 32, horns: 1, arms: 28, fins: 1, core: 11, plates: 2, boosters: 1, shoulders: 1, legs: 1, visor: 0, ring: 0, crest: 1, pod: 2, thrusters: 2, sidecars: 1, antenna: 1 },
       },
       forge: {
         title: '锻炉机宠',
         palette: { body: '#8e7d69', shell: '#d3c4b4', belly: '#f4e8dd', line: '#4f4035', accent: '#ffb56b', aura: 'rgba(217,145,88,.28)' },
-        body: { rx: 34, ry: 31, horns: 2, arms: 36, fins: 2, core: 12, plates: 4, boosters: 1, shoulders: 2, legs: 2, visor: 1, ring: 0, crest: 2 },
+        body: { rx: 31, ry: 33, horns: 2, arms: 33, fins: 2, core: 12, plates: 4, boosters: 2, shoulders: 2, legs: 2, visor: 1, ring: 0, crest: 2, pod: 3, thrusters: 3, sidecars: 2, antenna: 1 },
       },
       core: {
         title: '钛心智核',
         palette: { body: '#73839a', shell: '#dce4f5', belly: '#f8fbff', line: '#2d3847', accent: '#73f2ff', aura: 'rgba(130,207,255,.32)' },
-        body: { rx: 35, ry: 30, horns: 2, arms: 39, fins: 3, core: 14, plates: 5, boosters: 2, shoulders: 3, legs: 3, visor: 1, ring: 1, crest: 3 },
+        body: { rx: 33, ry: 34, horns: 2, arms: 36, fins: 3, core: 14, plates: 5, boosters: 3, shoulders: 3, legs: 3, visor: 1, ring: 2, crest: 3, pod: 4, thrusters: 4, sidecars: 3, antenna: 2 },
       },
     },
     moth: {
@@ -156,22 +165,88 @@
       seed: {
         title: '啾羽雏鸟',
         palette: { body: '#f8bd8b', shell: '#fff2e5', belly: '#fffaf5', line: '#86543c', accent: '#ffd85a', aura: 'rgba(255,207,148,.26)' },
-        body: { rx: 24, ry: 28, wingLift: 1, crest: 0, tail: 2, orbit: 0, plume: 1, beak: 8 },
+        body: { rx: 22, ry: 26, wingLift: 1, crest: 0, tail: 2, orbit: 0, plume: 1, beak: 8, neck: 0, halo: 0, streamers: 0, crownFan: 0 },
       },
       glide: {
         title: '巡风信鸟',
         palette: { body: '#96c9ff', shell: '#eef7ff', belly: '#ffffff', line: '#456b96', accent: '#c6ecff', aura: 'rgba(150,201,255,.26)' },
-        body: { rx: 26, ry: 30, wingLift: 2, crest: 1, tail: 3, orbit: 1, plume: 2, beak: 9 },
+        body: { rx: 24, ry: 29, wingLift: 3, crest: 1, tail: 4, orbit: 1, plume: 2, beak: 9, neck: 1, halo: 0, streamers: 1, crownFan: 0 },
       },
       crest: {
         title: '冠羽哨鸟',
         palette: { body: '#9dd3b1', shell: '#f1fff6', belly: '#ffffff', line: '#48705b', accent: '#fff0a8', aura: 'rgba(157,211,177,.28)' },
-        body: { rx: 28, ry: 31, wingLift: 3, crest: 2, tail: 4, orbit: 1, plume: 3, beak: 10 },
+        body: { rx: 25, ry: 31, wingLift: 4, crest: 2, tail: 5, orbit: 1, plume: 3, beak: 10, neck: 2, halo: 1, streamers: 2, crownFan: 1 },
       },
       sky: {
         title: '苍穹领航鸟',
         palette: { body: '#7fa5ff', shell: '#f1f5ff', belly: '#ffffff', line: '#3e5698', accent: '#fff1a0', aura: 'rgba(127,165,255,.34)' },
-        body: { rx: 29, ry: 33, wingLift: 4, crest: 3, tail: 5, orbit: 2, plume: 4, beak: 11 },
+        body: { rx: 26, ry: 34, wingLift: 5, crest: 3, tail: 6, orbit: 2, plume: 4, beak: 11, neck: 3, halo: 2, streamers: 3, crownFan: 2 },
+      },
+    },
+    fox: {
+      seed: {
+        title: '尾火幼狐',
+        palette: { body: '#f3a06e', shell: '#fff1e5', belly: '#fff8f1', line: '#804c36', accent: '#ffd18a', aura: 'rgba(255,185,124,.26)' },
+        body: { rx: 26, ry: 25, ears: 1, tails: 1, blaze: 1, tuft: 1, anklets: 0, halo: 0 },
+      },
+      ember: {
+        title: '曳火灵狐',
+        palette: { body: '#f08c73', shell: '#fff0ea', belly: '#fffaf6', line: '#84443a', accent: '#ffd59d', aura: 'rgba(255,168,140,.28)' },
+        body: { rx: 28, ry: 26, ears: 2, tails: 1, blaze: 2, tuft: 2, anklets: 1, halo: 0 },
+      },
+      rune: {
+        title: '纹焰策狐',
+        palette: { body: '#d57ca4', shell: '#fff1f7', belly: '#fffafd', line: '#784066', accent: '#ffe28f', aura: 'rgba(227,150,194,.3)' },
+        body: { rx: 29, ry: 27, ears: 2, tails: 1, blaze: 3, tuft: 3, anklets: 2, halo: 1 },
+      },
+      aurora: {
+        title: '极光天狐',
+        palette: { body: '#9ba8ff', shell: '#f3f5ff', belly: '#ffffff', line: '#4f5da0', accent: '#ffe39f', aura: 'rgba(155,168,255,.34)' },
+        body: { rx: 30, ry: 28, ears: 3, tails: 1, blaze: 4, tuft: 4, anklets: 3, halo: 2 },
+      },
+    },
+    beetle: {
+      seed: {
+        title: '铜角幼甲',
+        palette: { body: '#c48754', shell: '#f8e5d1', belly: '#fff8f3', line: '#6b452d', accent: '#ffd08b', aura: 'rgba(226,176,110,.24)' },
+        body: { rx: 23, ry: 27, horn: 0, shellBands: 1, wings: 0, legs: 0, halo: 0, shield: 0, gems: 0 },
+      },
+      brass: {
+        title: '铠步甲虫',
+        palette: { body: '#9e8ab7', shell: '#f2eefb', belly: '#fffdfd', line: '#56456f', accent: '#cfe0ff', aura: 'rgba(168,152,210,.26)' },
+        body: { rx: 25, ry: 29, horn: 1, shellBands: 2, wings: 1, legs: 6, halo: 0, shield: 1, gems: 1 },
+      },
+      bastion: {
+        title: '壁垒圣甲',
+        palette: { body: '#7c9c8d', shell: '#effaf4', belly: '#ffffff', line: '#426055', accent: '#ffe88f', aura: 'rgba(141,196,168,.28)' },
+        body: { rx: 27, ry: 31, horn: 2, shellBands: 3, wings: 2, legs: 6, halo: 1, shield: 2, gems: 2 },
+      },
+      solar: {
+        title: '曜盾王甲',
+        palette: { body: '#7e83b2', shell: '#f1f3ff', belly: '#ffffff', line: '#414772', accent: '#ffd56b', aura: 'rgba(155,162,233,.32)' },
+        body: { rx: 29, ry: 32, horn: 4, shellBands: 4, wings: 3, legs: 6, halo: 2, shield: 3, gems: 3 },
+      },
+    },
+    koi: {
+      seed: {
+        title: '泡尾锦鲤',
+        palette: { body: '#ffb6a4', shell: '#fff2ec', belly: '#fffaf8', line: '#92504a', accent: '#ffd98b', aura: 'rgba(255,182,164,.24)' },
+        body: { rx: 18, ry: 34, fins: 1, tail: 1, whiskers: 0, halo: 0, stream: 1, pearls: 1 },
+      },
+      ribbon: {
+        title: '流绸锦鲤',
+        palette: { body: '#ff9ac1', shell: '#fff0f7', belly: '#ffffff', line: '#8a4d73', accent: '#fff0ad', aura: 'rgba(255,154,193,.28)' },
+        body: { rx: 19, ry: 36, fins: 2, tail: 2, whiskers: 1, halo: 1, stream: 2, pearls: 2 },
+      },
+      moon: {
+        title: '月潮愿鲤',
+        palette: { body: '#9fc4ff', shell: '#eef5ff', belly: '#ffffff', line: '#4d6a98', accent: '#fff2b6', aura: 'rgba(159,196,255,.3)' },
+        body: { rx: 20, ry: 38, fins: 3, tail: 3, whiskers: 2, halo: 1, stream: 3, pearls: 3 },
+      },
+      aurora: {
+        title: '天穹星鲤',
+        palette: { body: '#8fd9d0', shell: '#effffc', belly: '#ffffff', line: '#48776f', accent: '#ffe691', aura: 'rgba(143,217,208,.34)' },
+        body: { rx: 22, ry: 40, fins: 4, tail: 4, whiskers: 3, halo: 2, stream: 4, pearls: 4 },
       },
     },
   };
@@ -548,6 +623,9 @@
     else if (S.species === 'moth') drawMoth(ctx, spec, compact);
     else if (S.species === 'slime') drawSlime(ctx, spec, compact);
     else if (S.species === 'avian') drawAvian(ctx, spec, compact);
+    else if (S.species === 'fox') drawFox(ctx, spec, compact);
+    else if (S.species === 'beetle') drawBeetle(ctx, spec, compact);
+    else if (S.species === 'koi') drawKoi(ctx, spec, compact);
     else drawLobster(ctx, spec, compact);
     ctx.restore();
 
@@ -956,7 +1034,7 @@
     drawSpriteWings(ctx, B, P, wingFlap);
     drawSpriteAntenna(ctx, B, P);
 
-    addShadowOval(ctx, 0, 10, B.rx * 0.76, B.ry * 0.52, compact ? 0.06 : 0.09);
+    addShadowOval(ctx, 0, 14, B.rx * 0.62, B.ry * 0.36, compact ? 0.05 : 0.08);
     const bodyGrad = ctx.createLinearGradient(-B.rx, -B.ry, B.rx, B.ry + 14);
     bodyGrad.addColorStop(0, '#ffffff');
     bodyGrad.addColorStop(0.32, P.shell);
@@ -965,15 +1043,22 @@
     ctx.fillStyle = bodyGrad;
     ctx.beginPath();
     ctx.moveTo(0, -B.ry);
-    ctx.bezierCurveTo(B.rx, -B.ry + 8, B.rx + 8, B.ry - 10, 0, B.ry + 10);
-    ctx.bezierCurveTo(-B.rx - 8, B.ry - 10, -B.rx, -B.ry + 8, 0, -B.ry);
+    ctx.bezierCurveTo(B.rx - 2, -B.ry + 10, B.rx + 4, B.ry - 18, 0, B.ry + 16);
+    ctx.bezierCurveTo(-B.rx - 4, B.ry - 18, -B.rx + 2, -B.ry + 10, 0, -B.ry);
     ctx.fill();
     softStroke(ctx, P.line, compact ? 2.6 : 1.8);
     ctx.stroke();
 
-    ellipseFill(ctx, 0, -4, B.rx - 5, B.ry - 8, ['rgba(255,255,255,.98)', P.shell, P.body], 0);
+    ellipseFill(ctx, 0, -6, B.rx - 8, B.ry - 12, ['rgba(255,255,255,.98)', P.shell, P.body], 0);
     if (B.gown) drawSpriteGown(ctx, B, P);
     addGloss(ctx, 0, -2, B.rx - 3, B.ry - 4);
+    ctx.save();
+    ctx.globalAlpha = 0.18 + S.glowPulse * 0.16;
+    ctx.fillStyle = P.accent;
+    ctx.beginPath();
+    ctx.ellipse(0, -2, 10 + B.orbitals * 2, 14 + B.orbitals * 2, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
 
     drawSpriteTail(ctx, B, P);
     drawSpriteFringe(ctx, B, P);
@@ -1101,7 +1186,7 @@
     drawMothAntenna(ctx, B, P);
     drawMothTail(ctx, B, P);
 
-    addShadowOval(ctx, 0, 12, B.rx * 0.8, B.ry * 0.5, compact ? 0.05 : 0.08);
+    addShadowOval(ctx, 0, 12, B.rx * 1.12, B.ry * 0.42, compact ? 0.05 : 0.08);
     ellipseFill(ctx, 0, 2, B.rx, B.ry, ['#fffdf9', P.shell, P.body], 0);
     softStroke(ctx, P.line, compact ? 2.5 : 1.8);
     ctx.beginPath();
@@ -1124,6 +1209,11 @@
     }
 
     if (B.crown) drawDiamond(ctx, 0, -B.ry - 6, 4 + B.crown, P.accent, P.line);
+    for (let i = 0; i < B.wings; i++) {
+      const spread = 18 + i * 7;
+      drawDiamond(ctx, -spread, -1 + i * 2, 3.5 + i * 0.4, 'rgba(255,255,255,.42)', '');
+      drawDiamond(ctx, spread, -1 + i * 2, 3.5 + i * 0.4, 'rgba(255,255,255,.42)', '');
+    }
 
     drawEye(ctx, -9, -7 + drift * 0.04, P.line, P.accent, compact);
     drawEye(ctx, 9, -7 - drift * 0.04, P.line, P.accent, compact);
@@ -1261,6 +1351,7 @@
     const P = spec.palette;
     const B = spec.body;
     const wing = Math.sin(S.tick * (S.mood === 'play' ? 0.28 : 0.12)) * 12;
+    const neckLift = Math.sin(S.tick * 0.08) * (1.2 + B.neck * 0.6);
 
     ctx.save();
     drawAvianOrbit(ctx, B, P);
@@ -1268,35 +1359,53 @@
     drawAvianTail(ctx, B, P);
     addShadowOval(ctx, 0, 15, B.rx * 0.86, B.ry * 0.45, compact ? 0.05 : 0.08);
 
-    ellipseFill(ctx, 0, 2, B.rx, B.ry, ['#ffffff', P.shell, P.body], 0);
+    if (B.neck) {
+      ellipseFill(ctx, 0, -3, Math.max(8, B.rx * 0.36), 10 + B.neck * 2, ['rgba(255,255,255,.9)', P.shell, P.body], 0);
+      softStroke(ctx, P.line, 1.2);
+      ctx.beginPath();
+      ctx.ellipse(0, -3, Math.max(8, B.rx * 0.36), 10 + B.neck * 2, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ellipseFill(ctx, 0, 2 + neckLift, B.rx, B.ry, ['#ffffff', P.shell, P.body], 0);
     softStroke(ctx, P.line, compact ? 2.5 : 1.8);
     ctx.beginPath();
-    ctx.ellipse(0, 2, B.rx, B.ry, 0, 0, Math.PI * 2);
+    ctx.ellipse(0, 2 + neckLift, B.rx, B.ry, 0, 0, Math.PI * 2);
     ctx.stroke();
-    ellipseFill(ctx, 0, 6, B.rx - 8, B.ry - 12, ['rgba(255,255,255,.98)', P.belly, P.shell], 0);
-    addGloss(ctx, 0, -3, B.rx, B.ry);
+    ellipseFill(ctx, 0, 6 + neckLift, B.rx - 8, B.ry - 12, ['rgba(255,255,255,.98)', P.belly, P.shell], 0);
+    addGloss(ctx, 0, -3 + neckLift * 0.5, B.rx, B.ry);
 
     if (B.crest) {
       for (let i = 0; i < B.crest; i++) {
-        drawDiamond(ctx, -6 + i * 6, -B.ry - 2 - i, 3.6 + i * 0.2, P.accent, P.line);
+        drawDiamond(ctx, -6 + i * 6, -B.ry - 4 - i - B.crownFan * 1.5, 3.6 + i * 0.2, P.accent, P.line);
       }
+    }
+    if (B.crownFan) {
+      ctx.save();
+      ctx.globalAlpha = 0.28 + S.glowPulse * 0.18;
+      ctx.strokeStyle = P.accent;
+      ctx.lineWidth = 1.2;
+      for (let i = 0; i < B.crownFan + 1; i++) {
+        ctx.beginPath();
+        ctx.arc(0, -B.ry - 8, 10 + i * 4, Math.PI * 0.12, Math.PI * 0.88);
+        ctx.stroke();
+      }
+      ctx.restore();
     }
 
     ctx.fillStyle = P.accent;
     ctx.strokeStyle = P.line;
     ctx.lineWidth = 1.2;
     ctx.beginPath();
-    ctx.moveTo(0, 1);
-    ctx.lineTo(B.beak, 5);
-    ctx.lineTo(0, 8);
+    ctx.moveTo(0, 1 + neckLift * 0.5);
+    ctx.lineTo(B.beak + B.neck, 5 + neckLift * 0.4);
+    ctx.lineTo(0, 8 + neckLift * 0.5);
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
 
-    drawEye(ctx, -8, -7, P.line, P.accent, compact);
-    drawEye(ctx, 8, -7, P.line, P.accent, compact);
-    drawBlush(ctx, -14, 14, 2, compact ? 0.08 : 0.12);
-    drawMouth(ctx, -1, 12, P.line, compact);
+    drawEye(ctx, -8, -7 + neckLift * 0.25, P.line, P.accent, compact);
+    drawEye(ctx, 8, -7 + neckLift * 0.25, P.line, P.accent, compact);
+    drawBlush(ctx, -14, 14, 2 + neckLift * 0.3, compact ? 0.08 : 0.12);
     ctx.restore();
   }
 
@@ -1313,11 +1422,19 @@
       softStroke(ctx, P.line, 1.2);
       ctx.beginPath();
       ctx.moveTo(0, 0);
-      ctx.quadraticCurveTo(dir * (18 + B.wingLift * 3), -16, dir * (26 + idx * 2), 4);
-      ctx.quadraticCurveTo(dir * 18, 20, 0, 10);
+      ctx.quadraticCurveTo(dir * (18 + B.wingLift * 4), -18 - B.streamers * 1.5, dir * (28 + idx * 3 + B.streamers * 3), 4);
+      ctx.quadraticCurveTo(dir * (18 + B.streamers * 2), 22 + B.streamers * 3, 0, 10);
       ctx.closePath();
       ctx.fill();
       ctx.stroke();
+      if (B.streamers) {
+        ctx.strokeStyle = P.accent;
+        ctx.lineWidth = 1.1;
+        ctx.beginPath();
+        ctx.moveTo(dir * (10 + B.streamers), 11);
+        ctx.quadraticCurveTo(dir * (20 + B.streamers * 3), 20 + idx * 3, dir * (16 + B.streamers * 2), 31 + idx * 4);
+        ctx.stroke();
+      }
       ctx.restore();
     });
   }
@@ -1339,6 +1456,11 @@
       ctx.beginPath();
       ctx.ellipse(0, -2, B.rx + 10 + i * 6, B.ry + 6 + i * 4, 0, 0, Math.PI * 2);
       ctx.stroke();
+    }
+    if (B.halo) {
+      for (let i = 0; i < B.halo; i++) {
+        drawDiamond(ctx, 0, -B.ry - 12 - i * 7, 4 + i, P.accent, '');
+      }
     }
     ctx.restore();
   }
@@ -1362,6 +1484,16 @@
     ctx.fill();
     ctx.stroke();
 
+    if (B.sidecars) {
+      for (let i = 0; i < B.sidecars; i++) {
+        const dir = i % 2 === 0 ? -1 : 1;
+        ctx.fillStyle = P.shell;
+        roundedRectPath(ctx, dir * (B.rx + 2) - (dir < 0 ? 8 : 0), -12 + i * 6, 8, 18 + i * 2, 5);
+        ctx.fill();
+        ctx.stroke();
+      }
+    }
+
     const panelGrad = ctx.createLinearGradient(-B.rx, -B.ry, B.rx, B.ry);
     panelGrad.addColorStop(0, 'rgba(255,255,255,.96)');
     panelGrad.addColorStop(1, P.shell);
@@ -1372,6 +1504,7 @@
 
     if (B.horns) drawMechaHorns(ctx, B, P);
     drawMechaAttachments(ctx, B, P, hum);
+    if (B.antenna) drawMechaAntenna(ctx, B, P);
 
     drawMechaScreen(ctx, B, P, hum);
     ctx.globalAlpha = 1;
@@ -1391,13 +1524,14 @@
   function drawMechaAttachments(ctx, B, P, hum) {
     if (S.stage === 'servo') {
       ctx.save();
+      ctx.fillStyle = P.shell;
       ctx.strokeStyle = P.line;
-      ctx.lineWidth = 1.8;
-      ctx.beginPath();
-      ctx.moveTo(-10, -B.ry + 12);
-      ctx.lineTo(-18, -B.ry + 4);
-      ctx.moveTo(10, -B.ry + 12);
-      ctx.lineTo(18, -B.ry + 4);
+      ctx.lineWidth = 1.5;
+      roundedRectPath(ctx, -B.rx - 8, -10, 10, 24, 5);
+      ctx.fill();
+      ctx.stroke();
+      roundedRectPath(ctx, B.rx - 2, -10, 10, 24, 5);
+      ctx.fill();
       ctx.stroke();
       ctx.fillStyle = P.accent;
       ctx.globalAlpha = 0.45;
@@ -1412,10 +1546,10 @@
       ctx.fillStyle = P.body;
       ctx.strokeStyle = P.line;
       ctx.lineWidth = 1.6;
-      roundedRectPath(ctx, -B.rx - 5, -6, 10, 26, 5);
+      roundedRectPath(ctx, -B.rx - 8, -8, 13, 30, 5);
       ctx.fill();
       ctx.stroke();
-      roundedRectPath(ctx, B.rx - 5, -6, 10, 26, 5);
+      roundedRectPath(ctx, B.rx - 5, -8, 13, 30, 5);
       ctx.fill();
       ctx.stroke();
       ctx.globalAlpha = 0.26 + hum * 0.16;
@@ -1440,6 +1574,10 @@
       ctx.beginPath();
       ctx.ellipse(0, -2, B.rx + 16, B.ry + 14, 0, 0, Math.PI * 2);
       ctx.stroke();
+      roundedRectPath(ctx, -12, -B.ry - 11, 24, 7, 3);
+      ctx.fillStyle = P.accent;
+      ctx.globalAlpha = 0.34 + hum * 0.18;
+      ctx.fill();
       ctx.restore();
     }
   }
@@ -1560,12 +1698,15 @@
     ctx.save();
     ctx.globalAlpha = 0.32 + hum * 0.14;
     ctx.fillStyle = P.accent;
-    ctx.beginPath();
-    ctx.moveTo(-8, baseY + 18);
-    ctx.lineTo(0, baseY + (S.stage === 'core' ? 31 : 28) + Math.sin(S.tick * 0.14) * 2.2);
-    ctx.lineTo(8, baseY + 18);
-    ctx.closePath();
-    ctx.fill();
+    for (let i = 0; i < B.thrusters; i++) {
+      const shift = (i - (B.thrusters - 1) / 2) * 8;
+      ctx.beginPath();
+      ctx.moveTo(-5 + shift, baseY + 18);
+      ctx.lineTo(shift, baseY + (S.stage === 'core' ? 31 : 28) + Math.sin(S.tick * 0.14 + i) * 2.2);
+      ctx.lineTo(5 + shift, baseY + 18);
+      ctx.closePath();
+      ctx.fill();
+    }
     ctx.restore();
   }
 
@@ -1591,6 +1732,383 @@
     ctx.fillStyle = P.accent;
     roundedRectPath(ctx, -24, S.stage === 'core' ? -22 : -20, 48, S.stage === 'core' ? 16 : 14, 7);
     ctx.fill();
+    ctx.restore();
+  }
+
+  function drawMechaAntenna(ctx, B, P) {
+    ctx.save();
+    ctx.strokeStyle = P.line;
+    ctx.lineWidth = 1.2;
+    for (let i = 0; i < B.antenna; i++) {
+      const dir = i % 2 === 0 ? -1 : 1;
+      ctx.beginPath();
+      ctx.moveTo(dir * 5, -B.ry + 8);
+      ctx.quadraticCurveTo(dir * (12 + i * 2), -B.ry - 10, dir * (14 + i * 3), -B.ry - 16 - i * 3);
+      ctx.stroke();
+      drawDiamond(ctx, dir * (14 + i * 3), -B.ry - 16 - i * 3, 2.8 + i * 0.5, P.accent, '');
+    }
+    ctx.restore();
+  }
+
+  function drawFox(ctx, spec, compact) {
+    const P = spec.palette;
+    const B = spec.body;
+    const bounce = Math.sin(S.tick * (S.mood === 'play' ? 0.18 : 0.07)) * 3;
+
+    ctx.save();
+    drawFoxHalo(ctx, B, P);
+    drawFoxTails(ctx, B, P, bounce);
+    drawFoxBody(ctx, B, P);
+    drawFoxLegs(ctx, B, P, bounce);
+    addShadowOval(ctx, 0, 18, 28, 8, compact ? 0.05 : 0.08);
+
+    ellipseFill(ctx, 0, -3, B.rx + 5, B.ry + 2, ['#fffef9', P.shell, P.body], 0);
+    softStroke(ctx, P.line, compact ? 2.5 : 1.8);
+    ctx.beginPath();
+    ctx.ellipse(0, -3, B.rx + 5, B.ry + 2, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ellipseFill(ctx, 0, 4, B.rx - 11, B.ry - 16, ['rgba(255,255,255,.98)', P.belly, P.shell], 0);
+    addGloss(ctx, 0, -8, B.rx + 5, B.ry + 2);
+
+    drawFoxEars(ctx, B, P);
+    drawFoxCheeks(ctx, B, P);
+    if (B.blaze) {
+      for (let i = 0; i < B.blaze; i++) {
+        drawDiamond(ctx, -6 + i * 4, -B.ry + 4 + i, 2.6 + i * 0.2, P.accent, '');
+      }
+    }
+    drawEye(ctx, -10, -10, P.line, P.accent, compact);
+    drawEye(ctx, 10, -10, P.line, P.accent, compact);
+    drawBlush(ctx, -17, 17, -2, compact ? 0.1 : 0.14);
+    ctx.restore();
+  }
+
+  function drawFoxEars(ctx, B, P) {
+    [[-1], [1]].forEach(([dir]) => {
+      ctx.fillStyle = P.body;
+      ctx.beginPath();
+      ctx.moveTo(dir * 6, -B.ry + 1);
+      ctx.lineTo(dir * 16, -B.ry - 16 - B.ears * 2);
+      ctx.lineTo(dir * 20, -B.ry - 2);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = P.accent;
+      ctx.globalAlpha = 0.45;
+      ctx.beginPath();
+      ctx.moveTo(dir * 8, -B.ry + 1);
+      ctx.lineTo(dir * 14, -B.ry - 7 - B.ears);
+      ctx.lineTo(dir * 17, -B.ry - 2);
+      ctx.closePath();
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    });
+  }
+
+  function drawFoxCheeks(ctx, B, P) {
+    ctx.fillStyle = P.belly;
+    ctx.strokeStyle = P.line;
+    ctx.lineWidth = 1.1;
+    ctx.beginPath();
+    ctx.moveTo(-11, 1);
+    ctx.quadraticCurveTo(-7, 10, 0, 14);
+    ctx.quadraticCurveTo(7, 10, 11, 1);
+    ctx.quadraticCurveTo(7, -1, 0, 4);
+    ctx.quadraticCurveTo(-7, -1, -11, 1);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = P.line;
+    ctx.beginPath();
+    ctx.arc(0, 4, 1.5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawFoxBody(ctx, B, P) {
+    const bodyGrad = ctx.createLinearGradient(-16, 10, 16, 36);
+    bodyGrad.addColorStop(0, '#fff8f1');
+    bodyGrad.addColorStop(0.55, P.shell);
+    bodyGrad.addColorStop(1, P.body);
+    ctx.fillStyle = bodyGrad;
+    softStroke(ctx, P.line, 1.5);
+    ctx.beginPath();
+    ctx.ellipse(0, 22, 15 + B.tuft, 12 + B.tuft * 0.8, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = P.belly;
+    ctx.beginPath();
+    ctx.ellipse(0, 24, 8 + B.tuft * 0.4, 7 + B.tuft * 0.4, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawFoxLegs(ctx, B, P, bounce) {
+    ctx.strokeStyle = P.line;
+    ctx.lineWidth = 2.2;
+    ctx.lineCap = 'round';
+    [-8, -3, 3, 8].forEach((x, idx) => {
+      ctx.beginPath();
+      ctx.moveTo(x, 30);
+      ctx.lineTo(x + (idx % 2 === 0 ? -1 : 1), 40 + bounce * 0.15);
+      ctx.stroke();
+    });
+  }
+
+  function drawFoxTails(ctx, B, P, bounce) {
+    const tails = B.tails;
+    for (let i = 0; i < tails; i++) {
+      const dir = i % 2 === 0 ? -1 : 1;
+      const spread = 10 + i * 6;
+      ctx.save();
+      ctx.translate(dir * (8 + i * 2), B.ry - 2);
+      ctx.rotate(dir * (0.4 + i * 0.12) + bounce * 0.02);
+      const tailGrad = ctx.createLinearGradient(0, -6, dir * (20 + i * 6), 28);
+      tailGrad.addColorStop(0, '#ffffff');
+      tailGrad.addColorStop(0.55, P.body);
+      tailGrad.addColorStop(1, P.accent);
+      ctx.fillStyle = tailGrad;
+      softStroke(ctx, P.line, 1.1);
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.quadraticCurveTo(dir * (20 + spread), 2, dir * (24 + spread), 18 + i * 3);
+      ctx.quadraticCurveTo(dir * (14 + spread * 0.4), 28 + i * 4, 0, 16);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  function drawFoxHalo(ctx, B, P) {
+    if (!B.halo) return;
+    ctx.save();
+    ctx.globalAlpha = 0.28 + S.glowPulse * 0.14;
+    ctx.strokeStyle = P.accent;
+    ctx.lineWidth = 1.2;
+    for (let i = 0; i < B.halo; i++) {
+      ctx.beginPath();
+      ctx.arc(0, -2, B.rx + 10 + i * 6, Math.PI * 0.1, Math.PI * 0.9);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawBeetle(ctx, spec, compact) {
+    const P = spec.palette;
+    const B = spec.body;
+    const flex = Math.sin(S.tick * 0.07) * 2.5;
+
+    ctx.save();
+    drawBeetleHalo(ctx, B, P);
+    if (S.stage === 'seed') {
+      drawBeetleLarva(ctx, B, P, compact);
+      ctx.restore();
+      return;
+    }
+    drawBeetleLegs(ctx, B, P, flex);
+    addShadowOval(ctx, 0, 14, B.rx * 0.88, B.ry * 0.45, compact ? 0.06 : 0.08);
+    drawBeetleShell(ctx, B, P);
+    softStroke(ctx, P.line, compact ? 2.5 : 1.8);
+    ctx.beginPath();
+    ctx.ellipse(0, 1, B.rx, B.ry, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(255,255,255,.72)';
+    roundedRectPath(ctx, -5, -B.ry + 5, 10, B.ry * 2 - 6, 5);
+    ctx.fill();
+    if (B.horn) {
+      ctx.fillStyle = P.body;
+      ctx.beginPath();
+      ctx.moveTo(0, -B.ry - 4 - B.horn * 4);
+      ctx.quadraticCurveTo(9 + B.horn * 2.8, -B.ry - 2, 2, -B.ry + 8);
+      ctx.quadraticCurveTo(0, -B.ry + 9, -2, -B.ry + 8);
+      ctx.quadraticCurveTo(-9 - B.horn * 2.8, -B.ry - 2, 0, -B.ry - 4 - B.horn * 4);
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    for (let i = 0; i < B.shellBands; i++) {
+      ctx.strokeStyle = i === B.shellBands - 1 ? P.accent : P.line;
+      ctx.globalAlpha = i === B.shellBands - 1 ? 0.6 : 0.24;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.arc(0, 3 + i * 4, B.rx - 6 - i * 2, Math.PI * 1.08, Math.PI * 1.92);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    drawEye(ctx, -8, -7, P.line, P.accent, compact);
+    drawEye(ctx, 8, -7, P.line, P.accent, compact);
+    drawMouth(ctx, 0, 12, P.line, compact);
+    ctx.restore();
+  }
+
+  function drawBeetleShell(ctx, B, P) {
+    const shellGrad = ctx.createLinearGradient(-B.rx, -B.ry, B.rx, B.ry + 16);
+    shellGrad.addColorStop(0, '#fffef7');
+    shellGrad.addColorStop(0.38, P.shell);
+    shellGrad.addColorStop(1, P.body);
+    ctx.fillStyle = shellGrad;
+    ctx.beginPath();
+    ctx.ellipse(0, 1, B.rx, B.ry, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,.22)';
+    ctx.beginPath();
+    ctx.ellipse(0, -5, B.rx - 8, B.ry * 0.42, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawBeetleLarva(ctx, B, P, compact) {
+    const squish = Math.sin(S.tick * 0.08) * 2.5;
+    addShadowOval(ctx, 0, 18, 26, 8, compact ? 0.05 : 0.07);
+    for (let i = 0; i < 4; i++) {
+      const rx = 12 + i * 2;
+      const ry = 10 + i * 1.5;
+      const y = 6 + i * 11;
+      const x = Math.sin(S.tick * 0.05 + i) * (i === 0 ? 1.2 : 2.2);
+      ellipseFill(ctx, x, y, rx, ry + squish * 0.12, ['#fffaf2', P.shell, P.body], 0);
+      softStroke(ctx, P.line, 1.2);
+      ctx.beginPath();
+      ctx.ellipse(x, y, rx, ry + squish * 0.12, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.fillStyle = P.accent;
+    ctx.beginPath();
+    ctx.arc(0, 4, 7, 0, Math.PI * 2);
+    ctx.fill();
+    drawEye(ctx, -6, 2, P.line, P.accent, compact);
+    drawEye(ctx, 6, 2, P.line, P.accent, compact);
+    drawMouth(ctx, 0, 12, P.line, compact);
+    for (let i = 0; i < 3; i++) {
+      const dir = i % 2 === 0 ? -1 : 1;
+      ctx.strokeStyle = P.line;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(dir * (9 + i), 13 + i * 8);
+      ctx.lineTo(dir * (16 + i * 2), 18 + i * 8);
+      ctx.stroke();
+    }
+  }
+
+  function drawBeetleLegs(ctx, B, P, flex) {
+    ctx.strokeStyle = P.line;
+    ctx.lineWidth = 1.5;
+    for (let i = 0; i < B.legs / 2; i++) {
+      const y = -8 + i * 10;
+      [[-1], [1]].forEach(([dir]) => {
+        ctx.beginPath();
+        ctx.moveTo(dir * (B.rx - 4), y);
+        ctx.lineTo(dir * (B.rx + 10 + i * 2), y + 5 + flex * 0.2);
+        ctx.lineTo(dir * (B.rx + 18 + i * 2), y + 14 + flex * 0.25);
+        ctx.stroke();
+      });
+    }
+  }
+
+  function drawBeetleHalo(ctx, B, P) {
+    if (!B.halo) return;
+    ctx.save();
+    ctx.globalAlpha = 0.24 + S.glowPulse * 0.12;
+    ctx.strokeStyle = P.accent;
+    ctx.lineWidth = 1.3;
+    for (let i = 0; i < B.halo; i++) {
+      ctx.beginPath();
+      ctx.ellipse(0, 0, B.rx + 8 + i * 7, B.ry + 6 + i * 4, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawKoi(ctx, spec, compact) {
+    const P = spec.palette;
+    const B = spec.body;
+    const swim = Math.sin(S.tick * (S.mood === 'play' ? 0.22 : 0.08)) * 0.14;
+
+    ctx.save();
+    ctx.rotate(swim);
+    drawKoiHalo(ctx, B, P);
+    drawKoiTail(ctx, B, P, swim);
+    drawKoiFins(ctx, B, P, swim);
+
+    addShadowOval(ctx, 0, 18, B.ry * 0.7, B.rx * 0.4, compact ? 0.05 : 0.07);
+    ellipseFill(ctx, 0, 4, B.ry, B.rx, ['#ffffff', P.shell, P.body], 0);
+    softStroke(ctx, P.line, compact ? 2.4 : 1.7);
+    ctx.beginPath();
+    ctx.ellipse(0, 4, B.ry, B.rx, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ellipseFill(ctx, 0, 6, B.ry - 8, B.rx - 5, ['rgba(255,255,255,.98)', P.belly, P.shell], 0);
+    addGloss(ctx, -6, -2, B.ry - 8, B.rx - 4);
+
+    if (B.whiskers) {
+      ctx.strokeStyle = P.accent;
+      ctx.lineWidth = 1.15;
+      for (let i = 0; i < B.whiskers; i++) {
+        const dir = i % 2 === 0 ? -1 : 1;
+        ctx.beginPath();
+        ctx.moveTo(-B.ry + 14, dir * 2);
+        ctx.quadraticCurveTo(-B.ry + 4, dir * (8 + i * 2), -B.ry - 8 - i * 3, dir * (14 + i * 3));
+        ctx.stroke();
+      }
+    }
+
+    drawEye(ctx, -16, -6, P.line, P.accent, compact);
+    drawEye(ctx, -16, 10, P.line, P.accent, compact);
+    ctx.restore();
+  }
+
+  function drawKoiFins(ctx, B, P, swim) {
+    [[-1], [1]].forEach(([dir]) => {
+      ctx.save();
+      ctx.translate(-2, dir * (B.rx - 1));
+      ctx.rotate(dir * (1.1 + swim * 2));
+      const finGrad = ctx.createLinearGradient(0, -8, dir * 20, 20);
+      finGrad.addColorStop(0, '#ffffff');
+      finGrad.addColorStop(0.55, P.shell);
+      finGrad.addColorStop(1, P.accent);
+      ctx.fillStyle = finGrad;
+      softStroke(ctx, P.line, 1.1);
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.quadraticCurveTo(12 + B.fins * 3, dir * -8, 18 + B.fins * 2, dir * 12);
+      ctx.quadraticCurveTo(8, dir * 14, 0, dir * 8);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+    });
+  }
+
+  function drawKoiTail(ctx, B, P, swim) {
+    ctx.save();
+    ctx.translate(B.ry - 6, 0);
+    ctx.rotate(swim * 2);
+    const tailGrad = ctx.createLinearGradient(0, 0, 0, 34);
+    tailGrad.addColorStop(0, P.shell);
+    tailGrad.addColorStop(1, P.accent);
+    ctx.fillStyle = tailGrad;
+    softStroke(ctx, P.line, 1.2);
+    for (let i = 0; i < B.tail; i++) {
+      const spread = 10 + i * 4;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.quadraticCurveTo(12 + i * 2, -spread, 22 + i * 4, 0);
+      ctx.quadraticCurveTo(12 + i * 2, spread, 0, 0);
+      ctx.fill();
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawKoiHalo(ctx, B, P) {
+    if (!B.halo) return;
+    ctx.save();
+    ctx.globalAlpha = 0.24 + S.glowPulse * 0.14;
+    ctx.strokeStyle = P.accent;
+    ctx.lineWidth = 1.2;
+    for (let i = 0; i < B.halo; i++) {
+      ctx.beginPath();
+      ctx.arc(0, 4, B.ry * 0.55 + i * 7, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    for (let i = 0; i < B.pearls; i++) {
+      drawDiamond(ctx, Math.sin(S.tick * 0.02 + i) * (8 + i * 5), -10 + i * 7, 2.5 + i * 0.4, P.accent, '');
+    }
     ctx.restore();
   }
 

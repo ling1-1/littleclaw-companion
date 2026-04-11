@@ -1,0 +1,46 @@
+{
+  "id": "fox",
+  "title": "灵狐系",
+  "rarity_pool": ["rare", "epic", "legendary", "mythic"],
+  "default_names": ["焰尾", "绒策", "阿珀", "烁烁"],
+  "traits": ["机敏", "陪跑", "偏策略", "暖火感"],
+  "roles": [
+    { "id": "hearth", "title": "炉心狐", "presence": "偏暖场和守护，适合陪跑、安抚和长期陪伴。" },
+    { "id": "trickster", "title": "机灵狐", "presence": "偏灵动试探，适合找突破口、提点子和快速转向。" },
+    { "id": "seer", "title": "纹谋狐", "presence": "偏判断与策略，适合梳理下一步和收束方向。" }
+  ],
+  "stages": [
+    {
+      "id": "seed",
+      "title": "尾火幼狐",
+      "min_level": 1,
+      "min_affinity": 0,
+      "min_streak": 0,
+      "min_progress": 0
+    },
+    {
+      "id": "ember",
+      "title": "曳火灵狐",
+      "min_level": 11,
+      "min_affinity": 46,
+      "min_streak": 1,
+      "min_progress": 10
+    },
+    {
+      "id": "rune",
+      "title": "纹焰策狐",
+      "min_level": 24,
+      "min_affinity": 66,
+      "min_streak": 2,
+      "min_progress": 22
+    },
+    {
+      "id": "aurora",
+      "title": "极光天狐",
+      "min_level": 40,
+      "min_affinity": 84,
+      "min_streak": 3,
+      "min_progress": 38
+    }
+  ]
+}

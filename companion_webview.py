@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import base64
+import fcntl
 import json
 import mimetypes
 import os
@@ -56,6 +57,7 @@ POSITION_FILE = STATE_DIR / "companion-position.json"
 PID_FILE = Path("/tmp/littleclaw-companion.pid")
 LOG_FILE = Path("/tmp/littleclaw-webview.log")
 DEBUG_TOOL_LOG = Path("/tmp/littleclaw-debug-tool.log")
+PID_HANDLE = None
 LEARNING_REQ_DIR = STATE_DIR.parent / "learning-lab" / "requests"
 LEARNING_SHOT_DIR = STATE_DIR.parent / "learning-lab" / "screenshots"
 LEARNING_RESULT_DIR = STATE_DIR.parent / "learning-lab" / "results"
@@ -71,8 +73,8 @@ C_COLLAPSED_W = 196
 C_COLLAPSED_H = 132
 COLLAPSED_W = C_COLLAPSED_W
 COLLAPSED_H = C_COLLAPSED_H
-EXPANDED_W = 520
-EXPANDED_H = 940
+EXPANDED_W = 500
+EXPANDED_H = 560
 DEBUG_W = 336
 DEBUG_H = 404
 
@@ -279,16 +281,23 @@ def post_action(action: str, extra: dict | None = None):
 
 
 def ensure_single_instance():
+    global PID_HANDLE
     try:
-        if PID_FILE.exists():
-            old_pid = int(PID_FILE.read_text(encoding="utf-8").strip())
-            if old_pid and old_pid != os.getpid():
-                try:
-                    os.kill(old_pid, 0)
-                    os.kill(old_pid, signal.SIGTERM)
-                except OSError:
-                    pass
-        PID_FILE.write_text(str(os.getpid()), encoding="utf-8")
+        PID_FILE.parent.mkdir(parents=True, exist_ok=True)
+        handle = PID_FILE.open("a+", encoding="utf-8")
+        try:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError:
+            handle.seek(0)
+            holder = handle.read().strip() or "unknown"
+            log(f"another companion instance already owns pid lock: {holder}")
+            handle.close()
+            raise SystemExit(0)
+        handle.seek(0)
+        handle.truncate()
+        handle.write(str(os.getpid()))
+        handle.flush()
+        PID_HANDLE = handle
     except Exception as exc:
         log(f"ensure_single_instance failed: {exc}")
 
@@ -1118,7 +1127,8 @@ class CompanionController(NSObject):
         reply_json = json.dumps(self.latestReply, ensure_ascii=False)
         pending_json = "true" if self.pendingReply else "false"
         action_json = json.dumps(self.pendingAction, ensure_ascii=False)
-        script = f"window.updatePet({pet_json}, {queue_json}, {reply_json}, {pending_json}, {action_json});"
+        openclaw_json = json.dumps(self.current_openclaw_status(), ensure_ascii=False)
+        script = f"window.updatePet({pet_json}, {queue_json}, {reply_json}, {pending_json}, {action_json}, {openclaw_json});"
         self.webView.stringByEvaluatingJavaScriptFromString_(script)
         self.pushDebugState()
 
@@ -1142,6 +1152,83 @@ class CompanionController(NSObject):
             return f"学习请求 {len(requests)} 条，截图 {len(shots)} 张{staged}，结果 {len(results)} 条，最近 {latest}"
         except Exception:
             return "学习队列暂时不可读。"
+
+    @objc.python_method
+    def current_openclaw_status(self):
+        try:
+            files = sorted(SESSION_DIR.glob("*.jsonl"), key=lambda p: p.stat().st_mtime, reverse=True)[:3]
+            newest = None
+            for path in files:
+                try:
+                    lines = path.read_text(encoding="utf-8").splitlines()
+                except Exception:
+                    continue
+                for line in lines:
+                    try:
+                        item = json.loads(line)
+                    except Exception:
+                        continue
+                    message = item.get("message") or {}
+                    role = str(message.get("role") or "")
+                    if not role:
+                        continue
+                    ts = parse_ts(item.get("timestamp", ""))
+                    if ts is None:
+                        continue
+                    if newest is None or ts >= newest["ts"]:
+                        newest = {
+                            "ts": ts,
+                            "role": role,
+                            "stop_reason": str(message.get("stopReason") or ""),
+                            "tool_name": str(message.get("toolName") or ""),
+                        }
+            if newest is None:
+                return {}
+            age = max(0.0, (utc_now() - newest["ts"]).total_seconds())
+            role = newest["role"]
+            stop_reason = newest["stop_reason"]
+            tool_name = newest["tool_name"]
+            if role == "assistant" and stop_reason == "toolUse" and age <= 90:
+                return {
+                    "active": True,
+                    "title": "OpenClaw 工作中",
+                    "detail": "当前会话正在继续调用工具和处理结果。",
+                    "tone": "busy",
+                    "icon": "…",
+                    "pill": "处理中",
+                }
+            if role == "toolResult" and age <= 90:
+                detail = f"当前工具 {tool_name} 已返回结果，OpenClaw 还在继续处理。" if tool_name else "当前工具已返回结果，OpenClaw 还在继续处理。"
+                return {
+                    "active": True,
+                    "title": "OpenClaw 工作中",
+                    "detail": detail,
+                    "tone": "busy",
+                    "icon": "…",
+                    "pill": "处理中",
+                }
+            if role == "user" and age <= 45:
+                return {
+                    "active": True,
+                    "title": "OpenClaw 收到请求",
+                    "detail": "当前会话刚收到一条新消息，正在准备响应。",
+                    "tone": "busy",
+                    "icon": "↗",
+                    "pill": "新请求",
+                }
+            if role == "assistant" and age <= 45:
+                return {
+                    "active": False,
+                    "fresh_reply": True,
+                    "title": "OpenClaw 刚回信",
+                    "detail": "当前会话刚刚产出了一条新回复。",
+                    "tone": "notify",
+                    "icon": "✓",
+                    "pill": "新回复",
+                }
+        except Exception as exc:
+            log(f"current_openclaw_status failed: {exc}")
+        return {}
 
     @objc.python_method
     def launch_debug_tool(self):
@@ -1426,10 +1513,18 @@ class CompanionController(NSObject):
             log(f"save_position failed: {exc}")
 
     def applicationWillTerminate_(self, notification):
+        global PID_HANDLE
         self.save_position()
         try:
-            if PID_FILE.exists():
+            if PID_FILE.exists() and PID_FILE.read_text(encoding="utf-8").strip() == str(os.getpid()):
                 PID_FILE.unlink()
+        except Exception:
+            pass
+        try:
+            if PID_HANDLE is not None:
+                fcntl.flock(PID_HANDLE.fileno(), fcntl.LOCK_UN)
+                PID_HANDLE.close()
+                PID_HANDLE = None
         except Exception:
             pass
 

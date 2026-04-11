@@ -19,6 +19,10 @@ It combines:
 - Species, rarity, role, and evolution presets prepared for future plugin-style distribution
 - Installer-managed runtime that keeps local pet progress by default
 
+## Current UI
+
+![Current LittleClaw Companion UI](docs/assets/current-ui-design.png)
+
 ## Current Status
 
 Working today:
@@ -26,7 +30,7 @@ Working today:
 - Pet API and persistent pet state
 - XP + affinity split growth system
 - Species / rarity / role preset loading
-- Unified Canvas pet rendering for lobster, sprite, mecha, moth, slime, and avian
+- Unified Canvas pet rendering for lobster, sprite, mecha, moth, slime, avian, fox, beetle, and koi
 - Screenshot / file staging and upload into current OpenClaw chat
 - Installer-managed runtime mirror
 - First-pet onboarding flow

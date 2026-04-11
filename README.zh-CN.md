@@ -10,6 +10,10 @@ LittleClaw Companion 是一个为 OpenClaw 设计的宠物式桌面陪伴体。
 - 截图 / 文件 / 直发到当前 OpenClaw 会话的桥接能力
 - 可扩展的种族 / 稀有度 / 进化预设，后续可继续产品化为可复用插件
 
+## 当前 UI
+
+![当前 LittleClaw Companion UI](docs/assets/current-ui-design.png)
+
 ## 当前状态
 
 目前已经可用：
@@ -18,6 +22,7 @@ LittleClaw Companion 是一个为 OpenClaw 设计的宠物式桌面陪伴体。
 - XP + Affinity 双轨成长系统
 - 种族 / 稀有度预设加载
 - 截图 / 文件暂存与上传到当前 OpenClaw 聊天
+- 龙虾、灵体、机甲、夜蛾、史莱姆、鸟系、灵狐、甲虫、锦鲤的统一 Canvas 渲染
 - 由安装器管理的 runtime 镜像
 - 首宠欢迎与初次相遇流程
 

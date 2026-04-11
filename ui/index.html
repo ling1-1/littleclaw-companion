@@ -318,6 +318,84 @@
       border-color: rgba(121, 169, 236, 0.76);
       box-shadow: 0 8px 14px rgba(83, 118, 176, 0.12);
     }
+    .shell[data-species="fox"] .avatar-halo {
+      background: radial-gradient(circle, rgba(255, 188, 144, 0.42), rgba(255, 188, 144, 0.08) 52%, transparent 72%);
+    }
+    .shell[data-species="fox"] .avatar-ring {
+      border-color: rgba(232, 143, 116, 0.42);
+      box-shadow: 0 0 0 6px rgba(255, 241, 233, 0.42) inset;
+    }
+    .shell[data-species="fox"] {
+      background:
+        radial-gradient(circle at 82% 14%, rgba(255, 228, 214, 0.64), transparent 24%),
+        radial-gradient(circle at 16% 4%, rgba(255, 243, 205, 0.28), transparent 18%),
+        linear-gradient(180deg, rgba(255, 252, 249, 0.992), rgba(255, 244, 238, 0.985));
+    }
+    .shell[data-species="fox"] .presence {
+      background: rgba(255, 239, 232, 0.94);
+      color: #8a6352;
+    }
+    .shell[data-species="fox"] .stage {
+      background: rgba(255, 241, 234, 0.96);
+      color: #8a5b4c;
+      border: 1px solid rgba(232, 143, 116, 0.46);
+    }
+    .shell[data-species="fox"] .pet-orbits button {
+      border-color: rgba(232, 143, 116, 0.76);
+      box-shadow: 0 8px 14px rgba(177, 102, 78, 0.12);
+    }
+    .shell[data-species="beetle"] .avatar-halo {
+      background: radial-gradient(circle, rgba(186, 170, 224, 0.4), rgba(186, 170, 224, 0.08) 52%, transparent 72%);
+    }
+    .shell[data-species="beetle"] .avatar-ring {
+      border-color: rgba(138, 122, 180, 0.42);
+      box-shadow: 0 0 0 6px rgba(244, 240, 253, 0.42) inset;
+    }
+    .shell[data-species="beetle"] {
+      background:
+        radial-gradient(circle at 82% 14%, rgba(236, 228, 255, 0.62), transparent 24%),
+        radial-gradient(circle at 16% 4%, rgba(255, 244, 214, 0.24), transparent 18%),
+        linear-gradient(180deg, rgba(253, 251, 255, 0.992), rgba(245, 242, 252, 0.985));
+    }
+    .shell[data-species="beetle"] .presence {
+      background: rgba(242, 238, 251, 0.94);
+      color: #6a6288;
+    }
+    .shell[data-species="beetle"] .stage {
+      background: rgba(243, 239, 252, 0.96);
+      color: #645c82;
+      border: 1px solid rgba(138, 122, 180, 0.46);
+    }
+    .shell[data-species="beetle"] .pet-orbits button {
+      border-color: rgba(138, 122, 180, 0.76);
+      box-shadow: 0 8px 14px rgba(103, 87, 138, 0.12);
+    }
+    .shell[data-species="koi"] .avatar-halo {
+      background: radial-gradient(circle, rgba(164, 219, 223, 0.42), rgba(164, 219, 223, 0.08) 52%, transparent 72%);
+    }
+    .shell[data-species="koi"] .avatar-ring {
+      border-color: rgba(118, 194, 190, 0.42);
+      box-shadow: 0 0 0 6px rgba(240, 255, 252, 0.42) inset;
+    }
+    .shell[data-species="koi"] {
+      background:
+        radial-gradient(circle at 82% 14%, rgba(224, 255, 250, 0.62), transparent 24%),
+        radial-gradient(circle at 16% 4%, rgba(255, 241, 213, 0.26), transparent 18%),
+        linear-gradient(180deg, rgba(251, 255, 254, 0.992), rgba(240, 251, 248, 0.985));
+    }
+    .shell[data-species="koi"] .presence {
+      background: rgba(234, 251, 247, 0.94);
+      color: #567b74;
+    }
+    .shell[data-species="koi"] .stage {
+      background: rgba(235, 251, 247, 0.96);
+      color: #52766f;
+      border: 1px solid rgba(118, 194, 190, 0.46);
+    }
+    .shell[data-species="koi"] .pet-orbits button {
+      border-color: rgba(118, 194, 190, 0.76);
+      box-shadow: 0 8px 14px rgba(81, 148, 144, 0.12);
+    }
     .shell[data-species="lobster"] .presence {
       background: rgba(255, 236, 227, 0.94);
       color: #7d665f;
@@ -519,62 +597,11 @@
       background: linear-gradient(180deg, #ffe2b8, #ffba7e);
       box-shadow: 0 4px 10px rgba(255, 187, 126, 0.3);
     }
-    .compact-actions {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .18s ease;
-    }
-    body.compact .shell.compact-hover .compact-actions {
-      opacity: 1;
-    }
-    .compact-action {
-      position: absolute;
-      min-width: 50px;
-      height: 28px;
-      padding: 0 11px;
-      border-radius: 999px;
-      border: 1px solid rgba(239, 169, 132, 0.84);
-      background: rgba(255,255,255,0.96);
-      color: #5b4842;
-      font-size: 11px;
-      box-shadow: 0 10px 18px rgba(190, 118, 78, 0.12);
-      cursor: pointer;
-      white-space: nowrap;
-      transition: transform .18s ease, box-shadow .18s ease;
-      pointer-events: auto;
-    }
-    .compact-action:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 20px rgba(190, 118, 78, 0.18);
-    }
-    .compact-action.primary {
-      background: linear-gradient(180deg, #f6a480, #f28a65);
-      color: #fff;
-      border-color: rgba(242, 138, 101, 0.9);
-    }
-    .compact-action.feed-mini {
-      left: 6px;
-      top: 10px;
-    }
-    .compact-action.play-mini {
-      right: 6px;
-      top: 10px;
-    }
-    .compact-action.learn-mini {
-      left: 8px;
-      bottom: 10px;
-    }
-    .compact-action.shot-mini {
-      right: 8px;
-      bottom: 10px;
-    }
-
     .full {
-      display: grid;
-      grid-template-rows: auto auto minmax(320px, 1fr);
-      gap: 14px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
       padding: 16px;
       min-height: 0;
       overflow-y: auto;
@@ -603,12 +630,323 @@
       grid-template-columns: 214px minmax(0, 1fr);
       grid-template-rows: auto auto;
       gap: 16px;
-      padding: 20px 20px 16px;
-      min-height: 334px;
+      padding: 80px 20px 14px;
+      min-height: 344px;
+      flex: 0 0 auto;
       overflow: hidden;
       position: relative;
       padding-bottom: 16px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.74);
+    }
+    .pet-island-shell {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      right: auto;
+      width: min(392px, calc(100% - 72px));
+      transform: translateX(-50%);
+      z-index: 18;
+      pointer-events: none;
+    }
+    .pet-island {
+      width: 100%;
+      min-height: 38px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 8px;
+      background: rgba(43, 35, 33, 0.94);
+      color: #fff7f2;
+      box-shadow: 0 14px 28px rgba(42, 30, 24, 0.16);
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease, border-color .18s ease;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+    .pet-island:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 38px rgba(42, 30, 24, 0.22);
+    }
+    .pet-island.show {
+      box-shadow: 0 18px 36px rgba(42, 30, 24, 0.22);
+      border-color: rgba(255,255,255,0.24);
+    }
+    .pet-island[data-tone="busy"] {
+      background: linear-gradient(90deg, rgba(43,35,33,0.96), rgba(78,58,50,0.96));
+    }
+    .pet-island[data-tone="notify"] {
+      background: linear-gradient(90deg, rgba(70,47,36,0.96), rgba(120,76,54,0.96));
+    }
+    .pet-island[data-tone="celebrate"] {
+      background: linear-gradient(90deg, rgba(87,61,37,0.96), rgba(128,88,48,0.96));
+    }
+    .pet-island-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.14);
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      flex: 0 0 auto;
+    }
+    .pet-island-copy {
+      min-width: 0;
+      display: grid;
+      gap: 3px;
+      line-height: 1.1;
+    }
+    .pet-island-copy-main {
+      display: grid;
+      gap: 1px;
+      min-width: 0;
+    }
+    .pet-island-title {
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .pet-island-detail {
+      font-size: 9px;
+      color: rgba(255,244,236,0.76);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .pet-island-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .pet-island-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 16px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,247,242,0.88);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: .01em;
+    }
+    .pet-island-caret {
+      min-width: 34px;
+      padding: 0 4px;
+      color: rgba(255,245,236,0.82);
+      font-size: 9px;
+      font-weight: 700;
+      text-align: right;
+    }
+    .pet-island-shell.expanded .pet-island-caret::after {
+      content: "收起";
+    }
+    .pet-island-shell:not(.expanded) .pet-island-caret::after {
+      content: "展开";
+    }
+    .pet-island-panel {
+      display: none;
+      position: absolute;
+      top: 48px;
+      left: 50%;
+      right: auto;
+      width: min(600px, calc(100vw - 48px));
+      transform: translateX(-50%);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      padding: 14px;
+      max-height: min(560px, calc(100vh - 96px));
+      overflow: auto;
+      border-radius: 24px;
+      border: 1px solid rgba(238, 188, 157, 0.54);
+      background:
+        radial-gradient(circle at 86% 20%, rgba(255, 226, 208, 0.4), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,248,243,0.98));
+      box-shadow: 0 22px 40px rgba(174, 109, 73, 0.18), inset 0 1px 0 rgba(255,255,255,0.74);
+      pointer-events: auto;
+    }
+    .pet-island-shell.expanded .pet-island-panel {
+      display: grid;
+    }
+    .pet-island-card {
+      min-width: 0;
+      padding: 14px 14px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(238, 188, 157, 0.42);
+      background: rgba(255,255,255,0.84);
+      display: grid;
+      gap: 8px;
+    }
+    .pet-island-card-wide {
+      grid-column: 1 / -1;
+    }
+    .pet-island-work-card {
+      gap: 10px;
+      padding-bottom: 12px;
+    }
+    .pet-island-inline-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .pet-island-inline-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #3a2d29;
+    }
+    .pet-island-inline-copy {
+      font-size: 13px;
+      color: #6f5a54;
+      line-height: 1.55;
+    }
+    .pet-island-inline-copy.emphasize {
+      color: #473835;
+      font-weight: 700;
+    }
+    .pet-island-inline-meta {
+      font-size: 12px;
+      color: #95786f;
+      line-height: 1.45;
+    }
+    .pet-island-label {
+      font-size: 11px;
+      color: #9b7365;
+      font-weight: 700;
+    }
+    .pet-island-value {
+      font-size: 15px;
+      font-weight: 800;
+      color: #3a2d29;
+      line-height: 1.25;
+    }
+    .pet-island-subvalue {
+      font-size: 12px;
+      color: #7c655f;
+      line-height: 1.45;
+    }
+    .pet-island-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pet-island-action {
+      appearance: none;
+      border: 1px solid rgba(238, 157, 112, 0.62);
+      background: rgba(255,255,255,0.92);
+      color: #8f563a;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+    .pet-island-action:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 18px rgba(230, 140, 96, 0.12);
+      background: #fff;
+    }
+    .pet-island-action.primary {
+      background: linear-gradient(180deg, #ffab83, #f58d63);
+      color: #fff9f6;
+      border-color: rgba(239, 140, 98, 0.9);
+    }
+    .pet-island-workspace {
+      display: grid;
+      gap: 12px;
+    }
+    .pet-island-pane {
+      display: none;
+      gap: 12px;
+    }
+    .pet-island-pane.is-active {
+      display: grid;
+    }
+    .island-compose,
+    .learn-inline {
+      margin-top: 0;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(241, 194, 165, 0.78);
+      padding: 12px;
+      display: grid;
+      gap: 10px;
+      box-shadow: none;
+    }
+    .island-field,
+    .learn-inline .learn-textarea {
+      min-height: 78px;
+    }
+    .island-input-bar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: end;
+    }
+    .island-upload {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      border: 1px solid rgba(239, 169, 132, 0.84);
+      background: rgba(255,255,255,0.96);
+      color: #a16446;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .island-submit {
+      min-width: 86px;
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(239, 140, 98, 0.9);
+      background: linear-gradient(180deg, #ffab83, #f58d63);
+      color: #fff9f6;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .island-hint {
+      min-width: 0;
+      padding-bottom: 2px;
+    }
+    .island-hidden {
+      display: none !important;
+    }
+    @media (min-width: 880px) {
+      .pet-island-panel {
+        width: min(640px, calc(100vw - 72px));
+      }
+    }
+    @media (max-width: 560px) {
+      .hero {
+        padding-top: 68px;
+        min-height: 328px;
+      }
+      .pet-island-shell {
+        width: min(360px, calc(100% - 36px));
+      }
+      .pet-island-panel {
+        width: min(428px, calc(100vw - 24px));
+        grid-template-columns: 1fr;
+        max-height: min(540px, calc(100vh - 88px));
+      }
+      .pet-island-card-wide {
+        grid-column: auto;
+      }
+      .island-input-bar {
+        grid-template-columns: auto 1fr;
+      }
+      .island-submit {
+        grid-column: 1 / -1;
+        width: 100%;
+      }
     }
     .hero::before {
       content: "";
@@ -1658,9 +1996,9 @@
       position: fixed;
       inset: 0;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      padding: 20px;
+      padding: 14px;
       background: rgba(255, 247, 243, 0.76);
       z-index: 80;
       opacity: 0;
@@ -1675,6 +2013,7 @@
     }
     .hatch-panel {
       width: min(448px, 100%);
+      max-height: calc(100vh - 28px);
       border-radius: 24px;
       border: 1px solid rgba(241, 194, 165, 0.84);
       background:
@@ -1686,7 +2025,8 @@
       display: grid;
       gap: 12px;
       position: relative;
-      overflow: hidden;
+      overflow: auto;
+      overscroll-behavior: contain;
     }
     .hatch-panel::before {
       content: "";
@@ -1708,7 +2048,12 @@
       font-weight: 700;
       color: #4d3d38;
     }
-    .hatch-body { display: grid; gap: 10px; }
+    .hatch-body {
+      display: grid;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
     .hatch-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1796,6 +2141,18 @@
     .hatch-panel[data-species="avian"] {
       --modal-glow: rgba(165, 204, 255, 0.22);
       --stage-glow: rgba(178, 214, 255, 0.32);
+    }
+    .hatch-panel[data-species="fox"] {
+      --modal-glow: rgba(255, 190, 146, 0.22);
+      --stage-glow: rgba(255, 203, 166, 0.32);
+    }
+    .hatch-panel[data-species="beetle"] {
+      --modal-glow: rgba(191, 175, 236, 0.22);
+      --stage-glow: rgba(203, 188, 244, 0.32);
+    }
+    .hatch-panel[data-species="koi"] {
+      --modal-glow: rgba(156, 220, 218, 0.22);
+      --stage-glow: rgba(184, 240, 233, 0.32);
     }
     .hatch-panel[data-species="lobster"] {
       --modal-glow: rgba(255, 188, 156, 0.24);
@@ -1902,9 +2259,9 @@
       position: fixed;
       inset: 0;
       display: none;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      padding: 20px;
+      padding: 14px;
       background: rgba(255, 247, 243, 0.34);
       backdrop-filter: blur(6px);
       z-index: 85;
@@ -1912,6 +2269,7 @@
     .intro-modal.show { display: flex; }
     .intro-panel {
       width: min(456px, 100%);
+      max-height: calc(100vh - 28px);
       border-radius: 24px;
       border: 1px solid rgba(241, 194, 165, 0.84);
       background:
@@ -1923,7 +2281,8 @@
       display: grid;
       gap: 12px;
       position: relative;
-      overflow: hidden;
+      overflow: auto;
+      overscroll-behavior: contain;
     }
     .intro-panel::before {
       content: "";
@@ -1994,6 +2353,18 @@
       --modal-glow: rgba(165, 204, 255, 0.22);
       --stage-glow: rgba(178, 214, 255, 0.3);
     }
+    .intro-panel[data-species="fox"] {
+      --modal-glow: rgba(255, 190, 146, 0.22);
+      --stage-glow: rgba(255, 203, 166, 0.3);
+    }
+    .intro-panel[data-species="beetle"] {
+      --modal-glow: rgba(191, 175, 236, 0.22);
+      --stage-glow: rgba(203, 188, 244, 0.3);
+    }
+    .intro-panel[data-species="koi"] {
+      --modal-glow: rgba(156, 220, 218, 0.22);
+      --stage-glow: rgba(184, 240, 233, 0.3);
+    }
     .intro-panel[data-species="lobster"] {
       --modal-glow: rgba(255, 188, 156, 0.22);
       --stage-glow: rgba(255, 191, 160, 0.3);
@@ -2024,6 +2395,10 @@
       gap: 10px;
       position: relative;
       z-index: 1;
+      position: sticky;
+      bottom: 0;
+      padding-top: 8px;
+      background: linear-gradient(180deg, rgba(255,249,245,0), rgba(255,249,245,0.96) 30%);
     }
     .intro-grid {
       display: grid;
@@ -2575,7 +2950,7 @@
 </head>
 <body class="compact">
   <div class="shell">
-    <button class="debug-toggle" id="debug-toggle" onclick="dispatchAction('toggle_debug')">调试</button>
+    <button class="debug-toggle" id="debug-toggle" hidden onclick="dispatchAction('toggle_debug')">调试</button>
     <section class="compact">
       <div class="compact-chip" onclick="dispatchAction('expand')">
         <div class="compact-level" id="compact-level">Lv1</div>
@@ -2598,15 +2973,118 @@
         <div class="compact-cue">›</div>
         <div class="compact-badge" id="compact-badge">升级了</div>
       </div>
-      <div class="compact-actions">
-        <button class="compact-action feed-mini" onclick="event.stopPropagation(); dispatchAction('feed')">喂食</button>
-        <button class="compact-action play-mini" onclick="event.stopPropagation(); dispatchAction('play')">玩耍</button>
-        <button class="compact-action learn-mini" onclick="event.stopPropagation(); dispatchAction('learn')">学习</button>
-        <button class="compact-action primary shot-mini" onclick="event.stopPropagation(); dispatchAction('screenshot')">截图</button>
-      </div>
     </section>
 
     <section class="full">
+      <div class="pet-island-shell" id="pet-island-shell">
+        <button class="pet-island" id="pet-island" data-tone="busy" type="button" onclick="togglePetIslandExpanded()">
+          <div class="pet-island-icon" id="pet-island-icon">•</div>
+          <div class="pet-island-copy">
+            <div class="pet-island-copy-main">
+              <div class="pet-island-title" id="pet-island-title">陪着你</div>
+              <div class="pet-island-detail" id="pet-island-detail">我会在这里承接刚刚发生的事情。</div>
+            </div>
+            <div class="pet-island-pills">
+              <div class="pet-island-pill" id="pet-island-pill-mode">待命</div>
+              <div class="pet-island-pill" id="pet-island-pill-growth">Lv.1 · XP 0%</div>
+              <div class="pet-island-pill" id="pet-island-pill-carry">无暂存内容</div>
+            </div>
+          </div>
+          <div class="pet-island-caret" id="pet-island-caret"></div>
+        </button>
+        <div class="pet-island-panel" id="pet-island-panel">
+          <div class="pet-island-card pet-island-card-wide">
+            <div class="pet-island-label">快捷入口</div>
+            <div class="pet-island-actions">
+              <button class="pet-island-action" type="button" onclick="event.stopPropagation(); selectPetIslandTool('compose')">发送消息</button>
+              <button class="pet-island-action primary" type="button" onclick="event.stopPropagation(); selectPetIslandTool('learn')">发起学习</button>
+              <button class="pet-island-action" type="button" onclick="event.stopPropagation(); selectPetIslandTool('reply')">查看回复</button>
+              <button class="pet-island-action" id="shot-btn" type="button" onclick="event.stopPropagation(); dispatchAction('screenshot')">带张截图</button>
+              <button class="pet-island-action" type="button" onclick="event.stopPropagation(); toggleHatchModal()">遇见伙伴</button>
+            </div>
+          </div>
+          <div class="pet-island-card pet-island-card-wide pet-island-work-card">
+            <div class="pet-island-workspace" id="pet-island-workspace" data-tool="home">
+              <div class="pet-island-pane is-active" data-pane="home">
+                <div class="pet-island-inline-head">
+                  <div class="pet-island-inline-title" id="pet-island-panel-state">准备就绪</div>
+                  <div class="pet-island-inline-meta" id="pet-island-panel-growth">Lv.1 · 初始形态</div>
+                </div>
+                <div class="pet-island-inline-copy" id="pet-island-panel-detail">先选一个快捷入口，需要时再展开对应部件。</div>
+                <div class="pet-island-inline-copy" id="pet-island-panel-carry">当前没有暂存截图或附件</div>
+                <div class="pet-island-inline-copy emphasize" id="pet-island-panel-next">先交给它一句明确需求。</div>
+                <div class="pet-island-inline-meta" id="pet-island-panel-reply">回复、学习、发送都会在这里切换，不会一下铺满整块面板。</div>
+                <div class="pet-island-inline-meta" id="pet-island-panel-growth-detail">XP 0 / 100，真实协作越多，升级和进化越明显。</div>
+                <div class="pet-island-inline-meta" id="pet-island-panel-carry-detail">截图、文件和粘贴图片都会先收在这里，之后再统一发送。</div>
+                <div class="island-hidden" id="queue">学习队列还很安静。</div>
+                <div class="island-hidden" id="next-text">先交给它一句明确需求。</div>
+              </div>
+              <div class="pet-island-pane" data-pane="compose">
+                <div class="compose island-compose">
+                  <div class="compose-note" id="compose-note">直接把需求发给当前伙伴，附件会先暂存，你可以边写边补图。</div>
+                  <div class="compose-status island-hidden">
+                    <span class="status-dot" id="status-dot"></span>
+                    <span id="status-text">现在可以直接输入并发送。</span>
+                  </div>
+                  <div class="flow island-hidden" id="flow">
+                    <div class="flow-item" id="flow-last">
+                      <span class="flow-dot"></span>
+                      <span>最近还没有新动作，当前伙伴正待命。</span>
+                    </div>
+                    <div class="flow-item" id="flow-next">
+                      <span class="flow-dot"></span>
+                      <span>你可以直接输入一句需求，或者先让它截图协作。</span>
+                    </div>
+                  </div>
+                  <div class="staged-assets" id="staged-assets"></div>
+                  <textarea id="prompt" class="field island-field" placeholder="直接输入你想让当前伙伴做的事，例如：分析这个界面哪里不顺手，顺便截个图并整理一个可落地方案。"></textarea>
+                  <div class="island-input-bar">
+                    <button class="island-upload" id="file-btn" type="button" onclick="openFilePicker()" aria-label="上传附件">+</button>
+                    <div class="hint island-hint">
+                      <span class="hint-line">Enter 发送 · Shift+Enter 换行</span>
+                      <span class="hint-line">截图/文件会先暂存，再跟着这次消息一起走</span>
+                    </div>
+                    <button class="island-submit" id="send-btn" type="button" onclick="dispatchAction('send')">发送</button>
+                  </div>
+                </div>
+              </div>
+              <div class="pet-island-pane" data-pane="learn">
+                <div class="learn-inline">
+                  <div class="compose-note">这里单独填写学习主题和目标，提交后会按真实学习链路入队，并尝试直发到当前 OpenClaw 会话。</div>
+                  <div class="learn-staged-assets" id="learn-staged-assets"></div>
+                  <label class="learn-field">
+                    <span class="learn-label">学习主题</span>
+                    <input id="learn-topic-input" class="learn-input" placeholder="例如：重构 Companion 调试链路" />
+                  </label>
+                  <label class="learn-field">
+                    <span class="learn-label">学习目标</span>
+                    <textarea id="learn-goal-input" class="learn-textarea" placeholder="例如：梳理现状问题，整理出可落地重构方案，并保留真实链路。"></textarea>
+                  </label>
+                  <div class="learn-tip" id="learn-asset-hint">截图和文件会跟着这次学习一起带上；也可以直接在文本框里粘贴图片。</div>
+                  <div class="island-input-bar">
+                    <button class="island-upload" type="button" onclick="openFilePicker()" aria-label="上传附件">+</button>
+                    <div class="hint island-hint">
+                      <span class="hint-line">学习会沿用当前暂存附件与截图</span>
+                      <span class="hint-line">主题和目标可以先写短一点，再让它继续追问</span>
+                    </div>
+                    <button class="island-submit" id="learn-btn" type="button" onclick="submitLearnModal()">开始学习</button>
+                  </div>
+                </div>
+              </div>
+              <div class="pet-island-pane" data-pane="reply">
+                <div class="reply-card" id="reply-card">
+                  <div class="reply-icon">↺</div>
+                  <div class="reply-copy">
+                    <div class="reply-label">当前回复</div>
+                    <div class="reply-summary" id="reply-summary">这里会常驻显示最新回复摘要，收到回执后不用担心面板被重新挤乱。</div>
+                  </div>
+                  <button class="reply-open" id="reply-open" onclick="openReplyModal()">展开查看</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="hero">
         <div class="hero-left">
           <div class="pedestal"></div>
@@ -2644,7 +3122,6 @@
         </div>
         <div class="hero-right">
           <div class="evo-banner" id="evo-banner">进化完成</div>
-          <div class="presence">陪着你</div>
           <div class="name" id="name">伙伴</div>
           <div class="meta-row">
             <div class="stage" id="stage">Lv.1 · 陪伴助手</div>
@@ -2660,57 +3137,6 @@
         </div>
       </div>
 
-      <div class="stats-row">
-        <div class="card queue" id="queue">学习请求 2 条，截图 1 张，最近……</div>
-        <div class="next-card">
-          <div class="next-icon">›</div>
-          <div class="next-copy">
-            <div class="next-label">下一步建议</div>
-            <div class="next-text" id="next-text">先把需求发给当前伙伴，它会帮你判断更适合学习、截图还是直接推进；照顾动作主要恢复状态和亲密，进化更看真实协作。</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="compose">
-        <div class="compose-note" id="compose-note">把需求直接写给当前伙伴。截图会先暂存，你可以连拍多张，最后再统一发送或学习；喂食、玩耍、小睡主要提升状态和亲密，不是主要升级渠道，进化更依赖真实协作。</div>
-        <div class="compose-status">
-          <span class="status-dot" id="status-dot"></span>
-          <span id="status-text">现在可以直接输入，按 Enter 发送；截图会先暂存，Cmd+Enter 再统一学习。照顾动作主要回状态和亲密。</span>
-        </div>
-        <div class="flow" id="flow">
-          <div class="flow-item" id="flow-last">
-            <span class="flow-dot"></span>
-            <span>最近还没有新动作，当前伙伴正待命。</span>
-          </div>
-          <div class="flow-item" id="flow-next">
-            <span class="flow-dot"></span>
-            <span>你可以直接输入一句需求，或者先让它截图协作。</span>
-          </div>
-        </div>
-        <div class="reply-card" id="reply-card">
-          <div class="reply-icon">↺</div>
-          <div class="reply-copy">
-            <div class="reply-label">当前回复</div>
-            <div class="reply-summary" id="reply-summary">这里会常驻显示最新回复摘要，收到回执后不用担心面板被重新挤乱。</div>
-          </div>
-          <button class="reply-open" id="reply-open" onclick="openReplyModal()">展开查看</button>
-        </div>
-        <div class="staged-assets" id="staged-assets"></div>
-        <textarea id="prompt" class="field" placeholder="直接输入你想让当前伙伴做的事，例如：分析这个界面哪里不顺手，顺便截个图并整理一个可落地方案。"></textarea>
-        <div class="actions">
-          <div class="hint">
-            <span class="hint-line">Enter 发送 · Cmd+Enter 学习 · Shift+Enter 换行</span>
-            <span class="hint-line">截图/文件会先暂存；喂食、玩耍、小睡主要恢复状态与亲密</span>
-          </div>
-          <div class="action-buttons">
-            <button class="btn" id="learn-btn" onclick="dispatchAction('learn')">学习</button>
-            <button class="btn" id="send-btn" onclick="dispatchAction('send')">发送</button>
-            <button class="btn" id="hatch-btn" onclick="toggleHatchModal()">伙伴</button>
-            <button class="btn" id="file-btn" onclick="openFilePicker()">文件</button>
-            <button class="btn primary" id="shot-btn" onclick="dispatchAction('screenshot')">截图</button>
-          </div>
-        </div>
-      </div>
     </section>
 
     <div class="reply-modal" id="reply-modal">
@@ -2720,39 +3146,6 @@
           <button class="reply-close" onclick="closeReplyModal()">收起</button>
         </div>
         <div class="reply-modal-body" id="reply-text"></div>
-      </div>
-    </div>
-
-    <div class="learn-modal" id="learn-modal">
-      <div class="learn-panel">
-        <div class="learn-head">
-          <div>
-            <div class="learn-title">学习链路</div>
-            <div class="learn-copy">这里单独填写学习主题和目标。提交后会按真实学习链路入队，并尝试直发到当前 OpenClaw 会话。</div>
-          </div>
-          <button class="learn-btn" onclick="closeLearnModal()">收起</button>
-        </div>
-        <div class="learn-grid">
-          <div class="learn-staged-assets" id="learn-staged-assets"></div>
-          <label class="learn-field">
-            <span class="learn-label">学习主题</span>
-            <input id="learn-topic-input" class="learn-input" placeholder="例如：重构 Companion 调试链路" />
-          </label>
-          <label class="learn-field">
-            <span class="learn-label">学习目标</span>
-            <textarea id="learn-goal-input" class="learn-textarea" placeholder="例如：梳理现状问题，整理出可落地重构方案，并保留真实链路。"></textarea>
-          </label>
-          <div class="learn-tip" id="learn-asset-hint">截图和文件会跟着这次学习一起带上；也可以直接在文本框里粘贴图片。</div>
-        </div>
-        <div class="learn-actions">
-          <div class="learn-buttons">
-            <button class="learn-btn" onclick="openFilePicker()">上传文件</button>
-          </div>
-          <div class="learn-buttons">
-            <button class="learn-btn" onclick="closeLearnModal()">取消</button>
-            <button class="learn-btn primary" onclick="submitLearnModal()">开始学习</button>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -2858,13 +3251,17 @@
     let ambientTimer = null;
     let ambientResetTimer = null;
     let attentionTimer = null;
+    let petIslandTimer = null;
+    let petIslandExpanded = false;
+    let petIslandSnapshot = null;
+    let petIslandTool = 'home';
     let busyNow = false;
     let pendingReplyNow = false;
+    let openclawStateNow = null;
     let latestReplyText = '';
     let unreadReply = false;
     let composing = false;
     let lastActionLabel = '最近还没有新动作，当前伙伴正待命。';
-    let compactHoverTimer = null;
     let expandedLeaveTimer = null;
     let stagedAssets = [];
     let learnLastFocusId = '';
@@ -2917,6 +3314,24 @@
         { id: 'crest', title: '冠羽哨鸟' },
         { id: 'sky', title: '苍穹领航鸟' },
       ],
+      fox: [
+        { id: 'seed', title: '尾火幼狐' },
+        { id: 'ember', title: '曳火灵狐' },
+        { id: 'rune', title: '纹焰策狐' },
+        { id: 'aurora', title: '极光天狐' },
+      ],
+      beetle: [
+        { id: 'seed', title: '铜角幼甲' },
+        { id: 'brass', title: '铠步甲虫' },
+        { id: 'bastion', title: '壁垒圣甲' },
+        { id: 'solar', title: '曜盾王甲' },
+      ],
+      koi: [
+        { id: 'seed', title: '泡尾锦鲤' },
+        { id: 'ribbon', title: '流绸锦鲤' },
+        { id: 'moon', title: '月潮愿鲤' },
+        { id: 'aurora', title: '天穹星鲤' },
+      ],
     };
 
     const DEBUG_SPECIES_TITLE = {
@@ -2926,6 +3341,9 @@
       moth: '夜蛾系',
       slime: '史莱姆系',
       avian: '鸟系',
+      fox: '灵狐系',
+      beetle: '甲虫系',
+      koi: '锦鲤系',
     };
 
     const DEBUG_SPECIES_ROLES = {
@@ -2959,6 +3377,21 @@
         { id: 'messenger', title: '信使鸟' },
         { id: 'captain', title: '领航羽' },
       ],
+      fox: [
+        { id: 'hearth', title: '炉心狐' },
+        { id: 'trickster', title: '机灵狐' },
+        { id: 'seer', title: '纹谋狐' },
+      ],
+      beetle: [
+        { id: 'bulwark', title: '壁垒甲' },
+        { id: 'forager', title: '觅材甲' },
+        { id: 'engraver', title: '铭刻甲' },
+      ],
+      koi: [
+        { id: 'drift', title: '流光鲤' },
+        { id: 'wish', title: '愿鳞鲤' },
+        { id: 'tide', title: '潮引鲤' },
+      ],
     };
 
     function petDisplayName(pet) {
@@ -2989,6 +3422,9 @@
       if (species === 'moth') return `现在是 ${title} 形态，偏安静守夜、慢整理和陪伴思考。`;
       if (species === 'slime') return `现在是 ${title} 形态，偏缓冲承接、治愈恢复和收纳协作。`;
       if (species === 'avian') return `现在是 ${title} 形态，偏侦察提醒、快速往返和节奏引导。`;
+      if (species === 'fox') return `现在是 ${title} 形态，偏灵动陪跑、策略提点和暖场推进。`;
+      if (species === 'beetle') return `现在是 ${title} 形态，偏承压守住、搬运承接和稳固流程。`;
+      if (species === 'koi') return `现在是 ${title} 形态，偏柔和回响、节奏安抚和把事项拉回主线。`;
       return `现在是 ${title} 形态，会更主动陪你往前推进。`;
     }
 
@@ -3109,11 +3545,11 @@
     function refreshExpandedLayout() {
       const full = document.querySelector('.full');
       if (!document.body.classList.contains('expanded')) return;
+      if (window.isPromptActive && window.isPromptActive()) return;
       if (promptAutosize) promptAutosize();
       if (full) {
         void full.offsetHeight;
       }
-      window.dispatchEvent(new Event('resize'));
     }
 
     function nextSuggestion(pet, queueSummary) {
@@ -3192,6 +3628,217 @@
       }
     }
 
+    function petIslandCarrySummary() {
+      const screenshots = stagedAssets.filter((item) => item.kind === 'screenshot').length;
+      const images = stagedAssets.filter((item) => item.kind === 'image').length;
+      const files = Math.max(0, stagedAssets.length - screenshots - images);
+      if (!stagedAssets.length) {
+        return {
+          pill: '无暂存内容',
+          title: '当前没有暂存截图或附件',
+          detail: '截图、文件和粘贴图片都会先收在这里，之后再统一发送。',
+        };
+      }
+      const bits = [];
+      if (screenshots) bits.push(`${screenshots} 张截图`);
+      if (images) bits.push(`${images} 张图片`);
+      if (files) bits.push(`${files} 个文件`);
+      const summary = bits.join(' · ');
+      return {
+        pill: summary,
+        title: `现在带着 ${summary}`,
+        detail: '这些内容会跟着接下来的发送或学习一起走，不会在切换输入时丢掉。',
+      };
+    }
+
+    function petIslandStateSummary(pet) {
+      const name = petDisplayName(pet);
+      if (unreadReply && latestReplyText.trim()) {
+        return {
+          title: '带回真实回复',
+          detail: `我已经把 ${name} 刚接到的真实回执带回来了，可以随时展开看。`,
+          tone: 'notify',
+          icon: '↩',
+          pill: '有回执',
+        };
+      }
+      if (pendingReplyNow) {
+        return {
+          title: '等回执中',
+          detail: `${name}已经把这一步送出去了，现在正盯着真实回复回来。`,
+          tone: 'busy',
+          icon: '↗',
+          pill: '回执中',
+        };
+      }
+      if (busyNow) {
+        return {
+          title: '处理中',
+          detail: lastActionLabel || `${name}正在处理你刚刚发起的动作。`,
+          tone: 'busy',
+          icon: '…',
+          pill: '忙碌中',
+        };
+      }
+      if (openclawStateNow?.active) {
+        return {
+          title: openclawStateNow.title || 'OpenClaw 工作中',
+          detail: openclawStateNow.detail || '当前 OpenClaw 会话正在继续处理。',
+          tone: openclawStateNow.tone || 'busy',
+          icon: openclawStateNow.icon || '…',
+          pill: openclawStateNow.pill || '处理中',
+        };
+      }
+      if (openclawStateNow?.fresh_reply && !unreadReply) {
+        return {
+          title: openclawStateNow.title || 'OpenClaw 刚回信',
+          detail: openclawStateNow.detail || '当前会话刚刚返回了一条回复。',
+          tone: openclawStateNow.tone || 'notify',
+          icon: openclawStateNow.icon || '✓',
+          pill: openclawStateNow.pill || '新回复',
+        };
+      }
+      if (pet?.asleep) {
+        return {
+          title: '休息中',
+          detail: pet?.blocked_reason || `${name}正在休息，先让它恢复状态。`,
+          tone: 'notify',
+          icon: 'z',
+          pill: '小睡中',
+        };
+      }
+      if (Number(pet?.hunger || 0) >= 70) {
+        return {
+          title: '有点饿了',
+          detail: `${name}现在饱食偏低，先喂一下会更愿意继续工作。`,
+          tone: 'notify',
+          icon: '🍎',
+          pill: '想吃点',
+        };
+      }
+      if (Number(pet?.energy || 0) <= 22) {
+        return {
+          title: '精力偏低',
+          detail: `${name}需要缓一下，先小睡或暂停连续操作会更稳。`,
+          tone: 'notify',
+          icon: '☾',
+          pill: '要恢复',
+        };
+      }
+      return {
+        title: '待命中',
+        detail: pet?.stage_presence || `${name}现在在旁边待命，准备接住下一条真实请求。`,
+        tone: 'notify',
+        icon: '•',
+        pill: '待命',
+      };
+    }
+
+    function renderPetIsland(queueSummary = '') {
+      mountIslandWorkspace();
+      const island = document.getElementById('pet-island');
+      const shell = document.getElementById('pet-island-shell');
+      const titleNode = document.getElementById('pet-island-title');
+      const detailNode = document.getElementById('pet-island-detail');
+      const iconNode = document.getElementById('pet-island-icon');
+      if (!island || !titleNode || !detailNode || !iconNode) return;
+      const pet = renderedPetState(currentPet || null);
+      const baseState = petIslandStateSummary(pet);
+      const idleNow = !busyNow && !pendingReplyNow && !unreadReply;
+      const state = idleNow ? baseState : (petIslandSnapshot || baseState);
+      const carry = petIslandCarrySummary();
+      const next = nextSuggestion(pet, queueSummary || document.getElementById('queue')?.textContent || '');
+      const xpValue = Math.max(0, Math.min(100, Number(pet?.xp || 0)));
+      const nextStageTitle = String(pet?.next_stage?.title || '');
+      const growthPill = `Lv.${pet?.level || 1} · XP ${xpValue}%`;
+      const growthLine = nextStageTitle
+        ? `Lv.${pet?.level || 1} · ${petStageLabel(pet)}`
+        : `Lv.${pet?.level || 1} · ${petStageLabel(pet)}`;
+      const growthDetail = nextStageTitle
+        ? `当前 XP ${xpValue} / 100，下一阶段目标是 ${nextStageTitle}。`
+        : `当前 XP ${xpValue} / 100，继续真实协作会更快拉动升级和进化。`;
+      const compactDetail = pendingReplyNow
+        ? '盯着回执回来。'
+        : busyNow
+        ? '正在承接这一步。'
+        : unreadReply
+        ? '刚带回一条真实回复。'
+        : pet?.asleep
+        ? '现在先休息。'
+        : Number(pet?.hunger || 0) >= 70
+        ? '有点饿了。'
+        : Number(pet?.energy || 0) <= 22
+        ? '精力有点低。'
+        : stagedAssets.length
+        ? `带着 ${carry.pill}。`
+        : '准备接新请求。';
+      titleNode.textContent = String(state.title || petDisplayName(currentPet) || '陪着你');
+      detailNode.textContent = compactDetail;
+      iconNode.textContent = String(state.icon || '•');
+      island.setAttribute('data-tone', state.tone || 'busy');
+      island.classList.toggle('show', Boolean(petIslandSnapshot));
+      shell?.classList.toggle('expanded', petIslandExpanded);
+      const modePill = document.getElementById('pet-island-pill-mode');
+      const growthPillNode = document.getElementById('pet-island-pill-growth');
+      const carryPillNode = document.getElementById('pet-island-pill-carry');
+      if (modePill) modePill.textContent = state.pill || '待命';
+      if (growthPillNode) growthPillNode.textContent = growthPill;
+      if (carryPillNode) carryPillNode.textContent = carry.pill;
+      const panelState = document.getElementById('pet-island-panel-state');
+      const panelDetail = document.getElementById('pet-island-panel-detail');
+      const panelGrowth = document.getElementById('pet-island-panel-growth');
+      const panelGrowthDetail = document.getElementById('pet-island-panel-growth-detail');
+      const panelCarry = document.getElementById('pet-island-panel-carry');
+      const panelCarryDetail = document.getElementById('pet-island-panel-carry-detail');
+      const panelNext = document.getElementById('pet-island-panel-next');
+      const panelReply = document.getElementById('pet-island-panel-reply');
+      if (panelState) panelState.textContent = baseState.title || '待命中';
+      if (panelDetail) panelDetail.textContent = baseState.detail || '现在没有挂起动作，可以直接发消息、学习或截图。';
+      if (panelGrowth) panelGrowth.textContent = growthLine;
+      if (panelGrowthDetail) panelGrowthDetail.textContent = growthDetail;
+      if (panelCarry) panelCarry.textContent = carry.title;
+      if (panelCarryDetail) panelCarryDetail.textContent = carry.detail;
+      if (panelNext) panelNext.textContent = next;
+      if (panelReply) {
+        panelReply.textContent = latestReplyText.trim()
+          ? `最新回复已经驻留在下方回复卡，岛上也会优先提醒你有新回执。`
+          : `当前队列：${queueSummary || document.getElementById('queue')?.textContent || '学习队列还很安静。'}`;
+      }
+    }
+
+    function showPetIsland(title, detail, tone = 'busy', duration = 2400, icon = '•') {
+      petIslandSnapshot = {
+        title: String(title || petDisplayName(currentPet) || '陪着你'),
+        detail: String(detail || '我会在这里承接刚刚发生的事情。'),
+        tone: tone || 'busy',
+        icon: String(icon || '•'),
+        pill: tone === 'celebrate' ? '已成长' : tone === 'notify' ? '有提醒' : '处理中',
+      };
+      renderPetIsland();
+      if (petIslandTimer) {
+        window.clearTimeout(petIslandTimer);
+        petIslandTimer = null;
+      }
+      if (duration > 0) {
+        petIslandTimer = window.setTimeout(() => {
+          petIslandSnapshot = null;
+          renderPetIsland();
+        }, duration);
+      }
+    }
+
+    function togglePetIslandExpanded(force) {
+      petIslandExpanded = typeof force === 'boolean' ? force : !petIslandExpanded;
+      if (!petIslandExpanded) {
+        petIslandTool = 'home';
+      }
+      renderPetIsland();
+      if (petIslandExpanded) {
+        clearCollapseSchedule();
+        window.setCompact(false);
+      }
+    }
+
     function compactPresenceForPet(pet) {
       if (!pet) return '陪着你';
       if (unreadReply) return '带回回复了';
@@ -3219,6 +3866,13 @@
         if (compactPresence) compactPresence.textContent = evolved ? nextStage : `成长到 Lv${nextLevel}`;
         if (levelCelebrateTimer) window.clearTimeout(levelCelebrateTimer);
         setAttention(evolved ? 'evolve' : 'level-up', evolved ? `进化啦` : `Lv${nextLevel}`);
+        showPetIsland(
+          evolved ? `${displayName} 完成进化` : `${displayName} 升级了`,
+          evolved ? `现在来到 ${nextStage}` : `成长到 Lv.${nextLevel}`,
+          'celebrate',
+          evolved ? 4800 : 3200,
+          evolved ? '✦' : '↑'
+        );
         setAmbientMood('alert', evolved ? '我进化啦，接下来能陪你处理更难的事。' : '我又长大一点了，还能继续陪你往前做。');
         const note = document.getElementById('compose-note');
         if (note) {
@@ -3357,6 +4011,7 @@
           learnWrap.innerHTML = '';
         }
         if (learnHint) learnHint.textContent = '截图和文件会跟着这次学习一起带上；也可以直接在文本框里粘贴图片。';
+        renderPetIsland();
         return;
       }
       wrap.classList.add('show');
@@ -3366,6 +4021,7 @@
         learnWrap.innerHTML = renderAssetCards('learn');
       }
       if (learnHint) learnHint.textContent = `当前已暂存 ${stagedAssets.length} 个附件，这次学习和发送都会一起带上。`;
+      renderPetIsland();
     }
 
     function removeStagedAsset(index) {
@@ -3513,6 +4169,9 @@
         moth: '这位更偏夜间陪伴型伙伴，气质会更柔和，适合守夜、整理和慢思考。',
         slime: '这位更偏治愈缓冲型搭子，感觉会更软、更包容，也更适合做恢复和收纳类陪伴。',
         avian: '这位更偏侦察回传型伙伴，动作会更轻更快，也更适合提醒、巡视和来回反馈。',
+        fox: '这位更偏灵动陪跑型伙伴，会更机敏，也更适合给提示、陪推进和暖场。',
+        beetle: '这位更偏厚甲承压型伙伴，感觉会更稳、更能扛，也更适合守住复杂流程。',
+        koi: '这位更偏柔和回响型伙伴，气质会更流动，也更适合安抚节奏和收束回流。',
       };
       const rarityMap = {
         common: '这次邂逅到的是普通稀有度，适合走长期陪伴型成长。',
@@ -3683,6 +4342,7 @@
         compose?.classList.remove('has-reply');
         closeReplyModal();
       }
+      renderPetIsland();
     }
 
     function escapeHtml(text) {
@@ -3856,6 +4516,28 @@
       if (!busyNow && !pendingReplyNow) setAttention('', '待命');
     }
 
+    function mountIslandWorkspace() {
+      return;
+    }
+
+    function selectPetIslandTool(tool = 'home') {
+      petIslandTool = tool || 'home';
+      const workspace = document.getElementById('pet-island-workspace');
+      if (workspace) workspace.setAttribute('data-tool', petIslandTool);
+      document.querySelectorAll('#pet-island-workspace .pet-island-pane').forEach((node) => {
+        node.classList.toggle('is-active', node.getAttribute('data-pane') === petIslandTool);
+      });
+      if (petIslandTool !== 'home') {
+        togglePetIslandExpanded(true);
+      }
+      if (petIslandTool === 'compose') {
+        window.setTimeout(() => document.getElementById('prompt')?.focus(), 10);
+      }
+      if (petIslandTool === 'learn') {
+        window.setTimeout(() => document.getElementById('learn-topic-input')?.focus(), 10);
+      }
+    }
+
     function closeReplyModal() {
       const modal = document.getElementById('reply-modal');
       if (!modal) return;
@@ -3865,18 +4547,12 @@
       modal.classList.remove('show');
     }
 
-    function setCompactHover(active) {
-      const shell = document.querySelector('.shell');
-      if (!shell) return;
-      shell.classList.toggle('compact-hover', !!active);
-    }
-
     function scheduleCollapse() {
       if (expandedLeaveTimer) window.clearTimeout(expandedLeaveTimer);
       expandedLeaveTimer = window.setTimeout(() => {
         if (window.isPanelInteractive && window.isPanelInteractive()) return;
         if (window.isPromptActive && window.isPromptActive()) return;
-        const modalIds = ['reply-modal', 'asset-preview', 'hatch-modal', 'intro-modal', 'learn-modal'];
+        const modalIds = ['reply-modal', 'asset-preview', 'hatch-modal', 'intro-modal'];
         if (modalIds.some((id) => {
           const modal = document.getElementById(id);
           return modal && modal.classList.contains('show');
@@ -3950,6 +4626,15 @@
       if (species === 'avian') {
         return { seed: 'hatchling', glide: 'coral', crest: 'reef', sky: 'mythic' }[stage] || 'reef';
       }
+      if (species === 'fox') {
+        return { seed: 'hatchling', ember: 'coral', rune: 'reef', aurora: 'mythic' }[stage] || 'coral';
+      }
+      if (species === 'beetle') {
+        return { seed: 'hatchling', brass: 'coral', bastion: 'reef', solar: 'mythic' }[stage] || 'reef';
+      }
+      if (species === 'koi') {
+        return { seed: 'hatchling', ribbon: 'coral', moon: 'reef', aurora: 'mythic' }[stage] || 'coral';
+      }
       return 'hatchling';
     }
 
@@ -4007,6 +4692,24 @@
           crest: '冠羽哨鸟更像前线侦察员，会主动盯变化和回传。',
           sky: '领航鸟高阶后会更像带方向的侦察搭子。',
         },
+        fox: {
+          seed: '幼狐阶段更贴身，会像一团小火一样跟着你陪跑。',
+          ember: '曳火阶段已经开始会提点和暖场，适合轻推下一步。',
+          rune: '纹焰阶段会更像懂策略的灵狐，适合收线索和补方向。',
+          aurora: '天狐高阶后会更有主导感，像会替你照亮路径的搭子。',
+        },
+        beetle: {
+          seed: '幼甲阶段更像会贴地守着的小护卫，先帮你接住杂事。',
+          brass: '铠步阶段已经更有护甲感，适合稳住推进和承压执行。',
+          bastion: '壁垒阶段像前排厚甲，会把流程和状态一起托住。',
+          solar: '王甲高阶后会更像流程核心，厚重、稳定而有秩序。',
+        },
+        koi: {
+          seed: '幼鲤阶段更轻柔，像会围着你打转的小回响。',
+          ribbon: '流绸阶段已经会带着节奏游动，适合慢慢陪你推进。',
+          moon: '月潮阶段更像会安抚和回流的愿鲤，适合收拢心神与线索。',
+          aurora: '天穹星鲤高阶后会更像主水流，适合把杂线重新汇成主线。',
+        },
       }[species]?.[stage] || '它现在更像一个会一起做事的搭子。';
       const roleCopy = {
         guardian: '偏守住状态和节奏。',
@@ -4026,6 +4729,15 @@
         porter: '偏承接素材和接续流程。',
         scout: '偏巡查前方和带回变化。',
         messenger: '偏往返传递和快速响应。',
+        hearth: '偏暖场陪跑和守住情绪。',
+        trickster: '偏机敏试探和寻找突破口。',
+        seer: '偏策略判断和收束方向。',
+        bulwark: '偏扛压承接和稳住前排。',
+        forager: '偏搜集搬运和接续素材。',
+        engraver: '偏沉淀规则和固化流程。',
+        drift: '偏柔和陪伴和顺势推进。',
+        wish: '偏鼓励回响和强化反馈。',
+        tide: '偏节奏回流和把线拉回主航道。',
       }[role] || '';
       return roleCopy ? `${stageCopy} ${roleCopy}` : stageCopy;
     }
@@ -4035,37 +4747,50 @@
         window.clearTimeout(expandRenderTimer);
         expandRenderTimer = null;
       }
+      const focusState = captureTextFocusState();
+      const previousTool = petIslandTool;
       document.body.classList.toggle('compact', compact);
       document.body.classList.toggle('expanded', !compact);
       document.body.classList.toggle('expanding', !compact);
       const prompt = document.getElementById('prompt');
-      if (prompt) prompt.blur();
+      if (compact && prompt && document.activeElement === prompt) prompt.blur();
       if (compact) {
+        petIslandExpanded = false;
+        petIslandTool = 'home';
         document.body.classList.remove('expanding');
         closeReplyModal();
         closeAssetPreview();
         closeHatchModal();
         closeIntroModal();
         closeLearnModal();
-        setCompactHover(false);
       }
       if (!compact && unreadReply) {
         unreadReply = false;
         if (!busyNow && !pendingReplyNow) setAttention('', '待命');
       }
       if (!compact) {
+        petIslandTool = previousTool === 'home' ? 'home' : previousTool;
         expandRenderTimer = window.setTimeout(() => {
           document.body.classList.remove('expanding');
-          rerenderCurrentPet();
-          refreshExpandedLayout();
-          window.requestAnimationFrame(() => {
+          if (!(window.isPromptActive && window.isPromptActive())) {
             rerenderCurrentPet();
             refreshExpandedLayout();
+          }
+          restoreTextFocusState(focusState);
+          window.requestAnimationFrame(() => {
+            if (!(window.isPromptActive && window.isPromptActive())) {
+              rerenderCurrentPet();
+              refreshExpandedLayout();
+            }
+            restoreTextFocusState(focusState);
           });
           if (document.fonts?.ready) {
             document.fonts.ready.then(() => {
-              rerenderCurrentPet();
-              refreshExpandedLayout();
+              if (!(window.isPromptActive && window.isPromptActive())) {
+                rerenderCurrentPet();
+                refreshExpandedLayout();
+              }
+              restoreTextFocusState(focusState);
             }).catch(() => {});
           }
           expandRenderTimer = null;
@@ -4073,11 +4798,16 @@
       }
     };
 
-    window.updatePet = function (pet, queueSummary, latestReply, pendingReply, pendingAction) {
+    window.updatePet = function (pet, queueSummary, latestReply, pendingReply, pendingAction, openclawStatus) {
+      const focusState = captureTextFocusState();
       const prevPet = lastPetSnapshot;
       currentPet = pet || null;
       const renderedPet = renderedPetState(pet || null);
       pendingReplyNow = !!pendingReply;
+      openclawStateNow = openclawStatus && typeof openclawStatus === 'object' ? openclawStatus : null;
+      if (!busyNow && !pendingReplyNow && !unreadReply) {
+        petIslandSnapshot = null;
+      }
       const evo = visualTierForPet(renderedPet);
       const shell = document.querySelector('.shell');
       shell?.setAttribute('data-evo', evo);
@@ -4149,12 +4879,16 @@
       lastPetSnapshot = renderedPet ? JSON.parse(JSON.stringify(renderedPet)) : null;
       syncDebugFormFromPet(renderedPet);
       preserveLearnFocus();
+      restoreTextFocusState(focusState);
       if (renderedPet?.onboarding_pending && !introVisible) {
         openIntroModal(renderedPet);
       } else if (!renderedPet?.onboarding_pending && introVisible) {
         closeIntroModal();
       }
-      if (document.body.classList.contains('expanded')) refreshExpandedLayout();
+      renderPetIsland(queueSummary || '');
+      if (document.body.classList.contains('expanded') && !(window.isPromptActive && window.isPromptActive())) {
+        refreshExpandedLayout();
+      }
     };
 
     function setAmbientMood(mood, speech) {
@@ -4281,11 +5015,11 @@
         const next = nextSuggestion(currentPet, document.getElementById('queue')?.textContent || '');
         updateFlow(lastActionLabel, next, 'done', 'active');
       }
+      renderPetIsland();
     }
 
     function preserveLearnFocus() {
-      const modal = document.getElementById('learn-modal');
-      if (!modal || !modal.classList.contains('show') || !learnLastFocusId || learnComposing) return;
+      if (petIslandTool !== 'learn' || !learnLastFocusId || learnComposing) return;
       const active = document.activeElement;
       if (active && (active.id === 'learn-topic-input' || active.id === 'learn-goal-input')) return;
       const target = document.getElementById(learnLastFocusId);
@@ -4299,6 +5033,44 @@
       }, 0);
     }
 
+    function captureTextFocusState() {
+      const active = document.activeElement;
+      if (!active) return null;
+      const id = String(active.id || '');
+      if (!['prompt', 'learn-topic-input', 'learn-goal-input'].includes(id)) return null;
+      const tool = id === 'prompt' ? 'compose' : 'learn';
+      const value = typeof active.value === 'string' ? active.value : '';
+      const state = { id, tool, value };
+      if (typeof active.selectionStart === 'number') state.start = active.selectionStart;
+      if (typeof active.selectionEnd === 'number') state.end = active.selectionEnd;
+      return state;
+    }
+
+    function restoreTextFocusState(state) {
+      if (!state || !document.body.classList.contains('expanded')) return;
+      if (state.tool === 'learn' && petIslandTool !== 'learn') return;
+      if (state.tool === 'compose' && petIslandTool !== 'compose') return;
+      const target = document.getElementById(state.id);
+      if (!target || document.activeElement === target) return;
+      window.setTimeout(() => {
+        const node = document.getElementById(state.id);
+        if (!node) return;
+        if (state.tool === 'learn' && petIslandTool !== 'learn') return;
+        if (state.tool === 'compose' && petIslandTool !== 'compose') return;
+        if (typeof node.value === 'string' && node.value !== state.value) return;
+        try {
+          node.focus({ preventScroll: true });
+        } catch (_) {
+          node.focus();
+        }
+        if (typeof state.start === 'number' && typeof node.setSelectionRange === 'function') {
+          try {
+            node.setSelectionRange(state.start, typeof state.end === 'number' ? state.end : state.start);
+          } catch (_) {}
+        }
+      }, 0);
+    }
+
     function allowLearnBlurFor(ms = 220) {
       learnBlurAllowedUntil = Date.now() + ms;
     }
@@ -4306,11 +5078,11 @@
     function handleLearnInputBlur(node) {
       if (!node || learnComposing) return;
       if (Date.now() < learnBlurAllowedUntil) return;
-      const modal = document.getElementById('learn-modal');
-      if (!modal || !modal.classList.contains('show')) return;
+      if (petIslandTool !== 'learn') return;
       window.setTimeout(() => {
         const active = document.activeElement;
-        const activeInsideLearn = active && modal.contains(active);
+        const workspace = document.getElementById('pet-island-workspace');
+        const activeInsideLearn = active && workspace && workspace.contains(active);
         const activeIsLearnField = active && (active.id === 'learn-topic-input' || active.id === 'learn-goal-input');
         if (activeIsLearnField || activeInsideLearn || learnComposing || Date.now() < learnBlurAllowedUntil) return;
         try {
@@ -4332,6 +5104,13 @@
         ? `${petDisplayName(currentPet)}正在帮你截图并整理协作请求…`
         : `${petDisplayName(currentPet)}正在把你的需求整理进学习流…`;
       setBusyState(action, true, msg);
+      showPetIsland(
+        action === 'send' ? '正在递送' : action === 'learn' ? '正在学习' : action === 'screenshot' ? '正在观察' : '正在处理',
+        msg,
+        'busy',
+        2600,
+        action === 'send' ? '➜' : action === 'learn' ? '⌘' : action === 'screenshot' ? '◉' : '…'
+      );
     };
 
     window.onActionResult = function (action, payload) {
@@ -4342,6 +5121,7 @@
       if (payload.blocked) {
         pendingReplyNow = false;
         setBusyState(action, false, withPetName(payload.message || `${petDisplayName(currentPet)}现在没法继续工作。`, currentPet));
+        showPetIsland('现在先别推进', withPetName(payload.message || `${petDisplayName(currentPet)}现在没法继续工作。`, currentPet), 'notify', 2800, '!');
         if (note) note.textContent = withPetName(payload.message || `${petDisplayName(currentPet)}现在没法继续工作。`, currentPet);
         if (currentPet?.asleep) {
           setAttention('alert', currentPet?.hunger >= 88 ? '饿了' : '困了');
@@ -4356,6 +5136,7 @@
         const note = document.getElementById('compose-note');
         if (note) note.textContent = withPetName(payload.message || `已经正式认识${petDisplayName(currentPet)}了，之后它会直接进入正常陪伴模式。`, currentPet);
         setAttention('done', '认识啦');
+        showPetIsland(`认识 ${petDisplayName(currentPet)}`, '它会正式进入正常陪伴和协作状态。', 'celebrate', 3200, '♥');
         if (currentPet) window.updatePet(currentPet, queueText, latestReplyText || '', pendingReplyNow, '');
         return;
       }
@@ -4383,12 +5164,27 @@
         if (sendBtn) sendBtn.textContent = '发送';
         if (shotBtn) shotBtn.textContent = '截图';
         setAttention('busy', action === 'send' ? '递送中' : action === 'screenshot' ? '观察中' : '思考中');
+        showPetIsland(
+          action === 'send' ? '正在等回执' : action === 'screenshot' ? '截图已带回' : '学习链路处理中',
+          payload.message || '已经送到当前 OpenClaw，会继续等真实回复。',
+          'busy',
+          2600,
+          action === 'send' ? '↗' : action === 'screenshot' ? '◉' : '⌘'
+        );
         syncWorkButtons(currentPet);
       } else {
         setBusyState(action, false, withPetName(payload.message || `${petDisplayName(currentPet)}已经处理完这一步。`, currentPet));
+        showPetIsland('已经接住', withPetName(payload.message || `${petDisplayName(currentPet)}已经处理完这一步。`, currentPet), 'notify', 2200, '✓');
       }
       if (['feed', 'play', 'nap'].includes(action)) {
         const feedback = careFeedback(action, currentPet);
+        showPetIsland(
+          action === 'feed' ? '喂食完成' : action === 'play' ? '玩耍完成' : '小睡完成',
+          feedback || '这次照顾主要回状态和亲密。',
+          'notify',
+          2400,
+          action === 'feed' ? '🍎' : action === 'play' ? '✦' : 'z'
+        );
         if (note) note.textContent = feedback || '这次照顾主要回状态和亲密，不是主要升级渠道。';
         const next = nextSuggestion(currentPet, queueText);
         updateFlow(feedback || '这次照顾主要回状态和亲密。', next, 'done', 'active');
@@ -4405,6 +5201,7 @@
         if (prompt) prompt.value = '';
         stagedAssets = [];
         renderStagedAssets();
+        selectPetIslandTool('home');
         if (note) {
           note.textContent = payload.message || (
             payload.sent
@@ -4412,6 +5209,7 @@
               : `学习主题「${payload.topic || '桌面 Companion 学习主题'}」已落盘入队，但还没有送到正在打开的 OpenClaw 会话。`
           );
         }
+        showPetIsland('学习链路已提交', payload.message || `主题「${payload.topic || '桌面 Companion 学习主题'}」已经进入当前流程。`, payload.sent ? 'notify' : 'busy', 2800, '⌘');
         if (currentPet) window.updatePet(currentPet, queueText, latestReplyText || '', pendingReplyNow, action);
         return;
       }
@@ -4421,6 +5219,7 @@
           stagedAssets = [];
           renderStagedAssets();
         }
+        if (payload.ok) selectPetIslandTool('home');
         if (note) {
           note.textContent = payload.message || (
             payload.ok
@@ -4428,6 +5227,7 @@
               : '没找到正在打开的 OpenClaw 聊天页，所以这次没能直发。'
           );
         }
+        showPetIsland(payload.ok ? '消息已递送' : '消息未送达', payload.message || '我已经尝试把这条消息直发到当前 OpenClaw 会话。', payload.ok ? 'notify' : 'busy', 2600, payload.ok ? '➜' : '!');
         if (currentPet) window.updatePet(currentPet, queueText, latestReplyText || '', pendingReplyNow, action);
         return;
       }
@@ -4443,12 +5243,13 @@
         if (note) {
           note.textContent = `已暂存 ${payload.staged_shots || 1} 张截图，你可以继续截图，最后再点发送或学习统一提交。`;
         }
+        showPetIsland('截图已暂存', `现在一共带着 ${payload.staged_shots || 1} 张截图。`, 'notify', 2200, '◉');
         if (currentPet) window.updatePet(currentPet, queueText, latestReplyText || '', pendingReplyNow, action);
         return;
       }
       if (action === 'pick_files') {
         const files = Array.isArray(payload.files) ? payload.files : [];
-        const learnOpen = document.getElementById('learn-modal')?.classList.contains('show');
+        const learnOpen = petIslandTool === 'learn';
         setBusyState(action, false, files.length ? `已接住 ${files.length} 个附件，你可以继续添加或直接发送。` : '没有选择附件，已回到待命状态。');
         files.forEach((file) => {
           addStagedAsset({
@@ -4465,6 +5266,7 @@
               : `已暂存 ${files.length} 个附件，你可以继续添加，最后再统一发送或学习。`)
             : '没有选择附件，你可以继续输入、截图，或重新选择文件。';
         }
+        showPetIsland(files.length ? '附件已接住' : '没有选择附件', files.length ? `已暂存 ${files.length} 个附件。` : '你可以继续输入、截图，或重新选择文件。', 'notify', 2200, '📎');
         if (currentPet) window.updatePet(currentPet, queueText, latestReplyText || '', pendingReplyNow, action);
         return;
       }
@@ -4479,6 +5281,7 @@
       setBusyState(payload.kind || 'send', false, payload.message || 'OpenClaw 已经返回了真实回复。');
       const note = document.getElementById('compose-note');
       if (note) note.textContent = '已经收到 OpenClaw 的真实回复，展开后可以直接看内容。';
+      showPetIsland('带回真实回复', '我把最新一条回复带回来了。', 'notify', 3200, '↩');
       setAmbientMood('alert', '我把最新回复带回来了，你可以展开看。');
       const compactPresence = document.getElementById('compact-presence');
       if (compactPresence) compactPresence.textContent = '带回回复了';
@@ -4504,21 +5307,22 @@
 
     function openLearnModal() {
       closeHatchModal();
-      const modal = document.getElementById('learn-modal');
+      clearCollapseSchedule();
+      window.setCompact(false);
       const prompt = (document.getElementById('prompt')?.value || '').trim();
       const topic = document.getElementById('learn-topic-input');
       const goal = document.getElementById('learn-goal-input');
       if (topic) topic.value = defaultLearnTopic(prompt);
       if (goal) goal.value = defaultLearnGoal(prompt);
-      if (modal) modal.classList.add('show');
+      selectPetIslandTool('learn');
+      togglePetIslandExpanded(true);
       renderStagedAssets();
       if (topic) window.setTimeout(() => topic.focus(), 10);
     }
 
     function closeLearnModal() {
-      const modal = document.getElementById('learn-modal');
       allowLearnBlurFor(240);
-      if (modal) modal.classList.remove('show');
+      selectPetIslandTool('home');
       learnLastFocusId = '';
     }
 
@@ -4531,13 +5335,12 @@
         goal: goal || '持续学习、沉淀方案并整理 skill 草稿',
         bypassLearnModal: true,
       });
-      closeLearnModal();
+      selectPetIslandTool('home');
     }
 
     function dispatchAction(action, options = {}) {
       if (action !== 'expand' && action !== 'collapse') {
         closeHatchModal();
-        closeLearnModal();
       }
       if (currentPet?.asleep && ['learn', 'send', 'screenshot'].includes(action)) {
         window.onActionResult(action, {
@@ -4550,6 +5353,12 @@
       const raw = (document.getElementById('prompt')?.value || '').trim();
       if (action === 'learn' && !options.bypassLearnModal) {
         openLearnModal();
+        return;
+      }
+      if (action === 'send' && !raw && !stagedAssets.length) {
+        const note = document.getElementById('compose-note');
+        if (note) note.textContent = '先输入一句要发送的话，或者先挂上截图/附件，再发送给 OpenClaw。';
+        showPetIsland('还没有可发送内容', '先写一点内容，或先带上一张截图/附件。', 'notify', 2200, '!');
         return;
       }
       const assets = stagedAssets.map(({ path, name, kind, data, mime }) => ({ path, name, kind, data, mime }));
@@ -4567,6 +5376,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+      mountIslandWorkspace();
       const debugToggle = document.getElementById('debug-toggle');
       if (debugToggle && window.LITTLECLAW_DEBUG_ENABLED === false) {
         debugToggle.style.display = 'none';
@@ -4676,17 +5486,6 @@
       if (compactChip) {
         compactChip.addEventListener('click', () => {
           if (unreadReply) unreadReply = false;
-        });
-      }
-      const compactRoot = document.querySelector('.compact');
-      if (compactRoot) {
-        compactRoot.addEventListener('mouseenter', () => {
-          if (compactHoverTimer) window.clearTimeout(compactHoverTimer);
-          setCompactHover(true);
-        });
-        compactRoot.addEventListener('mouseleave', () => {
-          if (compactHoverTimer) window.clearTimeout(compactHoverTimer);
-          compactHoverTimer = window.setTimeout(() => setCompactHover(false), 120);
         });
       }
       const fullRoot = document.querySelector('.full');

@@ -1,0 +1,46 @@
+{
+  "id": "koi",
+  "title": "锦鲤系",
+  "rarity_pool": ["rare", "epic", "legendary", "mythic"],
+  "default_names": ["涟涟", "阿锦", "潮愿", "绸尾"],
+  "traits": ["柔和", "流动", "偏许愿感", "偏回响"],
+  "roles": [
+    { "id": "drift", "title": "流光鲤", "presence": "偏轻柔陪伴，适合慢推进、安抚和持续陪跑。" },
+    { "id": "wish", "title": "愿鳞鲤", "presence": "偏鼓励和反馈，适合收集回应、强化正向节奏。" },
+    { "id": "tide", "title": "潮引鲤", "presence": "偏回流与节奏引导，适合把零散事项拉回主线。" }
+  ],
+  "stages": [
+    {
+      "id": "seed",
+      "title": "泡尾锦鲤",
+      "min_level": 1,
+      "min_affinity": 0,
+      "min_streak": 0,
+      "min_progress": 0
+    },
+    {
+      "id": "ribbon",
+      "title": "流绸锦鲤",
+      "min_level": 11,
+      "min_affinity": 46,
+      "min_streak": 1,
+      "min_progress": 10
+    },
+    {
+      "id": "moon",
+      "title": "月潮愿鲤",
+      "min_level": 24,
+      "min_affinity": 68,
+      "min_streak": 2,
+      "min_progress": 22
+    },
+    {
+      "id": "aurora",
+      "title": "天穹星鲤",
+      "min_level": 40,
+      "min_affinity": 84,
+      "min_streak": 3,
+      "min_progress": 38
+    }
+  ]
+}

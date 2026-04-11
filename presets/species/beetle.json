@@ -1,0 +1,46 @@
+{
+  "id": "beetle",
+  "title": "甲虫系",
+  "rarity_pool": ["rare", "epic", "legendary", "mythic"],
+  "default_names": ["甲甲", "铠豆", "曜盾", "厚壳"],
+  "traits": ["稳重", "防护", "厚实", "偏承压"],
+  "roles": [
+    { "id": "bulwark", "title": "壁垒甲", "presence": "偏抗压和承接，适合长线守住任务与状态。" },
+    { "id": "forager", "title": "觅材甲", "presence": "偏收集和搬运，适合承接素材与整理碎片。" },
+    { "id": "engraver", "title": "铭刻甲", "presence": "偏结构与秩序，适合沉淀规则、补齐步骤和稳固流程。" }
+  ],
+  "stages": [
+    {
+      "id": "seed",
+      "title": "铜角幼甲",
+      "min_level": 1,
+      "min_affinity": 0,
+      "min_streak": 0,
+      "min_progress": 0
+    },
+    {
+      "id": "brass",
+      "title": "铠步甲虫",
+      "min_level": 12,
+      "min_affinity": 48,
+      "min_streak": 1,
+      "min_progress": 10
+    },
+    {
+      "id": "bastion",
+      "title": "壁垒圣甲",
+      "min_level": 24,
+      "min_affinity": 68,
+      "min_streak": 2,
+      "min_progress": 22
+    },
+    {
+      "id": "solar",
+      "title": "曜盾王甲",
+      "min_level": 40,
+      "min_affinity": 84,
+      "min_streak": 3,
+      "min_progress": 40
+    }
+  ]
+}
