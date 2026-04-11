@@ -19,9 +19,22 @@ It combines:
 - Species, rarity, role, and evolution presets prepared for future plugin-style distribution
 - Installer-managed runtime that keeps local pet progress by default
 
-## Current UI
-
-![Current LittleClaw Companion UI](docs/assets/current-ui-design.png)
+## Interface Preview 
+Retracted State Pet Badge 
+![Collapsed State Badge] (docs/assets/ui-compact-badge.png) 
+A more lightweight desktop floating form, only retaining the pet's body and key information alerts. 
+Expanded main interface 
+![Expanded Main Interface](docs/assets/ui-expanded-main.png) 
+The main stage featuring pets retains the status bar, character information, and key interactive actions. 
+Dynamic Island Workbench 
+![Dynamic Island Workbench] (docs/assets/ui-pet-island.png) 
+It is used for quickly performing operations such as sending, learning, viewing replies, taking screenshots, and meeting partners. 
+Learning Pathway 
+![Learning Pathway](docs/assets/ui-learning-flow.png) 
+Support filling in the learning topics and goals, and bring screenshots or files along to enter the actual learning process. 
+Welcome Page for the First Pet 
+![Welcome Page for First Pet](docs/assets/ui-first-pet-onboarding.png) 
+During the first installation, the current partners and growth instructions will be displayed. After confirmation, the normal accompanying mode will be entered.
 
 ## Current Status
 
