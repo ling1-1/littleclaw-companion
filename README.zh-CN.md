@@ -14,6 +14,19 @@ LittleClaw Companion 是一个为 OpenClaw 设计的宠物式桌面陪伴体。
 
 ![当前 LittleClaw Companion UI](docs/assets/current-ui-design.png)
 
+## 界面预览
+
+当前版本已经完成宠物主导的主界面、灵动岛工作台、首宠欢迎页与遇见伙伴流程的整体重构。
+
+如果你要继续补更多展示图，建议放到 `docs/assets/` 并使用这些文件名：
+
+- `ui-compact-badge.png`
+- `ui-expanded-main.png`
+- `ui-pet-island.png`
+- `ui-learning-flow.png`
+- `ui-encounter-modal.png`
+- `ui-first-pet-onboarding.png`
+
 ## 当前状态
 
 目前已经可用：
