@@ -13,6 +13,11 @@
 - Confirm direct send still works against current OpenClaw chat
 - Confirm reply capture still waits for final assistant summary
 - Confirm work buttons stay clickable while waiting for a real OpenClaw reply
+- Confirm the unified Canvas renderer covers all shipped species and stages
+- Confirm compact badge / expanded panel / pet island all use the current pet-first layout
+- Confirm learning modal can continuously input Chinese without the IME candidate being interrupted
+- Confirm expanded island defaults to the real current state instead of stale "处理中" copy
+- Confirm encounter flow, first-pet onboarding, and partner switching still render fully in the current window size
 
 ## Open-Source Hygiene
 
@@ -22,13 +27,17 @@
 - Decide whether `debug_ui_enabled` should be `false` for the release runtime config while keeping local debug tools available
 - Avoid introducing personal absolute paths into distributable modules
 - Keep local-only experiments out of the release path
+- Keep engineering-only notes separate from public-facing release copy where needed
 
 ## Docs
 
 - README has install / upgrade / uninstall examples
+- README.zh-CN reflects the current Canvas + pet-island UI
 - QUICKSTART exists and matches installer behavior
 - INSTALL_PLAN reflects current runtime layout
 - PLUGIN_ARCHITECTURE reflects current extraction status
+- Release notes mention the current UI redesign and species expansion
+- Engineering notes exist for major regressions that were fixed during the release cycle
 
 ## Release Smoke Test
 
@@ -47,3 +56,4 @@ Expected:
 - pet payload returns current pet
 - Companion LaunchAgent is running
 - Companion UI refreshes with current pet
+- release runtime hides the debug entry by default

@@ -133,6 +133,7 @@ curl -s http://127.0.0.1:18793/pet
 - 发布检查清单：[docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md)
 - 发布内容清单：[docs/RELEASE_CONTENTS.md](docs/RELEASE_CONTENTS.md)
 - 开源说明：[docs/OPEN_SOURCE_NOTES.md](docs/OPEN_SOURCE_NOTES.md)
+- 工程问题沉淀：[docs/engineering-notes/README.md](docs/engineering-notes/README.md)
 
 ## 当前推荐路径
 
@@ -163,3 +164,5 @@ curl -s http://127.0.0.1:18793/pet
 - `喂食 / 玩耍 / 小睡` 主要恢复状态和提升亲密，不是主要升级渠道。
 - 真正的 XP 和进化更多来自真实工作行为。
 - 种族和稀有度已经配置化，但完整视觉资产系统仍在继续扩展。
+- 发布包默认会隐藏调试入口；本地源码开发态仍可继续保留调试工具。
+- 当前已经为关键问题建立本地工程沉淀目录，后续每解决一个重要 bug 或链路问题，都会继续记录根因、修复和回归方法。

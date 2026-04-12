@@ -94,6 +94,48 @@ def pet_name(pet: Optional[dict], fallback: str = "当前伙伴") -> str:
     return str((pet or {}).get("name") or fallback)
 
 
+def action_feedback(action: str, phase: str, message: str, **extra):
+    title_map = {
+        ("learn", "blocked"): "现在先别学习",
+        ("learn", "queued"): "学习链路已提交",
+        ("learn", "waiting_reply"): "学习链路处理中",
+        ("learn", "failed"): "学习暂未送达",
+        ("send", "blocked"): "现在先别发送",
+        ("send", "queued"): "消息已递送",
+        ("send", "waiting_reply"): "正在等回执",
+        ("send", "failed"): "消息未送达",
+        ("screenshot", "blocked"): "现在先别截图",
+        ("screenshot", "staged"): "截图已暂存",
+        ("pick_files", "staged"): "附件已接住",
+        ("pick_files", "failed"): "没有选择附件",
+        ("reply", "replied"): "带回真实回复",
+    }
+    tone_map = {
+        "blocked": "notify",
+        "queued": "notify",
+        "waiting_reply": "busy",
+        "failed": "notify",
+        "staged": "notify",
+        "replied": "notify",
+    }
+    icon_map = {
+        "learn": "⌘",
+        "send": "➜",
+        "screenshot": "◉",
+        "pick_files": "📎",
+        "reply": "↩",
+    }
+    payload = {
+        "phase": phase,
+        "headline": title_map.get((action, phase), "处理完成"),
+        "tone": tone_map.get(phase, "notify"),
+        "icon": icon_map.get(action, "•"),
+        "message": message,
+    }
+    payload.update(extra)
+    return payload
+
+
 def log(message: str):
     try:
         with LOG_FILE.open("a", encoding="utf-8") as fh:
@@ -172,17 +214,57 @@ def run_direct_send(text: str, files: Optional[List[dict]] = None):
 
 def build_agent_prompt(kind: str, request_path: str, topic: str, goal: str, body: str) -> str:
     header = (
-        "这是来自 LittleClaw Companion 的真实请求，请直接按当前会话任务处理。"
+        "这是来自 LittleClaw Companion 的真实学习请求，请直接继续处理，不要重复转述任务。"
         if kind == "learn"
-        else "这是来自 LittleClaw Companion 的截图协作请求，请直接按当前会话任务处理。"
+        else "这是来自 LittleClaw Companion 的截图协作请求，请直接继续处理，不要重复转述任务。"
+    )
+    deliverables = (
+        "请优先给出：\n"
+        "1. 关键结论或可用线索\n"
+        "2. 可执行的下一步方案 / 实验设计 / 处理建议\n"
+        "3. 如果适合，补充可继续迭代的方法或 skill 草稿方向"
+        if kind == "learn"
+        else "请优先给出：\n"
+        "1. 对截图和上下文的关键判断\n"
+        "2. 明确的下一步处理建议\n"
+        "3. 如果需要，指出还缺哪些信息"
     )
     return (
         f"{header}\n\n"
+        f"请求文件：{request_path}\n"
         f"主题：{topic}\n"
         f"目标：{goal}\n\n"
-        f"请求正文如下：\n\n{body}\n\n"
-        "请先基于这份请求继续处理，不要只重复它。"
+        "请先直接阅读上面的请求文件；如果消息里带了本地文件路径，也请一并读取。\n"
+        "在当前会话里直接开始处理，不要只复述请求内容。\n\n"
+        f"{deliverables}"
     )
+
+
+def build_learning_request_doc(topic: str, goal: str, screenshot_context: str = "", asset_context: str = "") -> str:
+    lines = [
+        "# 学习委托",
+        "",
+        f"- 主题：{topic}",
+        f"- 目标：{goal or '查找资料、形成方案，并整理成后续可持续迭代的研究记录。'}",
+        f"- 提交时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+        "",
+        "## 这次希望你完成",
+        "",
+        "1. 快速厘清问题背景、关键概念和可查方向",
+        "2. 找到高价值资料、文献、案例或现有方案",
+        "3. 给出可以直接继续推进的下一步建议",
+        "",
+        "## 输出优先级",
+        "",
+        "- 先给结论摘要",
+        "- 再给依据、资料线索或实验/实现建议",
+        "- 如果合适，再补可继续沉淀的方法、流程或 skill 方向",
+    ]
+    if screenshot_context:
+        lines.extend(["", screenshot_context.strip()])
+    if asset_context:
+        lines.extend(["", asset_context.strip()])
+    return "\n".join(lines).strip() + "\n"
 
 
 def materialize_asset_refs(files: Optional[List[dict]] = None) -> List[dict]:
@@ -379,6 +461,7 @@ class CompanionController(NSObject):
         self.stagedScreenshots = []
         self.debugPinned = False
         self.lastDebugRefreshAt = 0.0
+        self.needsDeferredPush = False
         LEARNING_RESULT_DIR.mkdir(parents=True, exist_ok=True)
         return self
 
@@ -613,14 +696,16 @@ class CompanionController(NSObject):
             if isinstance(gate, dict) and gate.get("blocked"):
                 self.notify_action_result(
                     "learn",
-                    {
-                        "topic": topic or "桌面 Companion 学习主题",
-                        "goal": goal or "持续学习、沉淀方案并整理 skill 草稿",
-                        "sent": False,
-                        "pending_reply": False,
-                        "blocked": True,
-                        "message": gate.get("reason") or f"{pet_name(self.pet)}现在太累了，先休息一下。",
-                    },
+                    action_feedback(
+                        "learn",
+                        "blocked",
+                        gate.get("reason") or f"{pet_name(self.pet)}现在太累了，先休息一下。",
+                        topic=topic or "桌面 Companion 学习主题",
+                        goal=goal or "持续学习、沉淀方案并整理 skill 草稿",
+                        sent=False,
+                        pending_reply=False,
+                        blocked=True,
+                    ),
                 )
                 self.pushState()
                 return
@@ -636,16 +721,18 @@ class CompanionController(NSObject):
             attach_warning = False
             staged_count = len(self.stagedScreenshots)
             if request_path:
-                request_body = read_text(request_path)
-                if self.stagedScreenshots:
-                    request_body = self.append_screenshot_context(
-                        request_body,
-                        topic or "桌面 Companion 学习主题",
-                        goal or "持续学习、沉淀方案并整理 skill 草稿",
-                    )
+                screenshot_context = self.screenshot_context_block() if self.stagedScreenshots else ""
                 asset_context = build_asset_reference_block(assets)
-                if asset_context:
-                    request_body = f"{request_body.rstrip()}\n\n{asset_context}\n"
+                request_body = build_learning_request_doc(
+                    topic or "桌面 Companion 学习主题",
+                    goal or "持续学习、沉淀方案并整理 skill 草稿",
+                    screenshot_context=screenshot_context,
+                    asset_context=asset_context,
+                )
+                try:
+                    Path(request_path).write_text(request_body, encoding="utf-8")
+                except Exception as exc:
+                    log(f"rewrite learning request failed: {exc}")
                 agent_prompt = build_agent_prompt(
                     "learn",
                     request_path,
@@ -664,23 +751,23 @@ class CompanionController(NSObject):
             self.queueSummary = self.build_queue_summary(force_refresh=True)
             self.notify_action_result(
                 "learn",
-                {
-                    "topic": topic or "桌面 Companion 学习主题",
-                    "goal": goal or "持续学习、沉淀方案并整理 skill 草稿",
-                    "request_path": request_path,
-                    "staged_shots": staged_count,
-                    "sent": sent_ok,
-                    "pending_reply": sent_ok,
-                    "message": (
-                        ("学习请求已真正发到当前 OpenClaw 会话，但当前页面没有可用的文件入口；我已经把本地文件路径写进请求里，当前会话仍然可以直接读取。"
-                        if attach_warning and assets
-                        else "学习请求已真正发到当前 OpenClaw 会话，正在等待真实回复回执。")
-                        if sent_ok
-                        else "学习请求已落盘入队，但当前没有可直发的 OpenClaw 会话。"
-                    ),
-                    "files_attached": bool(sent_ok and not attach_warning),
-                    "detail": (send_result.stdout or send_result.stderr or "").strip() if request_path else "",
-                },
+                action_feedback(
+                    "learn",
+                    "waiting_reply" if sent_ok else "failed",
+                    ("学习请求已真正发到当前 OpenClaw 会话，但当前页面没有可用的文件入口；我已经把本地文件路径写进请求里，当前会话仍然可以直接读取。"
+                    if attach_warning and assets and sent_ok
+                    else "学习请求已真正发到当前 OpenClaw 会话，正在等待真实回复回执。")
+                    if sent_ok
+                    else "学习请求已落盘入队，但当前没有可直发的 OpenClaw 会话。",
+                    topic=topic or "桌面 Companion 学习主题",
+                    goal=goal or "持续学习、沉淀方案并整理 skill 草稿",
+                    request_path=request_path,
+                    staged_shots=staged_count,
+                    sent=sent_ok,
+                    pending_reply=sent_ok,
+                    files_attached=bool(sent_ok and not attach_warning),
+                    detail=(send_result.stdout or send_result.stderr or "").strip() if request_path else "",
+                ),
             )
             self.pushState()
             return
@@ -691,14 +778,16 @@ class CompanionController(NSObject):
             if isinstance(gate, dict) and gate.get("blocked"):
                 self.notify_action_result(
                     "send",
-                    {
-                        "topic": topic or "",
-                        "goal": goal or "",
-                        "ok": False,
-                        "pending_reply": False,
-                        "blocked": True,
-                        "message": gate.get("reason") or f"{pet_name(self.pet)}现在不想工作。",
-                    },
+                    action_feedback(
+                        "send",
+                        "blocked",
+                        gate.get("reason") or f"{pet_name(self.pet)}现在不想工作。",
+                        topic=topic or "",
+                        goal=goal or "",
+                        ok=False,
+                        pending_reply=False,
+                        blocked=True,
+                    ),
                 )
                 self.pushState()
                 return
@@ -727,16 +816,22 @@ class CompanionController(NSObject):
             )
             self.notify_action_result(
                 "send",
-                {
-                    "topic": topic or "",
-                    "goal": goal or "",
-                    "message": message,
-                    "ok": ok,
-                    "staged_shots": staged_count,
-                    "pending_reply": ok,
-                    "files_attached": bool(ok and not attach_warning),
-                    "detail": (result.stdout or result.stderr or "").strip(),
-                },
+                action_feedback(
+                    "send",
+                    "waiting_reply" if ok else "failed",
+                    "已经直发到当前 OpenClaw 会话，但当前页面没有可用的文件入口；我已经把本地文件路径写进消息里，当前会话仍然可以直接读取。"
+                    if ok and attach_warning and assets
+                    else "已经直发到当前 OpenClaw 会话，正在等待真实回复回执。"
+                    if ok
+                    else "没找到当前 OpenClaw 聊天页，暂时没法直发。",
+                    topic=topic or "",
+                    goal=goal or "",
+                    ok=ok,
+                    staged_shots=staged_count,
+                    pending_reply=ok,
+                    files_attached=bool(ok and not attach_warning),
+                    detail=(result.stdout or result.stderr or "").strip(),
+                ),
             )
             self.pushState()
             return
@@ -759,31 +854,35 @@ class CompanionController(NSObject):
                 if isinstance(gate, dict) and gate.get("blocked"):
                     self.notify_action_result(
                         "screenshot",
-                        {
-                            "topic": topic or "桌面 Companion 截图协作",
-                            "goal": goal or "请结合截图理解当前界面并给出下一步建议",
-                            "image": str(latest_image) if latest_image else "",
-                            "request_path": request_path,
-                            "sent": False,
-                            "pending_reply": False,
-                            "blocked": True,
-                            "message": gate.get("reason") or f"{pet_name(self.pet)}现在不想继续处理截图。",
-                        },
+                        action_feedback(
+                            "screenshot",
+                            "blocked",
+                            gate.get("reason") or f"{pet_name(self.pet)}现在不想继续处理截图。",
+                            topic=topic or "桌面 Companion 截图协作",
+                            goal=goal or "请结合截图理解当前界面并给出下一步建议",
+                            image=str(latest_image) if latest_image else "",
+                            request_path=request_path,
+                            sent=False,
+                            pending_reply=False,
+                            blocked=True,
+                        ),
                     )
                     self.pushState()
                     return
             self.notify_action_result(
                 "screenshot",
-                {
-                    "topic": topic or "桌面 Companion 截图协作",
-                    "goal": goal or "请结合截图理解当前界面并给出下一步建议",
-                    "image": str(latest_image) if latest_image else "",
-                    "request_path": request_path,
-                    "sent": False,
-                    "pending_reply": False,
-                    "staged_shots": len(self.stagedScreenshots),
-                    "message": "截图已暂存，你可以继续多截几张，最后再点发送或学习统一提交。",
-                },
+                action_feedback(
+                    "screenshot",
+                    "staged",
+                    "截图已暂存，你可以继续多截几张，最后再点发送或学习统一提交。",
+                    topic=topic or "桌面 Companion 截图协作",
+                    goal=goal or "请结合截图理解当前界面并给出下一步建议",
+                    image=str(latest_image) if latest_image else "",
+                    request_path=request_path,
+                    sent=False,
+                    pending_reply=False,
+                    staged_shots=len(self.stagedScreenshots),
+                ),
             )
             self.pushState()
 
@@ -827,6 +926,10 @@ class CompanionController(NSObject):
                         {
                             "kind": kind,
                             "topic": topic,
+                            "phase": "replied",
+                            "headline": "带回真实回复",
+                            "tone": "notify",
+                            "icon": "↩",
                             "reply": reply[:6000],
                             "reply_ts": reply_ts.isoformat() if reply_ts else "",
                             "message": "OpenClaw 已经返回了真实回复。",
@@ -942,6 +1045,9 @@ class CompanionController(NSObject):
     def hoverTick_(self, _timer):
         if self.window is None:
             return
+        if self.needsDeferredPush and self.pageReady and not self.is_input_active():
+            self.needsDeferredPush = False
+            self.pushState()
         if self.debugPinned and self.expanded:
             now = time.time()
             if now - self.lastDebugRefreshAt >= 1.2:
@@ -1107,6 +1213,9 @@ class CompanionController(NSObject):
     def pushState(self):
         if not self.pageReady:
             return
+        if self.is_input_active():
+            self.needsDeferredPush = True
+            return
         pet = self.pet or {
             "name": "LittleClaw",
             "level": 1,
@@ -1130,6 +1239,7 @@ class CompanionController(NSObject):
         openclaw_json = json.dumps(self.current_openclaw_status(), ensure_ascii=False)
         script = f"window.updatePet({pet_json}, {queue_json}, {reply_json}, {pending_json}, {action_json}, {openclaw_json});"
         self.webView.stringByEvaluatingJavaScriptFromString_(script)
+        self.needsDeferredPush = False
         self.pushDebugState()
 
     @objc.python_method
@@ -1183,13 +1293,22 @@ class CompanionController(NSObject):
                             "tool_name": str(message.get("toolName") or ""),
                         }
             if newest is None:
-                return {}
+                return {
+                    "state": "idle",
+                    "active": False,
+                    "title": "OpenClaw 待命中",
+                    "detail": "当前会话没有新的处理动作，伙伴会先在旁边陪着你。",
+                    "tone": "notify",
+                    "icon": "•",
+                    "pill": "待命",
+                }
             age = max(0.0, (utc_now() - newest["ts"]).total_seconds())
             role = newest["role"]
             stop_reason = newest["stop_reason"]
             tool_name = newest["tool_name"]
             if role == "assistant" and stop_reason == "toolUse" and age <= 90:
                 return {
+                    "state": "working",
                     "active": True,
                     "title": "OpenClaw 工作中",
                     "detail": "当前会话正在继续调用工具和处理结果。",
@@ -1200,6 +1319,7 @@ class CompanionController(NSObject):
             if role == "toolResult" and age <= 90:
                 detail = f"当前工具 {tool_name} 已返回结果，OpenClaw 还在继续处理。" if tool_name else "当前工具已返回结果，OpenClaw 还在继续处理。"
                 return {
+                    "state": "working",
                     "active": True,
                     "title": "OpenClaw 工作中",
                     "detail": detail,
@@ -1209,6 +1329,7 @@ class CompanionController(NSObject):
                 }
             if role == "user" and age <= 45:
                 return {
+                    "state": "queued",
                     "active": True,
                     "title": "OpenClaw 收到请求",
                     "detail": "当前会话刚收到一条新消息，正在准备响应。",
@@ -1218,6 +1339,7 @@ class CompanionController(NSObject):
                 }
             if role == "assistant" and age <= 45:
                 return {
+                    "state": "completed",
                     "active": False,
                     "fresh_reply": True,
                     "title": "OpenClaw 刚回信",
@@ -1228,7 +1350,15 @@ class CompanionController(NSObject):
                 }
         except Exception as exc:
             log(f"current_openclaw_status failed: {exc}")
-        return {}
+        return {
+            "state": "idle",
+            "active": False,
+            "title": "OpenClaw 待命中",
+            "detail": "当前会话没有新的处理动作，伙伴会先在旁边陪着你。",
+            "tone": "notify",
+            "icon": "•",
+            "pill": "待命",
+        }
 
     @objc.python_method
     def launch_debug_tool(self):
@@ -1394,7 +1524,18 @@ class CompanionController(NSObject):
                             "preview": f"file://{path}" if ext in {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"} else "",
                         }
                     )
-                self.notify_action_result("pick_files", {"files": files, "ok": bool(files)})
+                self.notify_action_result(
+                    "pick_files",
+                    action_feedback(
+                        "pick_files",
+                        "staged" if files else "failed",
+                        f"已接住 {len(files)} 个附件，你可以继续添加或直接发送。"
+                        if files
+                        else "没有选择附件，已回到待命状态。",
+                        files=files,
+                        ok=bool(files),
+                    ),
+                )
         except Exception as exc:
             log(f"open_file_picker failed: {exc}")
 

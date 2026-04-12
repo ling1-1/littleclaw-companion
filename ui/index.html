@@ -754,12 +754,12 @@
       top: 48px;
       left: 50%;
       right: auto;
-      width: min(600px, calc(100vw - 48px));
+      width: min(560px, calc(100vw - 48px));
       transform: translateX(-50%);
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      padding: 14px;
-      max-height: min(560px, calc(100vh - 96px));
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding: 12px;
+      max-height: min(460px, calc(100vh - 92px));
       overflow: auto;
       border-radius: 24px;
       border: 1px solid rgba(238, 188, 157, 0.54);
@@ -774,19 +774,19 @@
     }
     .pet-island-card {
       min-width: 0;
-      padding: 14px 14px 12px;
+      padding: 12px 12px 10px;
       border-radius: 18px;
       border: 1px solid rgba(238, 188, 157, 0.42);
       background: rgba(255,255,255,0.84);
       display: grid;
-      gap: 8px;
+      gap: 6px;
     }
     .pet-island-card-wide {
       grid-column: 1 / -1;
     }
     .pet-island-work-card {
-      gap: 10px;
-      padding-bottom: 12px;
+      gap: 8px;
+      padding-bottom: 10px;
     }
     .pet-island-inline-head {
       display: flex;
@@ -859,14 +859,39 @@
     }
     .pet-island-workspace {
       display: grid;
-      gap: 12px;
+      gap: 10px;
     }
     .pet-island-pane {
       display: none;
-      gap: 12px;
+      gap: 10px;
     }
     .pet-island-pane.is-active {
       display: grid;
+    }
+    .pet-island-home-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .pet-island-home-card {
+      border-radius: 16px;
+      border: 1px solid rgba(239, 195, 169, 0.62);
+      background: rgba(255, 251, 248, 0.92);
+      padding: 10px 12px;
+      display: grid;
+      gap: 4px;
+      min-width: 0;
+    }
+    .pet-island-home-card .pet-island-label {
+      font-size: 10px;
+    }
+    .pet-island-home-card .pet-island-inline-copy {
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .pet-island-home-card .pet-island-inline-meta {
+      font-size: 11px;
+      line-height: 1.35;
     }
     .island-compose,
     .learn-inline {
@@ -921,7 +946,7 @@
     }
     @media (min-width: 880px) {
       .pet-island-panel {
-        width: min(640px, calc(100vw - 72px));
+        width: min(584px, calc(100vw - 72px));
       }
     }
     @media (max-width: 560px) {
@@ -935,10 +960,13 @@
       .pet-island-panel {
         width: min(428px, calc(100vw - 24px));
         grid-template-columns: 1fr;
-        max-height: min(540px, calc(100vh - 88px));
+        max-height: min(440px, calc(100vh - 88px));
       }
       .pet-island-card-wide {
         grid-column: auto;
+      }
+      .pet-island-home-grid {
+        grid-template-columns: 1fr;
       }
       .island-input-bar {
         grid-template-columns: auto 1fr;
@@ -3011,11 +3039,22 @@
                   <div class="pet-island-inline-meta" id="pet-island-panel-growth">Lv.1 · 初始形态</div>
                 </div>
                 <div class="pet-island-inline-copy" id="pet-island-panel-detail">先选一个快捷入口，需要时再展开对应部件。</div>
-                <div class="pet-island-inline-copy" id="pet-island-panel-carry">当前没有暂存截图或附件</div>
-                <div class="pet-island-inline-copy emphasize" id="pet-island-panel-next">先交给它一句明确需求。</div>
-                <div class="pet-island-inline-meta" id="pet-island-panel-reply">回复、学习、发送都会在这里切换，不会一下铺满整块面板。</div>
                 <div class="pet-island-inline-meta" id="pet-island-panel-growth-detail">XP 0 / 100，真实协作越多，升级和进化越明显。</div>
-                <div class="pet-island-inline-meta" id="pet-island-panel-carry-detail">截图、文件和粘贴图片都会先收在这里，之后再统一发送。</div>
+                <div class="pet-island-home-grid">
+                  <div class="pet-island-home-card">
+                    <div class="pet-island-label">下一步建议</div>
+                    <div class="pet-island-inline-copy emphasize" id="pet-island-panel-next">先交给它一句明确需求。</div>
+                  </div>
+                  <div class="pet-island-home-card">
+                    <div class="pet-island-label">携带内容</div>
+                    <div class="pet-island-inline-copy" id="pet-island-panel-carry">当前没有暂存截图或附件</div>
+                    <div class="pet-island-inline-meta" id="pet-island-panel-carry-detail">截图、文件和粘贴图片都会先收在这里，之后再统一发送。</div>
+                  </div>
+                  <div class="pet-island-home-card">
+                    <div class="pet-island-label">回执与队列</div>
+                    <div class="pet-island-inline-meta" id="pet-island-panel-reply">回复、学习、发送都会在这里切换，不会一下铺满整块面板。</div>
+                  </div>
+                </div>
                 <div class="island-hidden" id="queue">学习队列还很安静。</div>
                 <div class="island-hidden" id="next-text">先交给它一句明确需求。</div>
               </div>
@@ -3267,9 +3306,20 @@
     let learnLastFocusId = '';
     let learnComposing = false;
     let learnBlurAllowedUntil = 0;
+    let textBlurAllowedUntil = 0;
+    let textFocusState = null;
     let lastPetSnapshot = null;
     let levelCelebrateTimer = null;
     let petCatalog = null;
+
+    function hasRealActiveWorkState() {
+      return Boolean(
+        pendingReplyNow ||
+        busyNow ||
+        unreadReply ||
+        (openclawStateNow && (openclawStateNow.active || openclawStateNow.fresh_reply))
+      );
+    }
     let previewPet = null;
     let introVisible = false;
     let debugOverridePet = null;
@@ -3629,25 +3679,11 @@
     }
 
     function petIslandCarrySummary() {
-      const screenshots = stagedAssets.filter((item) => item.kind === 'screenshot').length;
-      const images = stagedAssets.filter((item) => item.kind === 'image').length;
-      const files = Math.max(0, stagedAssets.length - screenshots - images);
-      if (!stagedAssets.length) {
-        return {
-          pill: '无暂存内容',
-          title: '当前没有暂存截图或附件',
-          detail: '截图、文件和粘贴图片都会先收在这里，之后再统一发送。',
-        };
-      }
-      const bits = [];
-      if (screenshots) bits.push(`${screenshots} 张截图`);
-      if (images) bits.push(`${images} 张图片`);
-      if (files) bits.push(`${files} 个文件`);
-      const summary = bits.join(' · ');
+      const carry = stagedAssetSummary();
       return {
-        pill: summary,
-        title: `现在带着 ${summary}`,
-        detail: '这些内容会跟着接下来的发送或学习一起走，不会在切换输入时丢掉。',
+        pill: carry.pill,
+        title: carry.title,
+        detail: carry.detail,
       };
     }
 
@@ -3660,6 +3696,15 @@
           tone: 'notify',
           icon: '↩',
           pill: '有回执',
+        };
+      }
+      if (openclawStateNow?.state === 'queued') {
+        return {
+          title: openclawStateNow.title || 'OpenClaw 收到请求',
+          detail: openclawStateNow.detail || `${name}已经接住这次请求，正在等 OpenClaw 起步。`,
+          tone: openclawStateNow.tone || 'busy',
+          icon: openclawStateNow.icon || '↗',
+          pill: openclawStateNow.pill || '新请求',
         };
       }
       if (pendingReplyNow) {
@@ -3744,8 +3789,8 @@
       if (!island || !titleNode || !detailNode || !iconNode) return;
       const pet = renderedPetState(currentPet || null);
       const baseState = petIslandStateSummary(pet);
-      const idleNow = !busyNow && !pendingReplyNow && !unreadReply;
-      const state = idleNow ? baseState : (petIslandSnapshot || baseState);
+      const islandNeedsSnapshot = !petIslandExpanded && Boolean(petIslandSnapshot) && hasRealActiveWorkState();
+      const state = islandNeedsSnapshot ? petIslandSnapshot : baseState;
       const carry = petIslandCarrySummary();
       const next = nextSuggestion(pet, queueSummary || document.getElementById('queue')?.textContent || '');
       const xpValue = Math.max(0, Math.min(100, Number(pet?.xp || 0)));
@@ -3772,11 +3817,11 @@
         : stagedAssets.length
         ? `带着 ${carry.pill}。`
         : '准备接新请求。';
-      titleNode.textContent = String(state.title || petDisplayName(currentPet) || '陪着你');
+      titleNode.textContent = String(state.title || petDisplayName(currentPet) || '待命中');
       detailNode.textContent = compactDetail;
       iconNode.textContent = String(state.icon || '•');
       island.setAttribute('data-tone', state.tone || 'busy');
-      island.classList.toggle('show', Boolean(petIslandSnapshot));
+      island.classList.toggle('show', islandNeedsSnapshot);
       shell?.classList.toggle('expanded', petIslandExpanded);
       const modePill = document.getElementById('pet-island-pill-mode');
       const growthPillNode = document.getElementById('pet-island-pill-growth');
@@ -3957,6 +4002,36 @@
       return '📎';
     }
 
+    function stagedAssetStats() {
+      const screenshots = stagedAssets.filter((item) => item.kind === 'screenshot').length;
+      const images = stagedAssets.filter((item) => item.kind === 'image').length;
+      const files = Math.max(0, stagedAssets.length - screenshots - images);
+      return { total: stagedAssets.length, screenshots, images, files };
+    }
+
+    function stagedAssetSummary() {
+      const stats = stagedAssetStats();
+      if (!stats.total) {
+        return {
+          pill: '无暂存内容',
+          title: '当前没有暂存截图或附件',
+          detail: '截图、文件和粘贴图片都会先收在这里，之后再统一发送。',
+          short: '当前没有暂存内容。',
+        };
+      }
+      const bits = [];
+      if (stats.screenshots) bits.push(`${stats.screenshots} 张截图`);
+      if (stats.images) bits.push(`${stats.images} 张图片`);
+      if (stats.files) bits.push(`${stats.files} 个文件`);
+      const summary = bits.join(' · ');
+      return {
+        pill: summary,
+        title: `现在带着 ${summary}`,
+        detail: '这些内容会跟着接下来的发送或学习一起走，不会在切换输入时丢掉。',
+        short: `已暂存 ${summary}。`,
+      };
+    }
+
     function ensurePromptHasAttachmentLine(path) {
       const prompt = document.getElementById('prompt');
       if (!prompt || !path) return;
@@ -4020,7 +4095,7 @@
         learnWrap.classList.add('show');
         learnWrap.innerHTML = renderAssetCards('learn');
       }
-      if (learnHint) learnHint.textContent = `当前已暂存 ${stagedAssets.length} 个附件，这次学习和发送都会一起带上。`;
+      if (learnHint) learnHint.textContent = `${stagedAssetSummary().short} 这次学习和发送都会一起带上。`;
       renderPetIsland();
     }
 
@@ -4548,17 +4623,7 @@
     }
 
     function scheduleCollapse() {
-      if (expandedLeaveTimer) window.clearTimeout(expandedLeaveTimer);
-      expandedLeaveTimer = window.setTimeout(() => {
-        if (window.isPanelInteractive && window.isPanelInteractive()) return;
-        if (window.isPromptActive && window.isPromptActive()) return;
-        const modalIds = ['reply-modal', 'asset-preview', 'hatch-modal', 'intro-modal'];
-        if (modalIds.some((id) => {
-          const modal = document.getElementById(id);
-          return modal && modal.classList.contains('show');
-        })) return;
-        dispatchAction('collapse');
-      }, 1400);
+      clearCollapseSchedule();
     }
 
     function clearCollapseSchedule() {
@@ -4747,7 +4812,6 @@
         window.clearTimeout(expandRenderTimer);
         expandRenderTimer = null;
       }
-      const focusState = captureTextFocusState();
       const previousTool = petIslandTool;
       document.body.classList.toggle('compact', compact);
       document.body.classList.toggle('expanded', !compact);
@@ -4776,13 +4840,11 @@
             rerenderCurrentPet();
             refreshExpandedLayout();
           }
-          restoreTextFocusState(focusState);
           window.requestAnimationFrame(() => {
             if (!(window.isPromptActive && window.isPromptActive())) {
               rerenderCurrentPet();
               refreshExpandedLayout();
             }
-            restoreTextFocusState(focusState);
           });
           if (document.fonts?.ready) {
             document.fonts.ready.then(() => {
@@ -4790,7 +4852,6 @@
                 rerenderCurrentPet();
                 refreshExpandedLayout();
               }
-              restoreTextFocusState(focusState);
             }).catch(() => {});
           }
           expandRenderTimer = null;
@@ -4799,13 +4860,13 @@
     };
 
     window.updatePet = function (pet, queueSummary, latestReply, pendingReply, pendingAction, openclawStatus) {
-      const focusState = captureTextFocusState();
+      const focusStateBeforeUpdate = captureTextFocusState();
       const prevPet = lastPetSnapshot;
       currentPet = pet || null;
       const renderedPet = renderedPetState(pet || null);
       pendingReplyNow = !!pendingReply;
       openclawStateNow = openclawStatus && typeof openclawStatus === 'object' ? openclawStatus : null;
-      if (!busyNow && !pendingReplyNow && !unreadReply) {
+      if (!hasRealActiveWorkState()) {
         petIslandSnapshot = null;
       }
       const evo = visualTierForPet(renderedPet);
@@ -4878,8 +4939,6 @@
       }
       lastPetSnapshot = renderedPet ? JSON.parse(JSON.stringify(renderedPet)) : null;
       syncDebugFormFromPet(renderedPet);
-      preserveLearnFocus();
-      restoreTextFocusState(focusState);
       if (renderedPet?.onboarding_pending && !introVisible) {
         openIntroModal(renderedPet);
       } else if (!renderedPet?.onboarding_pending && introVisible) {
@@ -4888,6 +4947,10 @@
       renderPetIsland(queueSummary || '');
       if (document.body.classList.contains('expanded') && !(window.isPromptActive && window.isPromptActive())) {
         refreshExpandedLayout();
+      }
+      if (focusStateBeforeUpdate) {
+        textFocusState = focusStateBeforeUpdate;
+        restoreTextFocusState(focusStateBeforeUpdate);
       }
     };
 
@@ -5019,7 +5082,7 @@
     }
 
     function preserveLearnFocus() {
-      if (petIslandTool !== 'learn' || !learnLastFocusId || learnComposing) return;
+      if (petIslandTool !== 'learn' || !learnLastFocusId || learnComposing || window.isPromptActive()) return;
       const active = document.activeElement;
       if (active && (active.id === 'learn-topic-input' || active.id === 'learn-goal-input')) return;
       const target = document.getElementById(learnLastFocusId);
@@ -5031,6 +5094,26 @@
           target.focus();
         }
       }, 0);
+    }
+
+    function allowTextBlurFor(ms = 220) {
+      textBlurAllowedUntil = Date.now() + ms;
+    }
+
+    function rememberTextFocus(node) {
+      if (!node || !node.id) return;
+      const id = String(node.id || '');
+      if (!['prompt', 'learn-topic-input', 'learn-goal-input'].includes(id)) return;
+      const tool = id === 'prompt' ? 'compose' : 'learn';
+      const state = {
+        id,
+        tool,
+        value: typeof node.value === 'string' ? node.value : '',
+      };
+      if (typeof node.selectionStart === 'number') state.start = node.selectionStart;
+      if (typeof node.selectionEnd === 'number') state.end = node.selectionEnd;
+      textFocusState = state;
+      if (tool === 'learn') learnLastFocusId = id;
     }
 
     function captureTextFocusState() {
@@ -5073,24 +5156,39 @@
 
     function allowLearnBlurFor(ms = 220) {
       learnBlurAllowedUntil = Date.now() + ms;
+      allowTextBlurFor(ms);
     }
 
     function handleLearnInputBlur(node) {
-      if (!node || learnComposing) return;
+      if (!node) return;
       if (Date.now() < learnBlurAllowedUntil) return;
-      if (petIslandTool !== 'learn') return;
+      learnLastFocusId = node.id || learnLastFocusId;
+      rememberTextFocus(node);
       window.setTimeout(() => {
-        const active = document.activeElement;
-        const workspace = document.getElementById('pet-island-workspace');
-        const activeInsideLearn = active && workspace && workspace.contains(active);
-        const activeIsLearnField = active && (active.id === 'learn-topic-input' || active.id === 'learn-goal-input');
-        if (activeIsLearnField || activeInsideLearn || learnComposing || Date.now() < learnBlurAllowedUntil) return;
-        try {
-          node.focus({ preventScroll: true });
-        } catch (_) {
-          node.focus();
-        }
-      }, 10);
+        if (Date.now() < textBlurAllowedUntil) return;
+        if (window.isPromptActive && window.isPromptActive()) return;
+        restoreTextFocusState(textFocusState);
+      }, 18);
+    }
+
+    function actionFeedbackMeta(action, payload = {}) {
+      const phase = String(payload.phase || '');
+      const tone = payload.tone || (phase === 'waiting_reply' ? 'busy' : 'notify');
+      const icon = payload.icon || (
+        action === 'send' ? '➜'
+        : action === 'learn' ? '⌘'
+        : action === 'screenshot' ? '◉'
+        : action === 'pick_files' ? '📎'
+        : '•'
+      );
+      const headline = payload.headline || (
+        phase === 'blocked' ? '现在先别推进'
+        : phase === 'waiting_reply' ? '正在等回执'
+        : phase === 'staged' ? '已经暂存'
+        : phase === 'failed' ? '暂时没完成'
+        : '已经接住'
+      );
+      return { phase, tone, icon, headline };
     }
 
     window.onActionStart = function (action) {
@@ -5117,11 +5215,12 @@
       const note = document.getElementById('compose-note');
       const prompt = document.getElementById('prompt');
       const queueText = document.getElementById('queue')?.textContent || '';
+      const meta = actionFeedbackMeta(action, payload);
       if (payload.pet) currentPet = payload.pet;
       if (payload.blocked) {
         pendingReplyNow = false;
         setBusyState(action, false, withPetName(payload.message || `${petDisplayName(currentPet)}现在没法继续工作。`, currentPet));
-        showPetIsland('现在先别推进', withPetName(payload.message || `${petDisplayName(currentPet)}现在没法继续工作。`, currentPet), 'notify', 2800, '!');
+        showPetIsland(meta.headline, withPetName(payload.message || `${petDisplayName(currentPet)}现在没法继续工作。`, currentPet), meta.tone, 2800, meta.icon || '!');
         if (note) note.textContent = withPetName(payload.message || `${petDisplayName(currentPet)}现在没法继续工作。`, currentPet);
         if (currentPet?.asleep) {
           setAttention('alert', currentPet?.hunger >= 88 ? '饿了' : '困了');
@@ -5165,16 +5264,16 @@
         if (shotBtn) shotBtn.textContent = '截图';
         setAttention('busy', action === 'send' ? '递送中' : action === 'screenshot' ? '观察中' : '思考中');
         showPetIsland(
-          action === 'send' ? '正在等回执' : action === 'screenshot' ? '截图已带回' : '学习链路处理中',
+          meta.headline,
           payload.message || '已经送到当前 OpenClaw，会继续等真实回复。',
-          'busy',
+          meta.tone,
           2600,
-          action === 'send' ? '↗' : action === 'screenshot' ? '◉' : '⌘'
+          meta.icon
         );
         syncWorkButtons(currentPet);
       } else {
         setBusyState(action, false, withPetName(payload.message || `${petDisplayName(currentPet)}已经处理完这一步。`, currentPet));
-        showPetIsland('已经接住', withPetName(payload.message || `${petDisplayName(currentPet)}已经处理完这一步。`, currentPet), 'notify', 2200, '✓');
+        showPetIsland(meta.headline, withPetName(payload.message || `${petDisplayName(currentPet)}已经处理完这一步。`, currentPet), meta.tone, 2200, meta.icon || '✓');
       }
       if (['feed', 'play', 'nap'].includes(action)) {
         const feedback = careFeedback(action, currentPet);
@@ -5205,11 +5304,11 @@
         if (note) {
           note.textContent = payload.message || (
             payload.sent
-              ? `学习主题「${payload.topic || '桌面 Companion 学习主题'}」已经真正送到当前 OpenClaw 会话${payload.staged_shots ? `，并附带了 ${payload.staged_shots} 张暂存截图` : ''}。`
+              ? `学习主题「${payload.topic || '桌面 Companion 学习主题'}」已经真正送到当前 OpenClaw 会话。`
               : `学习主题「${payload.topic || '桌面 Companion 学习主题'}」已落盘入队，但还没有送到正在打开的 OpenClaw 会话。`
           );
         }
-        showPetIsland('学习链路已提交', payload.message || `主题「${payload.topic || '桌面 Companion 学习主题'}」已经进入当前流程。`, payload.sent ? 'notify' : 'busy', 2800, '⌘');
+        showPetIsland(meta.headline, payload.message || `主题「${payload.topic || '桌面 Companion 学习主题'}」已经进入当前流程。`, meta.tone, 2800, meta.icon);
         if (currentPet) window.updatePet(currentPet, queueText, latestReplyText || '', pendingReplyNow, action);
         return;
       }
@@ -5223,11 +5322,11 @@
         if (note) {
           note.textContent = payload.message || (
             payload.ok
-              ? `我已经尝试把这条消息直发到当前 OpenClaw 会话${payload.staged_shots ? `，并附带了 ${payload.staged_shots} 张暂存截图` : ''}。`
+              ? '我已经尝试把这条消息直发到当前 OpenClaw 会话。'
               : '没找到正在打开的 OpenClaw 聊天页，所以这次没能直发。'
           );
         }
-        showPetIsland(payload.ok ? '消息已递送' : '消息未送达', payload.message || '我已经尝试把这条消息直发到当前 OpenClaw 会话。', payload.ok ? 'notify' : 'busy', 2600, payload.ok ? '➜' : '!');
+        showPetIsland(meta.headline, payload.message || '我已经尝试把这条消息直发到当前 OpenClaw 会话。', meta.tone, 2600, meta.icon);
         if (currentPet) window.updatePet(currentPet, queueText, latestReplyText || '', pendingReplyNow, action);
         return;
       }
@@ -5240,10 +5339,11 @@
             preview: `file://${encodeURI(payload.image)}`
           });
         }
+        const carry = stagedAssetSummary();
         if (note) {
-          note.textContent = `已暂存 ${payload.staged_shots || 1} 张截图，你可以继续截图，最后再点发送或学习统一提交。`;
+          note.textContent = `${carry.short} 你可以继续截图，最后再点发送或学习统一提交。`;
         }
-        showPetIsland('截图已暂存', `现在一共带着 ${payload.staged_shots || 1} 张截图。`, 'notify', 2200, '◉');
+        showPetIsland(meta.headline, carry.title, meta.tone, 2200, meta.icon);
         if (currentPet) window.updatePet(currentPet, queueText, latestReplyText || '', pendingReplyNow, action);
         return;
       }
@@ -5259,14 +5359,15 @@
             preview: file.preview ? `file://${encodeURI(file.path)}` : ''
           });
         });
+        const carry = stagedAssetSummary();
         if (note) {
           note.textContent = files.length
             ? (learnOpen
-              ? `已暂存 ${files.length} 个附件，这次学习会一起带上；如果当前 OpenClaw 页面没有文件入口，我会明确提示你附件没挂上。`
-              : `已暂存 ${files.length} 个附件，你可以继续添加，最后再统一发送或学习。`)
+              ? `${carry.short} 这次学习会一起带上；如果当前 OpenClaw 页面没有文件入口，我会明确提示你附件没挂上。`
+              : `${carry.short} 你可以继续添加，最后再统一发送或学习。`)
             : '没有选择附件，你可以继续输入、截图，或重新选择文件。';
         }
-        showPetIsland(files.length ? '附件已接住' : '没有选择附件', files.length ? `已暂存 ${files.length} 个附件。` : '你可以继续输入、截图，或重新选择文件。', 'notify', 2200, '📎');
+        showPetIsland(meta.headline, files.length ? carry.title : '你可以继续输入、截图，或重新选择文件。', meta.tone, 2200, meta.icon);
         if (currentPet) window.updatePet(currentPet, queueText, latestReplyText || '', pendingReplyNow, action);
         return;
       }
@@ -5276,12 +5377,13 @@
       if (payload.pet) currentPet = payload.pet;
       pendingReplyNow = false;
       unreadReply = true;
+      const meta = actionFeedbackMeta('reply', payload);
       const reply = payload.reply || '';
       renderReply(reply);
       setBusyState(payload.kind || 'send', false, payload.message || 'OpenClaw 已经返回了真实回复。');
       const note = document.getElementById('compose-note');
       if (note) note.textContent = '已经收到 OpenClaw 的真实回复，展开后可以直接看内容。';
-      showPetIsland('带回真实回复', '我把最新一条回复带回来了。', 'notify', 3200, '↩');
+      showPetIsland(meta.headline, '我把最新一条回复带回来了。', meta.tone, 3200, meta.icon);
       setAmbientMood('alert', '我把最新回复带回来了，你可以展开看。');
       const compactPresence = document.getElementById('compact-presence');
       if (compactPresence) compactPresence.textContent = '带回回复了';
@@ -5404,14 +5506,28 @@
       }
       populateDebugStageOptions(debugSpecies?.value || 'lobster', 'seed');
       prompt.addEventListener('compositionstart', () => { composing = true; });
-      prompt.addEventListener('compositionend', () => { composing = false; });
+      prompt.addEventListener('compositionend', () => {
+        composing = false;
+        rememberTextFocus(prompt);
+      });
       prompt.addEventListener('focus', () => {
+        rememberTextFocus(prompt);
         if (!busyNow) setAttention('listen', '在听');
       });
       prompt.addEventListener('blur', () => {
+        rememberTextFocus(prompt);
         if (!busyNow) setAttention('', '待命');
+        window.setTimeout(() => {
+          if (Date.now() < textBlurAllowedUntil) return;
+          if (window.isPromptActive && window.isPromptActive()) return;
+          restoreTextFocusState(textFocusState);
+        }, 18);
+      });
+      prompt.addEventListener('input', () => {
+        rememberTextFocus(prompt);
       });
       prompt.addEventListener('keydown', (event) => {
+        rememberTextFocus(prompt);
         if (event.isComposing || composing || event.keyCode === 229 || event.which === 229 || event.key === 'Process') return;
         if (event.key === 'Enter' && event.metaKey) {
           event.preventDefault();
@@ -5454,9 +5570,11 @@
       [learnTopicInput, learnGoalInput].forEach((node) => {
         if (!node) return;
         node.addEventListener('focus', () => {
+          rememberTextFocus(node);
           learnLastFocusId = node.id;
         });
         node.addEventListener('input', () => {
+          rememberTextFocus(node);
           learnLastFocusId = node.id;
         });
         node.addEventListener('compositionstart', () => {
@@ -5464,6 +5582,7 @@
         });
         node.addEventListener('compositionend', () => {
           learnComposing = false;
+          rememberTextFocus(node);
         });
         node.addEventListener('blur', () => {
           handleLearnInputBlur(node);
@@ -5475,6 +5594,11 @@
       document.querySelectorAll('.learn-panel button').forEach((button) => {
         button.addEventListener('pointerdown', () => {
           allowLearnBlurFor(320);
+        });
+      });
+      document.querySelectorAll('button, a, [role="button"], select, input[type="file"]').forEach((node) => {
+        node.addEventListener('pointerdown', () => {
+          allowTextBlurFor(260);
         });
       });
       document.addEventListener('keydown', (event) => {
